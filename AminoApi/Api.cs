@@ -21,8 +21,8 @@ namespace AminoApi
 
         public Api(HttpClient httpClient)
         {
-            httpClient.BaseAddress = new Uri(_hostAddress + _baseUrl + $"/{Version}");
-            _httpInteractor = new HttpInteractor(httpClient);
+            httpClient.BaseAddress = new Uri(_hostAddress);
+            _httpInteractor = new HttpInteractor(httpClient, _baseUrl + $"/{Version}");
             _apiResultBuilder = new ApiResultBuilder();
 
             Global = new GlobalClass(this);
@@ -63,12 +63,14 @@ namespace AminoApi
                     // login POST
                     public async Task<ApiResult<Account>> Login(string email, string password)
                     {
-                        dynamic data = new object();
-                        data.email = email;
-                        data.secret = $"0 {password}";
-                        data.deviceID = _api.DeviceId;
-                        data.clientType = 100;
-                        data.action = "normal";
+                        var data = new Dictionary<string, object>
+                        {
+                            ["email"] = email,
+                            ["secret"] = $"0 {password}",
+                            ["deviceID"] = _api.DeviceId,
+                            ["clientType"] = 100,
+                            ["action"] = "normal"
+                        };
 
                         var response = await _api._httpInteractor.PostAsJsonAsync("/g/s/auth/login", data);
 

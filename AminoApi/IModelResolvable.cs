@@ -8,6 +8,6 @@ namespace AminoApi
 {
     public interface IModelResolvable
     {
-        void Resolve(dynamic data);
+        void JsonResolve(Dictionary<string, object> data);
     }
 }

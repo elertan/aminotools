@@ -19,12 +19,12 @@ namespace AminoApi
         }
         public ApiResult<T> Build<T>(string json) where T : ApiModel
         {
-            var o = (dynamic)JsonConvert.DeserializeObject(json);
+            var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
 
             var info = new ApiResultInfo();
-            info.Resolve(o);
+            info.JsonResolve(data);
             var instance = (ApiModel)Activator.CreateInstance<T>();
-            instance.Resolve(o);
+            instance.JsonResolve(data);
 
             return new ApiResult<T> {Data = (T)instance, Info = info};
         }

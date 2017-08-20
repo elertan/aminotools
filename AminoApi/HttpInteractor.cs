@@ -12,15 +12,18 @@ namespace AminoApi
     public class HttpInteractor
     {
         private readonly HttpClient _httpClient;
+        private readonly string _prefix;
 
-        public HttpInteractor(HttpClient _httpClient)
+        public HttpInteractor(HttpClient httpClient, string prefix = null)
         {
-            this._httpClient = _httpClient;
+            this._httpClient = httpClient;
+            //_httpClient.DefaultRequestHeaders.Add("Content-Type", "application/x-www-form-urlencoded");
+            _prefix = prefix;
         }
 
         public async Task<string> GetAsync(string url, DecompressionMethods dm = DecompressionMethods.None)
         {
-            var response = await _httpClient.GetStringAsync(url);
+            var response = await _httpClient.GetStringAsync(_prefix + url);
             switch (dm)
             {
                 case DecompressionMethods.None:
@@ -33,11 +36,12 @@ namespace AminoApi
             }
         }
 
-        public async Task<string> PostAsJsonAsync(string url, object data, DecompressionMethods dm = DecompressionMethods.None)
+        public async Task<string> PostAsJsonAsync(string url, Dictionary<string, object> data, DecompressionMethods dm = DecompressionMethods.None)
         {
             var json = JsonConvert.SerializeObject(data);
+
             var content = new StringContent(json);
-            var response = await _httpClient.PostAsync(url, content);
+            var response = await _httpClient.PostAsync(_prefix + url, content);
 
             switch (dm)
             {

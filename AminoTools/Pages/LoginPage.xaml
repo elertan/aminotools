@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <customPages:BasePage
+    x:Name="This"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
     xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
     x:Class="AminoTools.Pages.LoginPage">
     <ContentPage.BindingContext>
-        <viewModels:LoginPageViewModel />
+        <viewModels:LoginPageViewModel Page="{x:Reference This}" />
     </ContentPage.BindingContext>
     <Grid Padding="10">
         <Grid.RowDefinitions>

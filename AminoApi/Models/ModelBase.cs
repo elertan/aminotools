@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AminoApi.Annotations;
@@ -14,9 +15,9 @@ namespace AminoApi.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual void Resolve(dynamic data)
+        public virtual void JsonResolve(Dictionary<string, object> data)
         {
-            throw new System.NotImplementedException("You forget to override Resolve or you let a base call through");
+            throw new System.NotImplementedException("You forget to override JsonResolve or you let a base call through");
         }
     }
 }

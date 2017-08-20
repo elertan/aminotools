@@ -13,12 +13,12 @@ namespace AminoApi.Models.Misc
         public string Duration { get; set; }
         public string TimeStamp { get; set; }
 
-        public override void Resolve(dynamic data)
+        public override void JsonResolve(Dictionary<string, object> data)
         {
-            StatusCode = data["api:statuscode"];
-            Message = data["api:message"];
-            Duration = data["api:duration"];
-            TimeStamp = data["api:timestamp"];
+            StatusCode = Convert.ToInt32(data["api:statuscode"]);
+            Message = Convert.ToString(data["api:message"]);
+            Duration = Convert.ToString(data["api:duration"]);
+            TimeStamp = Convert.ToString(data["api:timestamp"]);
         }
     }
 }

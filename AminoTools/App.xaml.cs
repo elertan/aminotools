@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using AminoApi;
+using AminoApi.Models;
 using Xamarin.Forms;
 using AminoTools.Pages;
 
@@ -7,6 +8,7 @@ namespace AminoTools
 {
     public partial class App : Application
     {
+        public Account Account { get; set; }
         public Api Api { get; set; } = new Api(new HttpClient());
 
         public App()
