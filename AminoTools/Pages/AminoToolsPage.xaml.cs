@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace AminoTools
+namespace AminoTools.Pages
 {
     public partial class AminoToolsPage : ContentPage
     {
