@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<customPages:BasePage
+    x:Name="This"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
+    xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
+    xmlns:auth="clr-namespace:AminoTools.ViewModels.Auth;assembly=AminoTools"
+    Title="Login"
+    x:Class="AminoTools.Pages.Auth.LoginPage">
+    <ContentPage.BindingContext>
+        <auth:LoginPageViewModel Page="{x:Reference This}" />
+    </ContentPage.BindingContext>
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1"
+              Margin="50,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Entry Placeholder="Email"
+                   Keyboard="Email"
+                   Text="{Binding Username}" />
+            <Entry Placeholder="Password"
+                   IsPassword="True"
+                   Text="{Binding Password}"
+                   Grid.Row="1" />
+            <Button Text="Login"
+                    IsEnabled="{Binding MayLogin}"
+                    Command="{Binding LoginCommand}"
+                    Grid.Row="2" />
+        </Grid>
+    </Grid>
+</customPages:BasePage>
+

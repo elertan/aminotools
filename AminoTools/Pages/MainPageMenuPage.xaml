@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
+             x:Class="AminoTools.Pages.MainPageMaster"
+             Title="Master">
+    <ContentPage.BindingContext>
+        <viewModels:MainPageMenuPageViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <ListView SeparatorVisibility="None"
+                  ItemsSource="{Binding MenuItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

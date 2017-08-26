@@ -10,7 +10,7 @@ namespace AminoTools
 {
     public class SettingsManager
     {
-        public static async Task SaveSetting(string key, object data)
+        public static async Task SaveSettingAsync(string key, object data)
         {
             if (Application.Current.Properties.ContainsKey(key)) Application.Current.Properties[key] = data;
             else Application.Current.Properties.Add(key, data);

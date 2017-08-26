@@ -23,10 +23,15 @@ namespace AminoApi
 
             var info = new ApiResultInfo();
             info.JsonResolve(data);
+
+            var result = new ApiResult<T> { Info = info };
+            if (!result.DidSucceed()) return result;
+
             var instance = (ApiModel)Activator.CreateInstance<T>();
             instance.JsonResolve(data);
+            result.Data = (T)instance;
 
-            return new ApiResult<T> {Data = (T)instance, Info = info};
+            return result;
         }
     }
 }

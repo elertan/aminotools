@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AminoTools", "AminoTools\AminoTools.csproj", "{020687D2-5647-43C3-AD6F-484DE0EC242C}"
 EndProject
@@ -48,6 +48,7 @@ Global
 		{EB08F1BF-73AB-498D-86CE-E72B5E87EF2F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{8ED37C30-DE4C-45C8-BD64-3493009C9AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8ED37C30-DE4C-45C8-BD64-3493009C9AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED37C30-DE4C-45C8-BD64-3493009C9AFF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{8ED37C30-DE4C-45C8-BD64-3493009C9AFF}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{8ED37C30-DE4C-45C8-BD64-3493009C9AFF}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{8ED37C30-DE4C-45C8-BD64-3493009C9AFF}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
@@ -85,5 +86,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A851AE8A-B26D-4560-9CD7-8228274A43F7}
 	EndGlobalSection
 EndGlobal

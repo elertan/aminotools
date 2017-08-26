@@ -3,7 +3,11 @@ using AminoApi;
 using AminoApi.Models;
 using Xamarin.Forms;
 using AminoTools.Pages;
+using Xamarin.Forms.Xaml;
+using LoginPage = AminoTools.Pages.Auth.LoginPage;
 
+// Compile all xaml pages
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AminoTools
 {
     public partial class App : Application
@@ -15,7 +19,7 @@ namespace AminoTools
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

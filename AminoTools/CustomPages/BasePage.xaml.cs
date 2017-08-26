@@ -26,6 +26,7 @@ namespace AminoTools.CustomPages
 
             // Get ViewModel
             BaseViewModel = (BaseViewModel)BindingContext;
+            BaseViewModel.Page = this;
             BaseViewModel.PropertyChanged += BaseViewModel_PropertyChanged;
 
             UpdateLoadingOverlay();
