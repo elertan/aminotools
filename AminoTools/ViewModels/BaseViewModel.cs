@@ -21,14 +21,17 @@ namespace AminoTools.ViewModels
 
         public bool IsBusy => _isBusy;
 
+        public bool IsInitializing
+        {
+            get;
+            private set;
+        }
+
         public App App => (App) Application.Current;
 
         public Page Page { get; set; }
 
-        public virtual void Initialize()
-        {
-            
-        }
+        public event EventHandler Initialize;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -74,6 +77,13 @@ namespace AminoTools.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public virtual void OnInitialize()
+        {
+            IsInitializing = true;
+            Initialize?.Invoke(this, EventArgs.Empty);
+            IsInitializing = false;
         }
     }
 }

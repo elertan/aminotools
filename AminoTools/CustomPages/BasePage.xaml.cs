@@ -31,7 +31,7 @@ namespace AminoTools.CustomPages
 
             UpdateLoadingOverlay();
 
-            BaseViewModel.Initialize();
+            BaseViewModel.OnInitialize();
         }
 
         private void BaseViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
