@@ -3,15 +3,15 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   x:Class="AminoTools.Pages.MainPage"
-                  Title="Home"
+                  Title="Amino Tools"
                   xmlns:pages="clr-namespace:AminoTools.Pages">
     <MasterDetailPage.Master>
-        <pages:MainPageMaster x:Name="MasterPage" />
+        <pages:MainPageMenuPage />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <pages:MainPageDetail />
+                <pages:HomePage />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

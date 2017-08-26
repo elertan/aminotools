@@ -10,7 +10,7 @@
     Title="Login"
     x:Class="AminoTools.Pages.Auth.LoginPage">
     <ContentPage.BindingContext>
-        <auth:LoginPageViewModel Page="{x:Reference This}" />
+        <auth:LoginPageViewModel />
     </ContentPage.BindingContext>
     <Grid Padding="10">
         <Grid.RowDefinitions>

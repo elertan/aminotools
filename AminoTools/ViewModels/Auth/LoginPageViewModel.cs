@@ -15,9 +15,11 @@ namespace AminoTools.ViewModels.Auth
             LoginCommand = new Command(DoLogin);
 
             Username = SettingsManager.GetSettingWithFallback(nameof(LoginPageViewModel) + nameof(Username), "");
+
+            Initialize += LoginPageViewModel_Initialize;
         }
 
-        public override void Initialize()
+        private void LoginPageViewModel_Initialize(object sender, EventArgs e)
         {
             if (!_alreadyLoggedInBefore)
             {
@@ -50,7 +52,7 @@ namespace AminoTools.ViewModels.Auth
 
             _alreadyLoggedInBefore = true;
 
-            App.MainPage = new MainPage();
+            App.GoToStartPage();
         }
 
         private async Task SaveStateAsync()
