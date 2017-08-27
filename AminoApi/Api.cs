@@ -12,20 +12,34 @@ namespace AminoApi
     {
         private readonly HttpInteractor _httpInteractor;
         private readonly ApiResultBuilder _apiResultBuilder;
-        private const string _hostAddress = "https://service.narvii.com";
-        private const string _baseUrl = "/api";
+        private string _sid;
+        private const string HostAddress = "https://service.narvii.com";
+        private const string BaseUrl = "/api";
+        private const string SidAuthHeaderName = "NDCAUTH";
         public string Version { get; set; } = "v1";
 
         public string DeviceId { get; set; } =
             "01D5ED5BE317F883719728B66E5D9D7A21BF3596050F95AAB9BC707D2D82AF6F82DFDEF9B1CF305A90";
 
+        public string Sid
+        {
+            get => _sid;
+            set
+            {
+                _sid = value; 
+                _httpInteractor.RemoveDefaultRequestHeader(SidAuthHeaderName);
+                _httpInteractor.AddDefaultRequestHeader(SidAuthHeaderName, $"sid={value}");
+            }
+        }
+
         public Api(HttpClient httpClient)
         {
-            httpClient.BaseAddress = new Uri(_hostAddress);
-            _httpInteractor = new HttpInteractor(httpClient, _baseUrl + $"/{Version}");
+            httpClient.BaseAddress = new Uri(HostAddress);
+            _httpInteractor = new HttpInteractor(httpClient, BaseUrl + $"/{Version}");
             _apiResultBuilder = new ApiResultBuilder();
 
             Global = new GlobalClass(this);
+            S = new SClass(this);
         }
 
         public GlobalClass Global { get; }
@@ -77,6 +91,24 @@ namespace AminoApi
                         return _api._apiResultBuilder.Build<Account>(response);
                     }
                 }
+            }
+        }
+
+        public SClass S { get; }
+        public class SClass
+        {
+            private readonly Api _api;
+
+            public SClass(Api api)
+            {
+                _api = api;
+            }
+
+            public async Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communtityId, string userId,
+                int start = 0, int size = 25)
+            {
+                var response = await _api._httpInteractor.GetAsync($"/{communtityId}/s/blog?type=user&q={userId}&start={start}&size={size}");
+                return _api._apiResultBuilder.Build<BlogList>(response);
             }
         }
     }

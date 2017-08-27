@@ -10,11 +10,16 @@
         <viewModels:HomePageViewModel />
     </customPages:BasePage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="20">
             <Label Text="Welcome to Xamarin Forms!"
                    FontSize="26"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
+            <Button Text="Test Stuff"
+                    FontSize="21"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding TestButtonCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </customPages:BasePage>

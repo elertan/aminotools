@@ -48,6 +48,8 @@ namespace AminoTools.ViewModels.Auth
             await DoAsBusyState(SettingsManager.SaveSettingAsync(nameof(App) + nameof(App.Account),
                 JsonConvert.SerializeObject(result.Data)));
 
+            // Set authentication on api
+            App.Api.Sid = result.Data.Sid;
             App.Account = result.Data;
 
             _alreadyLoggedInBefore = true;

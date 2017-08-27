@@ -17,7 +17,7 @@ namespace AminoApi
         {
             _modelResolver = new ModelResolver();
         }
-        public ApiResult<T> Build<T>(string json) where T : ApiModel
+        public ApiResult<T> Build<T>(string json) where T : ModelBase
         {
             var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
 
@@ -27,7 +27,7 @@ namespace AminoApi
             var result = new ApiResult<T> { Info = info };
             if (!result.DidSucceed()) return result;
 
-            var instance = (ApiModel)Activator.CreateInstance<T>();
+            var instance = (ModelBase)Activator.CreateInstance<T>();
             instance.JsonResolve(data);
             result.Data = (T)instance;
 

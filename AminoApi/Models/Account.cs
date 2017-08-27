@@ -58,7 +58,7 @@ namespace AminoApi.Models
     "api:timestamp": "2017-08-20T14:04:35Z"
 }
          */
-    public class Account : ApiModel
+    public class Account : ModelBase
     {
         public string Secret { get; set; }
         public string Sid { get; set; }

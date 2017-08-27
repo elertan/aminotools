@@ -21,6 +21,16 @@ namespace AminoApi
             _prefix = prefix;
         }
 
+        public void AddDefaultRequestHeader(string key, string value)
+        {
+            _httpClient.DefaultRequestHeaders.Add(key, value);
+        }
+
+        public void RemoveDefaultRequestHeader(string key)
+        {
+            _httpClient.DefaultRequestHeaders.Remove(key);
+        }
+
         public async Task<string> GetAsync(string url, DecompressionMethods dm = DecompressionMethods.None)
         {
             var response = await _httpClient.GetStringAsync(_prefix + url);
