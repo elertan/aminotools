@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AminoTools.ViewModels.Contracts.Settings;
 using Xamarin.Forms;
 
 namespace AminoTools.ViewModels.Settings
 {
-    public class AccountPageViewModel : BaseViewModel
+    public class AccountPageViewModel : BaseViewModel, IAccountPageViewModel
     {
         private Command _logOutCommand;
 
