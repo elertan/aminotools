@@ -39,6 +39,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\Cells\ButtonCell.xaml.cs">
+      <DependentUpon>ButtonCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\Cells\NavigationCell.xaml.cs">
+      <DependentUpon>NavigationCell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\LoadingOverlay.xaml.cs">
       <DependentUpon>LoadingOverlay.xaml</DependentUpon>
     </Compile>
@@ -58,6 +64,9 @@
     <Compile Include="Pages\MainPageMenuPage.xaml.cs">
       <DependentUpon>MainPageMenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\AccountPage.xaml.cs">
+      <DependentUpon>AccountPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -75,6 +84,7 @@
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\MainPageMenuPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\AccountPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\TestPageViewModel.cs" />
   </ItemGroup>
@@ -142,6 +152,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TestPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\Cells\NavigationCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Settings\AccountPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\Cells\ButtonCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

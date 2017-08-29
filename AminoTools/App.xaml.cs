@@ -4,6 +4,7 @@ using AminoApi;
 using AminoApi.Models;
 using Xamarin.Forms;
 using AminoTools.Pages;
+using AminoTools.ViewModels.Auth;
 using Xamarin.Forms.Xaml;
 using LoginPage = AminoTools.Pages.Auth.LoginPage;
 
@@ -56,11 +57,27 @@ namespace AminoTools
 
         public async Task SetMainPage(Page page)
         {
+            await MainNavigation.PopToRootAsync(false);
             var masterDetailPage = (MasterDetailPage) MainPage;
             var currentPage = ((NavigationPage) masterDetailPage.Detail).CurrentPage;
             MainNavigation.InsertPageBefore(page, currentPage);
-            await MainNavigation.PopToRootAsync();
+            await MainNavigation.PopToRootAsync(false);
             if (masterDetailPage.IsPresented) masterDetailPage.IsPresented = false;
+        }
+
+        public async Task Logout()
+        {
+            Account = null;
+            Api.Sid = null;
+            await SettingsManager.ClearSettingAsync(nameof(LoginPageViewModel) + nameof(LoginPageViewModel.Password));
+
+            await SetMainPage(new LoginPage());
+        }
+
+        public void Login(Account account)
+        {
+            Api.Sid = account.Sid;
+            Account = account;
         }
     }
 }

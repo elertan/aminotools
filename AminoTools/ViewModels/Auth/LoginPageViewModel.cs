@@ -49,8 +49,7 @@ namespace AminoTools.ViewModels.Auth
                 JsonConvert.SerializeObject(result.Data)));
 
             // Set authentication on api
-            App.Api.Sid = result.Data.Sid;
-            App.Account = result.Data;
+            App.Login(result.Data);
 
             _alreadyLoggedInBefore = true;
 

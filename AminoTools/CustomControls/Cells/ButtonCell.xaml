@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          x:Class="AminoTools.CustomControls.Cells.ButtonCell"
+          x:Name="This">
+    <ViewCell.View>
+        <Grid BindingContext="{x:Reference This}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Command}" />
+            </Grid.GestureRecognizers>
+            <Label Text="{Binding Text}"
+                   FontSize="18"
+                   TextColor="{Binding TextColor}"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Margin="20,0,0,0" />
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

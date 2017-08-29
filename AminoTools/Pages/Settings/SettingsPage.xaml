@@ -3,14 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
              xmlns:settings="clr-namespace:AminoTools.ViewModels.Settings;assembly=AminoTools"
+             xmlns:cells="clr-namespace:AminoTools.CustomControls.Cells;assembly=AminoTools"
+             xmlns:settingPages="clr-namespace:AminoTools.Pages.Settings;assembly=AminoTools"
              Title="Settings"
              x:Class="AminoTools.Pages.Settings.SettingsPage">
     <customPages:BasePage.BindingContext>
         <settings:SettingsPageViewModel />
     </customPages:BasePage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="SettingsPage" />
-        </StackLayout>
+        <TableView Intent="Settings">
+            <TableView.Root>
+                <TableSection Title="General">
+                    <cells:NavigationCell Text="Account"
+                                          TargetPageType="{x:Type settingPages:AccountPage}"/>
+                </TableSection>
+            </TableView.Root>
+        </TableView>
     </ContentPage.Content>
 </customPages:BasePage>
