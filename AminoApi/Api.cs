@@ -78,7 +78,7 @@ namespace AminoApi
         {
             const int type = 0;
 
-            if (!imageItems.Any()) imageItems = null;
+            if (imageItems == null || !imageItems.Any()) imageItems = null;
 
             var data = new Dictionary<string, object>
             {
