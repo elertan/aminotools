@@ -22,11 +22,15 @@ namespace AminoTools
             set => _mainNavigation = value;
         }
 
+        public readonly DependencyManager DependencyManager;
+
         public Account Account { get; set; }
         public Api Api { get; set; } = new Api(new HttpClient());
 
         public App()
         {
+            DependencyManager = new DependencyManager();
+
             InitializeComponent();
 
             MainPage = new NavigationPage(new LoginPage());

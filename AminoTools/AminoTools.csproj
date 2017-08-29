@@ -52,6 +52,7 @@
     <Compile Include="CustomPages\BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DependencyManager.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\MainPageMenu\MenuItem.cs" />
@@ -83,9 +84,11 @@
     <Compile Include="Providers\BlogProvider.cs" />
     <Compile Include="Providers\IBlogProvider.cs" />
     <Compile Include="SettingsManager.cs" />
+    <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainPageMenuPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPageViewModel.cs" />
@@ -110,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CustomControls\LoadingOverlay.xaml">

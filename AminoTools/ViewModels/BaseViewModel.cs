@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace AminoTools.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : IViewModel, INotifyPropertyChanged
     {
         private bool _isBusy;
         private readonly List<Task> _doAsBusyStateTasks;
