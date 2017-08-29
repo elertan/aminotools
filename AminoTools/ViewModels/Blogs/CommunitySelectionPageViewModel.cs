@@ -60,7 +60,7 @@ namespace AminoTools.ViewModels.Blogs
                 {
                     return "Select some communities first..";
                 }
-                return $"Send to {SelectableCommunities.Count} communities!";
+                return $"Send to {SelectableCommunities.Count(sc => sc.IsSelected)} communities!";
             }
         }
 
@@ -79,7 +79,6 @@ namespace AminoTools.ViewModels.Blogs
         {
             _communityProvider = communityProvider;
             _blogProvider = blogProvider;
-            SelectableCommunities = new ObservableRangeCollection<SelectableItem<Community>>();
 
             SelectAllCommand = new Command(DoSelectAll);
             SelectNoneCommand = new Command(DoSelectNone);
@@ -133,7 +132,7 @@ namespace AminoTools.ViewModels.Blogs
         {
             var communities = await DoAsBusyState(_communityProvider.GetJoinedCommunities());
             var selectableCommunties = GetSelectableCommuntiesByCommunities(communities);
-            SelectableCommunities.AddRange(selectableCommunties);
+            SelectableCommunities = new ObservableRangeCollection<SelectableItem<Community>>(selectableCommunties);
         }
 
         private IEnumerable<SelectableItem<Community>> GetSelectableCommuntiesByCommunities(IEnumerable<Community> communities)

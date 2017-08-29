@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using AminoApi.Annotations;
+using AminoApi.Properties;
 
 namespace AminoApi.Models
 {
