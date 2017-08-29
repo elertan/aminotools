@@ -39,6 +39,7 @@
     <Compile Include="ApiResult.cs" />
     <Compile Include="ApiResultBuilder.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="HttpInteractor.cs" />
     <Compile Include="IModelResolvable.cs" />
     <Compile Include="ModelResolver.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Models\Blog\BlogList.cs" />
     <Compile Include="Models\Community\Community.cs" />
     <Compile Include="Models\Community\CommunityList.cs" />
+    <Compile Include="Models\Media\ImageItem.cs" />
     <Compile Include="Models\Misc\ApiResultInfo.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Properties\Annotations.cs" />

@@ -77,6 +77,7 @@ namespace AminoApi.Models.Community
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
+            Id = Convert.ToString(data["ndcId"]);
             Name = Convert.ToString(data["name"]);
             PrimaryLanguage = Convert.ToString(data["primaryLanguage"]);
             AmountOfMembers = Convert.ToInt32(data["membersCount"]);

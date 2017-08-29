@@ -39,7 +39,7 @@ namespace AminoTools.ViewModels.Auth
 
         private async void DoLogin()
         {
-            var result = await DoAsBusyState(App.Api.Global.S.Auth.Login(Username, Password));
+            var result = await DoAsBusyState(App.Api.Login(Username, Password));
             if (!result.DidSucceed())
             {
                 await Page.DisplayAlert("Error", result.Info.Message, "Ok");

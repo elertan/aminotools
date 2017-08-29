@@ -1,8 +1,11 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AminoApi;
 using AminoApi.Models;
 using AminoApi.Models.Auth;
+using AminoApi.Models.Blog;
+using AminoApi.Models.Community;
 using Xamarin.Forms;
 using AminoTools.Pages;
 using AminoTools.ViewModels.Auth;
@@ -31,6 +34,7 @@ namespace AminoTools
         public App()
         {
             DependencyManager = new DependencyManager();
+            Variables = new VariablesClass();
 
             InitializeComponent();
 
@@ -51,6 +55,23 @@ namespace AminoTools
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+
+        public readonly VariablesClass Variables;
+        public class VariablesClass
+        {
+            public VariablesClass()
+            {
+                MultiBlog = new MultiBlogClass();
+            }
+
+            public readonly MultiBlogClass MultiBlog;
+            public class MultiBlogClass
+            {
+                public Blog Blog { get; set; }
+                public IEnumerable<Community> Communities { get; set; }
+            }
         }
 
         public void GoToStartPage()

@@ -8,6 +8,7 @@ using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
+using AminoApi.Models.Media;
 
 namespace AminoApi
 {
@@ -29,7 +30,7 @@ namespace AminoApi
             get => _sid;
             set
             {
-                _sid = value; 
+                _sid = value;
                 _httpInteractor.RemoveDefaultRequestHeader(SidAuthHeaderName);
                 _httpInteractor.AddDefaultRequestHeader(SidAuthHeaderName, $"sid={value}");
             }
@@ -40,97 +41,60 @@ namespace AminoApi
             httpClient.BaseAddress = new Uri(HostAddress);
             _httpInteractor = new HttpInteractor(httpClient, BaseUrl + $"/{Version}");
             _apiResultBuilder = new ApiResultBuilder();
-
-            Global = new GlobalClass(this);
-            S = new SClass(this);
         }
 
-        public GlobalClass Global { get; }
-        // g
-        public class GlobalClass
+        // login POST
+        public async Task<ApiResult<Account>> Login(string email, string password)
         {
-            private readonly Api _api;
-
-            public GlobalClass(Api api)
+            var data = new Dictionary<string, object>
             {
-                _api = api;
-                S = new SClass(_api);
-            }
-            public SClass S { get; }
-            // s
-            public class SClass
-            {
-                private readonly Api _api;
+                ["email"] = email,
+                ["secret"] = $"0 {password}",
+                ["deviceID"] = DeviceId,
+                ["clientType"] = 100,
+                ["action"] = "normal"
+            };
 
-                public SClass(Api api)
-                {
-                    _api = api;
-                    Auth = new AuthClass(_api);
-                    Community = new CommunityClass(_api);
-                }
-                public AuthClass Auth { get; }
-                // auth
-                public class AuthClass
-                {
-                    private readonly Api _api;
+            var response = await _httpInteractor.PostAsJsonAsync("/g/s/auth/login", data);
 
-                    public AuthClass(Api api)
-                    {
-                        _api = api;
-                    }
-                    // login POST
-                    public async Task<ApiResult<Account>> Login(string email, string password)
-                    {
-                        var data = new Dictionary<string, object>
-                        {
-                            ["email"] = email,
-                            ["secret"] = $"0 {password}",
-                            ["deviceID"] = _api.DeviceId,
-                            ["clientType"] = 100,
-                            ["action"] = "normal"
-                        };
-
-                        var response = await _api._httpInteractor.PostAsJsonAsync("/g/s/auth/login", data);
-
-                        return _api._apiResultBuilder.Build<Account>(response);
-                    }
-                }
-
-                public CommunityClass Community { get; }
-                public class CommunityClass
-                {
-                    private Api _api;
-
-                    public CommunityClass(Api api)
-                    {
-                        _api = api;
-                    }
-
-                    public async Task<ApiResult<CommunityList>> GetJoinedCommunities(int start = 0, int size = 50)
-                    {
-                        var response = await _api._httpInteractor.GetAsync($"/g/s/community/joined?start={start}&size={size}");
-                        return _api._apiResultBuilder.Build<CommunityList>(response);
-                    }
-                }
-            }
+            return _apiResultBuilder.Build<Account>(response);
         }
 
-        public SClass S { get; }
-        public class SClass
+        public async Task<ApiResult<CommunityList>> GetJoinedCommunities(int start = 0, int size = 50)
         {
-            private readonly Api _api;
+            var response = await _httpInteractor.GetAsync($"/g/s/community/joined?start={start}&size={size}");
+            return _apiResultBuilder.Build<CommunityList>(response);
+        }
 
-            public SClass(Api api)
-            {
-                _api = api;
-            }
+        public async Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communityId, string userId,
+            int start = 0, int size = 25)
+        {
+            var response = await _httpInteractor.GetAsync(
+                $"/{communityId}/s/blog?type=user&q={userId}&start={start}&size={size}");
+            return _apiResultBuilder.Build<BlogList>(response);
+        }
 
-            public async Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communtityId, string userId,
-                int start = 0, int size = 25)
+        public async Task<ApiResult<Blog>> PostBlog(string communityId, string title, string content, IEnumerable<ImageItem> imageItems = null)
+        {
+            const int type = 0;
+
+            if (!imageItems.Any()) imageItems = null;
+
+            var data = new Dictionary<string, object>
             {
-                var response = await _api._httpInteractor.GetAsync($"/{communtityId}/s/blog?type=user&q={userId}&start={start}&size={size}");
-                return _api._apiResultBuilder.Build<BlogList>(response);
-            }
+                ["title"] = title,
+                ["content"] = content,
+                ["mediaList"] = imageItems?.ToArray(),
+                ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
+                ["type"] = type,
+                ["latitude"] = 0,
+                ["longitude"] = 0,
+                ["extensions"] = null,
+                ["address"] = null
+            };
+
+            var result = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/blog", data);
+            return _apiResultBuilder.Build<Blog>(result);
         }
     }
 }
