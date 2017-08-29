@@ -79,6 +79,9 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\SettingDoesNotExistException.cs" />
+    <Compile Include="Providers\Provider.cs" />
+    <Compile Include="Providers\BlogProvider.cs" />
+    <Compile Include="Providers\IBlogProvider.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
