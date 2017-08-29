@@ -5,6 +5,5 @@
              x:Class="AminoTools.App">
     <Application.Resources>
         <!-- Application resource dictionary -->
-        <aminoTools:ViewModelResolver x:Key="ViewModelResolver" />
     </Application.Resources>
 </Application>

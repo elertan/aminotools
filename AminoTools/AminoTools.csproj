@@ -85,8 +85,14 @@
     <Compile Include="Providers\IBlogProvider.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ViewModelResolver.cs" />
+    <Compile Include="ViewModels\Contracts\Auth\ILoginPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IHomePageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\IMainPageMenuPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\ITestPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Settings\IAccountPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Settings\ISettingsPageViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainPageMenuPageViewModel.cs" />

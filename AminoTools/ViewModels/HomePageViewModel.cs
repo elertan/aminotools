@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models;
 using AminoTools.Pages;
+using AminoTools.ViewModels.Contracts;
 using Xamarin.Forms;
 
 namespace AminoTools.ViewModels
 {
-    public class HomePageViewModel : BaseViewModel
+    public class HomePageViewModel : BaseViewModel, IHomePageViewModel
     {
         private Command _testButtonCommand;
         private IEnumerable<Blog> _blogs;

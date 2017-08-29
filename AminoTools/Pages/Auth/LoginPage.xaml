@@ -8,10 +8,11 @@
     xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
     xmlns:auth="clr-namespace:AminoTools.ViewModels.Auth;assembly=AminoTools"
     xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
+    xmlns:authContracts="clr-namespace:AminoTools.ViewModels.Contracts.Auth;assembly=AminoTools"
     Title="Login"
     x:Class="AminoTools.Pages.Auth.LoginPage">
     <ContentPage.BindingContext>
-      <aminoTools:ViewModelResolver ViewModelType="auth:LoginPageViewModel" />
+      <aminoTools:ViewModelResolver ViewModelType="{x:Type authContracts:ILoginPageViewModel}" />
     </ContentPage.BindingContext>
     <Grid Padding="10">
         <Grid.RowDefinitions>

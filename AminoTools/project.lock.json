@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETPortable,Version=v4.5,Profile=Profile111": {
       "Autofac/4.6.1": {
@@ -2513,16 +2513,26 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
+      "projectUniqueName": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
       "projectName": "AminoTools",
-      "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
-      "projectJsonPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\project.json",
+      "projectPath": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectJsonPath": "Z:\\Projects\\AminoTools\\AminoTools\\project.json",
+      "packagesPath": "C:\\Users\\Elertan\\.nuget\\packages\\",
+      "outputPath": "Z:\\Projects\\AminoTools\\AminoTools\\obj\\",
       "projectStyle": "ProjectJson",
+      "configFilePaths": [
+        "C:\\Users\\Elertan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "portable45-net45+win8+wpa81": {
           "projectReferences": {
-            "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj": {
-              "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj"
+            "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj": {
+              "projectPath": "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj"
             }
           }
         }

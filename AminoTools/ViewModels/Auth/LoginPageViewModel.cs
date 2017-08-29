@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AminoTools.Pages;
+using AminoTools.ViewModels.Contracts.Auth;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace AminoTools.ViewModels.Auth
 {
-    public class LoginPageViewModel : BaseViewModel
+    public class LoginPageViewModel : BaseViewModel, ILoginPageViewModel
     {
         private static bool _alreadyLoggedInBefore;
 

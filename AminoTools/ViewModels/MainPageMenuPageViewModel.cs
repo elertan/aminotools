@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using AminoTools.Pages;
 using AminoTools.Pages.Settings;
+using AminoTools.ViewModels.Contracts;
 using MvvmHelpers;
 using Xamarin.Forms;
 using MenuItem = AminoTools.Models.MainPageMenu.MenuItem;
 
 namespace AminoTools.ViewModels
 {
-    public class MainPageMenuPageViewModel : BaseViewModel
+    public class MainPageMenuPageViewModel : BaseViewModel, IMainPageMenuPageViewModel
     {
         private ObservableRangeCollection<MenuItem> _menuItems;
         private MenuItem _selectedItem;

@@ -19,6 +19,7 @@ namespace AminoTools
             set
             {
                 _viewModelType = value;
+                if (value == null) return;
                 Model = Resolve(value);
             }
         }
@@ -28,6 +29,7 @@ namespace AminoTools
         public IViewModel Resolve(Type viewModelType)
         {
             var app = (App) Application.Current;
+            
             var viewModel = (IViewModel)app.DependencyManager.Container.Resolve(viewModelType);
             return viewModel;
         }

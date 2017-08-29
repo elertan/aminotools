@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AminoTools.ViewModels.Contracts;
 using Xamarin.Forms;
 
 namespace AminoTools.ViewModels
 {
-    public class TestPageViewModel : BaseViewModel
+    public class TestPageViewModel : BaseViewModel, ITestPageViewModel
     {
         private Command _buttonCommand;
 
