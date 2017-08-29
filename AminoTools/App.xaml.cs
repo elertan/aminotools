@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AminoApi;
 using AminoApi.Models;
+using AminoApi.Models.Auth;
 using Xamarin.Forms;
 using AminoTools.Pages;
 using AminoTools.ViewModels.Auth;

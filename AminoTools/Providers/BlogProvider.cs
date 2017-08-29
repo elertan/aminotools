@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AminoApi;
 using AminoApi.Models;
+using AminoApi.Models.Blog;
 
 namespace AminoTools.Providers
 {

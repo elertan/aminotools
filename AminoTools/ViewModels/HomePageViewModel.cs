@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models;
+using AminoApi.Models.Blog;
 using AminoTools.Pages;
 using AminoTools.ViewModels.Contracts;
 using Xamarin.Forms;
