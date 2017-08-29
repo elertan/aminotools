@@ -5,6 +5,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models;
+using AminoApi.Models.Auth;
+using AminoApi.Models.Blog;
+using AminoApi.Models.Community;
 
 namespace AminoApi
 {
@@ -63,6 +66,7 @@ namespace AminoApi
                 {
                     _api = api;
                     Auth = new AuthClass(_api);
+                    Community = new CommunityClass(_api);
                 }
                 public AuthClass Auth { get; }
                 // auth
@@ -89,6 +93,23 @@ namespace AminoApi
                         var response = await _api._httpInteractor.PostAsJsonAsync("/g/s/auth/login", data);
 
                         return _api._apiResultBuilder.Build<Account>(response);
+                    }
+                }
+
+                public CommunityClass Community { get; }
+                public class CommunityClass
+                {
+                    private Api _api;
+
+                    public CommunityClass(Api api)
+                    {
+                        _api = api;
+                    }
+
+                    public async Task<ApiResult<CommunityList>> GetJoinedCommunities(int start = 0, int size = 50)
+                    {
+                        var response = await _api._httpInteractor.GetAsync($"/g/s/community/joined?start={start}&size={size}");
+                        return _api._apiResultBuilder.Build<CommunityList>(response);
                     }
                 }
             }

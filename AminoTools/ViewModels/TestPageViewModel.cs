@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AminoTools.Providers;
 using AminoTools.ViewModels.Contracts;
 using Xamarin.Forms;
 
@@ -10,6 +11,7 @@ namespace AminoTools.ViewModels
 {
     public class TestPageViewModel : BaseViewModel, ITestPageViewModel
     {
+        private readonly IBlogProvider _blogProvider;
         private Command _buttonCommand;
 
         public Command ButtonCommand
@@ -22,8 +24,9 @@ namespace AminoTools.ViewModels
             }
         }
 
-        public TestPageViewModel()
+        public TestPageViewModel(IBlogProvider blogProvider)
         {
+            _blogProvider = blogProvider;
             Initialize += TestPageViewModel_Initialize;
         }
 
@@ -34,15 +37,7 @@ namespace AminoTools.ViewModels
 
         private async void DoTest()
         {
-            var result = await DoAsBusyState(App.Api.S.GetBlogsByUserIdAsync("x146561979", "9f8e3a79-03ca-4a25-bc95-3b257c765bad"));
-            if (result.DidSucceed())
-            {
-                await Page.DisplayAlert("Succes!", "The test succeeded", "Yay!");
-            }
-            else
-            {
-                await Page.DisplayAlert("Whoops!", "Something seems to have gone wrong.", "RIP :(");
-            }
+            var blogs = await DoAsBusyState(_blogProvider.GetBlogsByUserIdAsync("x146561979", "9f8e3a79-03ca-4a25-bc95-3b257c765bad"));
         }
     }
 }
