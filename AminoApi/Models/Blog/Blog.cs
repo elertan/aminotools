@@ -162,6 +162,12 @@ namespace AminoApi.Models.Blog
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
+            if (data.ContainsKey("blog"))
+            {
+                JsonResolve(data["blog"].ToJObject().ToObject<Dictionary<string, object>>());
+                return;
+            }
+
             Author = new Author();
             Author.JsonResolve(data["author"].ToJObject().ToObject<Dictionary<string, object>>());
 

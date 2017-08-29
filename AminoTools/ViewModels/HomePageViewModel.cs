@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models;
+using AminoApi.Models.Blog;
 using AminoTools.Pages;
 using AminoTools.ViewModels.Contracts;
 using Xamarin.Forms;
@@ -44,7 +45,7 @@ namespace AminoTools.ViewModels
         {
             TestButtonCommand = new Command(DoNavigateToTestPage);
 
-            var result = await DoAsBusyState(App.Api.S.GetBlogsByUserIdAsync("x146561979", "9f8e3a79-03ca-4a25-bc95-3b257c765bad"));
+            var result = await DoAsBusyState(App.Api.GetBlogsByUserIdAsync("x146561979", "9f8e3a79-03ca-4a25-bc95-3b257c765bad"));
             Blogs = result.Data.Blogs;
         }
 

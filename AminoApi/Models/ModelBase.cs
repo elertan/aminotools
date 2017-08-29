@@ -19,5 +19,10 @@ namespace AminoApi.Models
         {
             throw new System.NotImplementedException("You forget to override JsonResolve or you let a base call through");
         }
+
+        public virtual void JsonResolveArray(object[] data)
+        {
+            throw new System.NotImplementedException("You forget to override JsonResolveArray or you let a base call through");
+        }
     }
 }

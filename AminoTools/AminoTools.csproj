@@ -56,6 +56,16 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\MainPageMenu\MenuItem.cs" />
+    <Compile Include="Models\SelectableItem.cs" />
+    <Compile Include="Pages\Blogs\BlogsPage.xaml.cs">
+      <DependentUpon>BlogsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Blogs\CommunitySelectionPage.xaml.cs">
+      <DependentUpon>CommunitySelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Blogs\MultiBlogPage.xaml.cs">
+      <DependentUpon>MultiBlogPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -80,14 +90,22 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\SettingDoesNotExistException.cs" />
+    <Compile Include="Providers\CommunityProvider.cs" />
+    <Compile Include="Providers\Contracts\ICommunityProvider.cs" />
     <Compile Include="Providers\Provider.cs" />
     <Compile Include="Providers\BlogProvider.cs" />
-    <Compile Include="Providers\IBlogProvider.cs" />
+    <Compile Include="Providers\Contracts\IBlogProvider.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ViewModelResolver.cs" />
+    <Compile Include="ViewModels\Blogs\BlogsPageViewModel.cs" />
+    <Compile Include="ViewModels\Blogs\CommunitySelectionPageViewModel.cs" />
+    <Compile Include="ViewModels\Blogs\MultiBlogPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Auth\ILoginPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Blogs\IBlogsPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Blogs\ICommunitySelectionPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Blogs\IMultiBlogPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IHomePageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IMainPageMenuPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\ITestPageViewModel.cs" />
@@ -186,6 +204,27 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Blogs\BlogsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Blogs\CommunitySelectionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Blogs\MultiBlogPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Blogs\CommunitySelection\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.267\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.267\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

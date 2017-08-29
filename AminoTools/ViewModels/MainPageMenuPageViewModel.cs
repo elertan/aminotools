@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoTools.Pages;
+using AminoTools.Pages.Blogs;
 using AminoTools.Pages.Settings;
 using AminoTools.ViewModels.Contracts;
 using MvvmHelpers;
@@ -61,6 +62,11 @@ namespace AminoTools.ViewModels
                 {
                     Title  = "Home",
                     TargetPageType = typeof(HomePage)
+                },
+                new MenuItem
+                {
+                    Title = "Blogs",
+                    TargetPageType = typeof(BlogsPage)
                 },
                 new MenuItem
                 {
