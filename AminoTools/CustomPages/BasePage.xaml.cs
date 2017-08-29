@@ -13,6 +13,8 @@ namespace AminoTools.CustomPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BasePage : ContentPage
     {
+        private bool _hasInitialized;
+
         public View ParentPageContent { get; set; }
         public BaseViewModel BaseViewModel { get; set; }
         public BasePage()
@@ -32,7 +34,8 @@ namespace AminoTools.CustomPages
 
             UpdateLoadingOverlay();
 
-            BaseViewModel.OnInitialize();
+            if (!_hasInitialized) BaseViewModel.OnInitialize();
+            _hasInitialized = true;
         }
 
         private void BaseViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
