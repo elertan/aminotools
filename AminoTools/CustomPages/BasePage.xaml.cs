@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoTools.CustomControls;
+using AminoTools.Models;
 using AminoTools.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,8 +14,6 @@ namespace AminoTools.CustomPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BasePage : ContentPage
     {
-        private bool _hasInitialized;
-
         public View ParentPageContent { get; set; }
         public BaseViewModel BaseViewModel { get; set; }
         public BasePage()
@@ -30,17 +29,16 @@ namespace AminoTools.CustomPages
             var resolver = (ViewModelResolver)BindingContext;
             BaseViewModel = (BaseViewModel)resolver.Model;
             BaseViewModel.Page = this;
-            BaseViewModel.PropertyChanged += BaseViewModel_PropertyChanged;
+            BaseViewModel.IsBusyData.PropertyChanged += IsBusyData_PropertyChanged;
 
             UpdateLoadingOverlay();
 
-            if (!_hasInitialized) BaseViewModel.OnInitialize();
-            _hasInitialized = true;
+            BaseViewModel.OnInitialize();
         }
 
-        private void BaseViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void IsBusyData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(BaseViewModel.IsBusy))
+            if (e.PropertyName == nameof(IsBusyData.IsBusy))
             {
                 UpdateLoadingOverlay();
             }
@@ -48,11 +46,12 @@ namespace AminoTools.CustomPages
 
         private void UpdateLoadingOverlay()
         {
-            if (BaseViewModel.IsBusy)
+            if (BaseViewModel.IsBusyData.IsBusy)
             {
                 // Add LoadingOverlay
                 var grid = new Grid();
-                var loadingOverlay = new LoadingOverlay();
+                var loadingOverlay = new LoadingOverlay(BaseViewModel);
+
                 grid.Children.Add(ParentPageContent);
                 grid.Children.Add(loadingOverlay);
 

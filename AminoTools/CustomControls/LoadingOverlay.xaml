@@ -1,18 +1,36 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
              x:Class="AminoTools.CustomControls.LoadingOverlay"
              VerticalOptions="FillAndExpand"
-             HorizontalOptions="FillAndExpand">
-  <ContentView.Content>
-      <Grid>
-          <ContentView BackgroundColor="Black"
-                       Opacity="0.85" />
-          <ActivityIndicator IsRunning="True"
-                             IsEnabled="True"
-                             Color="White"
-                             VerticalOptions="CenterAndExpand"
-                             HorizontalOptions="CenterAndExpand" />
-      </Grid>
+             HorizontalOptions="FillAndExpand"
+             x:Name="This"
+             BindingContext="{x:Reference This}">
+    <ContentView.Resources>
+        <converters:StringIsNullOrWhiteSpaceToVisibleConverter x:Key="StringIsNullOrWhiteSpaceToVisibleConverter" />
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <ContentView BackgroundColor="Black"
+                         Opacity="0.85" />
+            <Grid BindingContext="{Binding BaseViewModel}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+                <ActivityIndicator IsRunning="True"
+                                   IsEnabled="True"
+                                   Color="White"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand"/>
+                <Label IsVisible="{Binding IsBusyData.Description, Converter=StringIsNullOrWhiteSpaceToVisibleConverter}"
+                       Text="{Binding IsBusyData.Description}"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Grid.Row="1"/>
+            </Grid>
+        </Grid>
     </ContentView.Content>
 </ContentView>

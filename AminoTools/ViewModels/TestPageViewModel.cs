@@ -38,7 +38,14 @@ namespace AminoTools.ViewModels
 
         private async void DoTest()
         {
-            var blogs = await DoAsBusyState(_blogProvider.GetBlogsByUserIdAsync("x146561979", "9f8e3a79-03ca-4a25-bc95-3b257c765bad"));
+            await DoAsBusyStateCustom(async () =>
+            {
+                IsBusyData.Description = "Getting Blogs";
+                await _blogProvider.GetBlogsByUserIdAsync("x146561979",
+                    "9f8e3a79-03ca-4a25-bc95-3b257c765bad");
+                IsBusyData.Description = "Waiting";
+                await Task.Delay(2000);
+            });
         }
     }
 }

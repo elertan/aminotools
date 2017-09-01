@@ -54,6 +54,8 @@
     </Compile>
     <Compile Include="DependencyManager.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Models\IsBusyData.cs" />
+    <Compile Include="IsBusyTask.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\MainPageMenu\MenuItem.cs" />
     <Compile Include="Models\SelectableItem.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Providers\BlogProvider.cs" />
     <Compile Include="Providers\Contracts\IBlogProvider.cs" />
     <Compile Include="SettingsManager.cs" />
+    <Compile Include="Converters\StringIsNullOrWhiteSpaceToVisibleConverter.cs" />
     <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewModels\Blogs\BlogsPageViewModel.cs" />
     <Compile Include="ViewModels\Blogs\CommunitySelectionPageViewModel.cs" />

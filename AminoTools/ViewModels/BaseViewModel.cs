@@ -5,21 +5,23 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AminoTools.Annotations;
+using AminoTools.Models;
 using Xamarin.Forms;
 
 namespace AminoTools.ViewModels
 {
     public class BaseViewModel : IViewModel, INotifyPropertyChanged
     {
-        private bool _isBusy;
         private readonly List<Task> _doAsBusyStateTasks;
 
         public BaseViewModel()
         {
+            IsBusyData = new IsBusyData();
             _doAsBusyStateTasks = new List<Task>();
         }
 
-        public bool IsBusy => _isBusy;
+        public IsBusyData IsBusyData { get; }
+
 
         public bool IsInitializing
         {
@@ -57,20 +59,25 @@ namespace AminoTools.ViewModels
             return task;
         }
 
+        protected Task DoAsBusyStateCustom(Action action)
+        {
+            var task = new Task(action);
+            task.Start();
+            DoAsBusyState(task);
+            return task;
+        }
+
         private async void HandleDoAsBusyState(Task task)
         {
-            if (!_isBusy)
+            if (!IsBusyData.IsBusy)
             {
-                _isBusy = true;
-                OnPropertyChanged(nameof(IsBusy));
+                IsBusyData.IsBusy = true;
             }
             _doAsBusyStateTasks.Add(task);
             await task;
             _doAsBusyStateTasks.Remove(task);
             if (_doAsBusyStateTasks.Any()) return;
-
-            _isBusy = false;
-            OnPropertyChanged(nameof(IsBusy));
+            IsBusyData.IsBusy = false;
         }
 
         [NotifyPropertyChangedInvocator]
