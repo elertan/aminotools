@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AminoApi;
 using AminoApi.Models.Auth;
 using AminoTools.Pages;
+using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts.Auth;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -11,8 +12,11 @@ namespace AminoTools.ViewModels.Auth
 {
     public class LoginPageViewModel : BaseViewModel, ILoginPageViewModel
     {
-        public LoginPageViewModel()
+        private readonly IAuthorizationProvider _authorizationProvider;
+
+        public LoginPageViewModel(IAuthorizationProvider authorizationProvider)
         {
+            _authorizationProvider = authorizationProvider;
             LoginCommand = new Command(DoLogin);
 
             Username = SettingsManager.GetSettingWithFallback(SettingsManager.AvailableSettings.Username, "");
@@ -20,26 +24,26 @@ namespace AminoTools.ViewModels.Auth
 
         private async void DoLogin()
         {
-            ApiResult<Account> result = null;
+            Account account = null;
             await DoAsBusyStateCustom(async () =>
             {
                 IsBusyData.Description = "Logging in";
-                var r = await App.Api.Login(Username, Password);
-                result = r;
-                if (!r.DidSucceed()) return;
+
+                account = await _authorizationProvider.Login(Username, Password);
+                if (account == null) return;
 
                 IsBusyData.Description = "Saving settings";
                 await DoAsBusyState(SaveStateAsync());
             });
 
-            if (!result.DidSucceed())
+            if (account == null)
             {
-                await Page.DisplayAlert("Whoops", result.Info.Message, "Ok");
+                await Page.DisplayAlert("Whoops", "Logging in failed", "Ok");
                 return;
             }
 
             // Set authentication on api
-            await App.Login(result.Data);
+            await App.Login(account);
         }
 
         private async Task SaveStateAsync()

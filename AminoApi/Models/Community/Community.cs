@@ -81,7 +81,8 @@ namespace AminoApi.Models.Community
             Name = Convert.ToString(data["name"]);
             PrimaryLanguage = Convert.ToString(data["primaryLanguage"]);
             AmountOfMembers = Convert.ToInt32(data["membersCount"]);
-            Link = new Uri(Convert.ToString(data["link"]));
+            var linkStr = Convert.ToString(data["link"]);
+            if (!string.IsNullOrWhiteSpace(linkStr)) Link = new Uri(linkStr);
             Tagline = Convert.ToString(data["tagline"]);
         }
     }

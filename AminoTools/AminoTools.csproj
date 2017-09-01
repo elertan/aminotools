@@ -39,6 +39,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\AminoBlogImageItemsToBlogPreviewImageSourceConverter.cs" />
+    <Compile Include="Converters\AminoMarkupContentToNormalStringConverter.cs" />
     <Compile Include="CustomControls\Cells\ButtonCell.xaml.cs">
       <DependentUpon>ButtonCell.xaml</DependentUpon>
     </Compile>
@@ -95,8 +97,12 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\SettingDoesNotExistException.cs" />
+    <Compile Include="Providers\AuthorizationProvider.cs" />
     <Compile Include="Providers\CommunityProvider.cs" />
     <Compile Include="Providers\Contracts\ICommunityProvider.cs" />
+    <Compile Include="Providers\Contracts\IAuthorizationProvider.cs" />
+    <Compile Include="Providers\Contracts\IFeedProvider.cs" />
+    <Compile Include="Providers\FeedProvider.cs" />
     <Compile Include="Providers\Provider.cs" />
     <Compile Include="Providers\BlogProvider.cs" />
     <Compile Include="Providers\Contracts\IBlogProvider.cs" />

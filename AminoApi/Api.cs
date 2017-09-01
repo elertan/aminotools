@@ -8,6 +8,7 @@ using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
+using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
 
 namespace AminoApi
@@ -95,6 +96,19 @@ namespace AminoApi
 
             var result = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/blog", data);
             return _apiResultBuilder.Build<Blog>(result);
+        }
+
+        public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int start = 0, int size = 25)
+        {
+            var response = await _httpInteractor.GetAsync($"/g/s/feed/headlines?start={start}&size={size}");
+            try
+            {
+                return _apiResultBuilder.Build<FeedHeadlines>(response);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

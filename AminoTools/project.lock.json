@@ -385,6 +385,42 @@
           "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
+      "Xamarin.FFImageLoading/2.2.10": {
+        "type": "package",
+        "compile": {
+          "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.Platform.dll": {},
+          "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.Platform.dll": {},
+          "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.dll": {}
+        }
+      },
+      "Xamarin.FFImageLoading.Forms/2.2.10": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.FFImageLoading": "2.2.10",
+          "Xamarin.Forms": "1.4.4.6392"
+        },
+        "compile": {
+          "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.dll": {}
+        }
+      },
+      "Xamarin.FFImageLoading.Transformations/2.2.10": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.FFImageLoading": "2.2.10"
+        },
+        "compile": {
+          "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Transformations.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Transformations.dll": {}
+        }
+      },
       "Xamarin.Forms/2.3.4.270": {
         "type": "package",
         "compile": {
@@ -2570,6 +2606,100 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "Xamarin.FFImageLoading/2.2.10": {
+      "sha512": "Gs7MNMaUfDvl+IfT7nzMWugEqMFJ/L5FSfuYCBkv2FaVgFLgDTGU4H5RZXsAGLDzaLrpmJcxxlHCA7tir1uyAA==",
+      "type": "package",
+      "path": "xamarin.ffimageloading/2.2.10",
+      "files": [
+        "lib/MonoAndroid10/FFImageLoading.Platform.dll",
+        "lib/MonoAndroid10/FFImageLoading.Platform.pdb",
+        "lib/MonoAndroid10/FFImageLoading.Platform.xml",
+        "lib/MonoAndroid10/FFImageLoading.dll",
+        "lib/MonoAndroid10/FFImageLoading.pdb",
+        "lib/MonoAndroid10/FFImageLoading.xml",
+        "lib/Xamarin.iOS10/FFImageLoading.Platform.dll",
+        "lib/Xamarin.iOS10/FFImageLoading.Platform.pdb",
+        "lib/Xamarin.iOS10/FFImageLoading.Platform.xml",
+        "lib/Xamarin.iOS10/FFImageLoading.dll",
+        "lib/Xamarin.iOS10/FFImageLoading.pdb",
+        "lib/Xamarin.iOS10/FFImageLoading.xml",
+        "lib/netstandard1.0/FFImageLoading.Platform.dll",
+        "lib/netstandard1.0/FFImageLoading.Platform.xml",
+        "lib/netstandard1.0/FFImageLoading.dll",
+        "lib/netstandard1.0/FFImageLoading.pdb",
+        "lib/netstandard1.0/FFImageLoading.xml",
+        "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.Platform.dll",
+        "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.Platform.xml",
+        "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.dll",
+        "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.pdb",
+        "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.xml",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Platform.dll",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Platform.pdb",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Platform.xml",
+        "lib/portable-netcore45+wpa81/FFImageLoading.dll",
+        "lib/portable-netcore45+wpa81/FFImageLoading.pdb",
+        "lib/portable-netcore45+wpa81/FFImageLoading.xml",
+        "xamarin.ffimageloading.2.2.10.nupkg.sha512",
+        "xamarin.ffimageloading.nuspec"
+      ]
+    },
+    "Xamarin.FFImageLoading.Forms/2.2.10": {
+      "sha512": "+ZEOMTlXNVIIrTIQ5ApGkFooUOT1pj1hCSK61nnHXHVd5ruP1N1ggPUMPCSJKTR/piKMyqLpO71IX9pFZYoftQ==",
+      "type": "package",
+      "path": "xamarin.ffimageloading.forms/2.2.10",
+      "files": [
+        "lib/MonoAndroid10/FFImageLoading.Forms.Droid.dll",
+        "lib/MonoAndroid10/FFImageLoading.Forms.Droid.pdb",
+        "lib/MonoAndroid10/FFImageLoading.Forms.Droid.xml",
+        "lib/MonoAndroid10/FFImageLoading.Forms.dll",
+        "lib/MonoAndroid10/FFImageLoading.Forms.pdb",
+        "lib/MonoAndroid10/FFImageLoading.Forms.xml",
+        "lib/Xamarin.iOS10/FFImageLoading.Forms.Touch.dll",
+        "lib/Xamarin.iOS10/FFImageLoading.Forms.Touch.pdb",
+        "lib/Xamarin.iOS10/FFImageLoading.Forms.Touch.xml",
+        "lib/Xamarin.iOS10/FFImageLoading.Forms.dll",
+        "lib/Xamarin.iOS10/FFImageLoading.Forms.pdb",
+        "lib/Xamarin.iOS10/FFImageLoading.Forms.xml",
+        "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.dll",
+        "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.pdb",
+        "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.xml",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.WinRT.dll",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.WinRT.pdb",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.WinRT.xml",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.dll",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.pdb",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.xml",
+        "lib/uap10.0/FFImageLoading.Forms.WinUWP.dll",
+        "lib/uap10.0/FFImageLoading.Forms.WinUWP.pdb",
+        "lib/uap10.0/FFImageLoading.Forms.WinUWP.xml",
+        "lib/uap10.0/FFImageLoading.Forms.dll",
+        "lib/uap10.0/FFImageLoading.Forms.pdb",
+        "lib/uap10.0/FFImageLoading.Forms.xml",
+        "xamarin.ffimageloading.forms.2.2.10.nupkg.sha512",
+        "xamarin.ffimageloading.forms.nuspec"
+      ]
+    },
+    "Xamarin.FFImageLoading.Transformations/2.2.10": {
+      "sha512": "Nl940X70Wlly0U+jC+wMYPOSmnqwXSp8qqsexhsrdBNNRT25U33LSXWcBhuOxcJZXFfTIiS2XjFIbW/lIygDoA==",
+      "type": "package",
+      "path": "xamarin.ffimageloading.transformations/2.2.10",
+      "files": [
+        "lib/MonoAndroid10/FFImageLoading.Transformations.dll",
+        "lib/MonoAndroid10/FFImageLoading.Transformations.pdb",
+        "lib/MonoAndroid10/FFImageLoading.Transformations.xml",
+        "lib/Xamarin.iOS10/FFImageLoading.Transformations.dll",
+        "lib/Xamarin.iOS10/FFImageLoading.Transformations.pdb",
+        "lib/Xamarin.iOS10/FFImageLoading.Transformations.xml",
+        "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Transformations.dll",
+        "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Transformations.pdb",
+        "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Transformations.xml",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Transformations.dll",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Transformations.pdb",
+        "lib/portable-netcore45+wpa81/FFImageLoading.Transformations.xml",
+        "xamarin.ffimageloading.transformations.2.2.10.nupkg.sha512",
+        "xamarin.ffimageloading.transformations.nuspec"
+      ]
+    },
     "Xamarin.Forms/2.3.4.270": {
       "sha512": "D4QNulRsghAnjGefCuxvHaH9xLdk9gmSrqSoyIH9YqRa/+HNil7nLCt3Dwb7np1eNlKD6AoW+Kgv9Umur/yoUQ==",
       "type": "package",
@@ -2739,6 +2869,9 @@
       "Autofac >= 4.6.1",
       "Newtonsoft.Json >= 10.0.3",
       "Refractored.MvvmHelpers >= 1.3.0",
+      "Xamarin.FFImageLoading >= 2.2.10",
+      "Xamarin.FFImageLoading.Forms >= 2.2.10",
+      "Xamarin.FFImageLoading.Transformations >= 2.2.10",
       "Xamarin.Forms >= 2.3.4.270"
     ],
     ".NETPortable,Version=v4.5,Profile=Profile111": []
@@ -2777,6 +2910,9 @@
       "Autofac": "4.6.1",
       "Newtonsoft.Json": "10.0.3",
       "Refractored.MvvmHelpers": "1.3.0",
+      "Xamarin.FFImageLoading": "2.2.10",
+      "Xamarin.FFImageLoading.Forms": "2.2.10",
+      "Xamarin.FFImageLoading.Transformations": "2.2.10",
       "Xamarin.Forms": "2.3.4.270"
     },
     "frameworks": {

@@ -29,6 +29,8 @@ namespace AminoTools
             // Providers
             cb.RegisterType<BlogProvider>().As<IBlogProvider>();
             cb.RegisterType<CommunityProvider>().As<ICommunityProvider>();
+            cb.RegisterType<AuthorizationProvider>().As<IAuthorizationProvider>();
+            cb.RegisterType<FeedProvider>().As<IFeedProvider>();
 
             // ViewModels
             cb.RegisterType<ViewModels.MainPageMenuPageViewModel>().As<IMainPageMenuPageViewModel>();

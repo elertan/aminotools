@@ -2,6 +2,13 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
              x:Class="AminoTools.CustomPages.BasePage"
              Appearing="BasePage_OnAppearing">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AminoMarkupContentToNormalStringConverter x:Key="AminoMarkupContentToNormalStringConverter" />
+            <converters:AminoBlogImageItemsToBlogPreviewImageSourceConverter x:Key="AminoBlogImageItemsToBlogPreviewImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 </ContentPage>
