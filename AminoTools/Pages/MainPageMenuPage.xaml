@@ -5,11 +5,11 @@
                       xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
                       xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
                       xmlns:contracts="clr-namespace:AminoTools.ViewModels.Contracts;assembly=AminoTools"
+                      xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
                       x:Class="AminoTools.Pages.MainPageMenuPage"
-                      Title="Master">
-    <customPages:BasePage.Icon>
-
-    </customPages:BasePage.Icon>
+                      Icon="menuIcon.png"
+                      Title="Menu">
     <ContentPage.BindingContext>
         <aminoTools:ViewModelResolver ViewModelType="{x:Type contracts:IMainPageMenuPageViewModel}" />
     </ContentPage.BindingContext>
@@ -17,14 +17,38 @@
                  VerticalOptions="FillAndExpand">
         <Grid BackgroundColor="DodgerBlue"
               HorizontalOptions="FillAndExpand"
-              HeightRequest="125">
+              HeightRequest="275">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
             <Label HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    Text="Amino Tools"
-                   FontSize="28"
-                   TextColor="WhiteSmoke" />
+                   FontSize="26"
+                   TextColor="White" />
+            <ffImageLoading:CachedImage Grid.Row="1"
+                                        Source="{Binding Model.Account.Icon}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        WidthRequest="150"
+                                        HeightRequest="150">
+                <ffImageLoading:CachedImage.Transformations>
+                    <transformations:CircleTransformation BorderSize="5"
+                                                          BorderHexColor="#FFFFFF" />
+                </ffImageLoading:CachedImage.Transformations>
+            </ffImageLoading:CachedImage>
+            <Label Grid.Row="2"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   Text="{Binding Model.Account.Nickname}"
+                   FontSize="18"
+                   TextColor="White" />
         </Grid>
         <ListView SeparatorVisibility="None"
                   SelectedItem="{Binding Model.SelectedItem, Mode=TwoWay}"

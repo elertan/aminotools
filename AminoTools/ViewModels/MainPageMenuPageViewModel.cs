@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AminoApi.Models.Auth;
 using AminoTools.Pages;
 using AminoTools.Pages.Blogs;
 using AminoTools.Pages.Settings;
@@ -39,6 +40,8 @@ namespace AminoTools.ViewModels
                 if (!IsInitializing && value != null) OnMenuItemTapped(value);
             }
         }
+
+        public Account Account => ((App) Application.Current).Account;
 
         private async void OnMenuItemTapped(MenuItem menuItem)
         {
