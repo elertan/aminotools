@@ -77,6 +77,14 @@ namespace AminoTools.ViewModels
                     TargetPageType = typeof(SettingsPage)
                 }
             });
+#if DEBUG
+            MenuItems.Add(new MenuItem
+            {
+                Title = "Debug Test Page",
+                TargetPageType = typeof(TestPage)
+            });
+#endif
+
             SelectedItem = MenuItems.First();
         }
     }

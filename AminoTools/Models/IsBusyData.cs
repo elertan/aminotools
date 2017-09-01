@@ -9,13 +9,14 @@ namespace AminoTools.Models
         private string _description;
         private float _progress;
         private bool _isBusy;
-        private bool _isProgessType;
+        private bool _isProgessBarVisible;
         private CancellationTokenSource _cancellationTokenSource;
         private bool _isCancelButtonEnabled;
         private bool _isCancellable;
 
         public IsBusyData()
         {
+            IsProgessBarVisible = false;
             IsCancelButtonEnabled = true;
             CancelCommand = new Command(DoCancel);
         }
@@ -50,12 +51,12 @@ namespace AminoTools.Models
             }
         }
 
-        public bool IsProgessType
+        public bool IsProgessBarVisible
         {
-            get => _isProgessType;
+            get => _isProgessBarVisible;
             set
             {
-                _isProgessType = value; 
+                _isProgessBarVisible = value; 
                 OnPropertyChanged();
             }
         }

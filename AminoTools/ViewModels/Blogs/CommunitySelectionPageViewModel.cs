@@ -104,7 +104,7 @@ namespace AminoTools.ViewModels.Blogs
                 IsBusyData.Description = "Getting Selected Communities";
                 App.Variables.MultiBlog.Communities = SelectableCommunities.Where(sc => sc.IsSelected).Select(sc => sc.Item);
 
-                IsBusyData.IsProgessType = true;
+                IsBusyData.IsProgessBarVisible = true;
 
                 var blog = App.Variables.MultiBlog.Blog;
                 var i = 0;

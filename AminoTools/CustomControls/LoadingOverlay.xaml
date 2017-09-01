@@ -34,7 +34,7 @@
                                    HorizontalOptions="Center"
                                    Grid.ColumnSpan="3"/>
                 <ProgressBar Grid.Row="1" 
-                             IsVisible="{Binding IsProgressType}"
+                             IsVisible="{Binding IsProgessBarVisible}"
                              VerticalOptions="Center"
                              HorizontalOptions="FillAndExpand"
                              Progress="{Binding Progress}"

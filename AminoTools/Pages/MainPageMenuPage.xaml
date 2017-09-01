@@ -7,6 +7,7 @@
                       xmlns:contracts="clr-namespace:AminoTools.ViewModels.Contracts;assembly=AminoTools"
                       xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                      xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
                       x:Class="AminoTools.Pages.MainPageMenuPage"
                       Icon="menuIcon.png"
                       Title="Menu">
@@ -17,9 +18,9 @@
                  VerticalOptions="FillAndExpand">
         <Grid BackgroundColor="DodgerBlue"
               HorizontalOptions="FillAndExpand"
-              HeightRequest="275">
+              HeightRequest="325">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
+                <RowDefinition Height="4*" />
                 <RowDefinition Height="6*" />
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
@@ -27,6 +28,7 @@
                    VerticalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
+                   Margin="0,20,0,0"
                    Text="Amino Tools"
                    FontSize="26"
                    TextColor="White" />
@@ -59,7 +61,8 @@
                         <Label Text="{Binding Title}"
                                Margin="20,0,0,0"
                                VerticalOptions="Center"
-                               FontSize="21" />
+                               FontAttributes="Bold"
+                               FontSize="16" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

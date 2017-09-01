@@ -10,6 +10,8 @@
             <converters:AminoMarkupContentToNormalStringConverter x:Key="AminoMarkupContentToNormalStringConverter" />
             <converters:AminoBlogImageItemsToBlogPreviewImageSourceConverter x:Key="AminoBlogImageItemsToBlogPreviewImageSourceConverter" />
             <converters:BoolToInvertedBoolConverter x:Key="BoolToInvertedBoolConverter" />
+            <converters:IsNotNullToBoolConverter x:Key="IsNotNullToBoolConverter" />
+            <converters:IsNullToBoolConverter x:Key="IsNullToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 </ContentPage>

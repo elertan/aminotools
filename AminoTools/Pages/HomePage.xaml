@@ -6,6 +6,7 @@
                       xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
                       xmlns:contracts="clr-namespace:AminoTools.ViewModels.Contracts;assembly=AminoTools"
                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
                       Title="Amino Tools"
                       BackgroundColor="LightGray"
                       x:Class="AminoTools.Pages.HomePage">
@@ -25,7 +26,7 @@
                                       BackgroundColor="White">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="20" />
-                                        <RowDefinition Height="250" />
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="20" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
@@ -39,6 +40,8 @@
                                     <ffimageloading:CachedImage
                                         Source="{Binding ImageItems, Converter={StaticResource AminoBlogImageItemsToBlogPreviewImageSourceConverter}}"
                                         Aspect="AspectFill"
+                                        HeightRequest="250"
+                                        IsVisible="{Binding ImageItems, Converter={StaticResource IsNotNullToBoolConverter}}"
                                         Grid.Row="1" />
                                     <Label Text="{Binding Title}"
                                            LineBreakMode="TailTruncation"

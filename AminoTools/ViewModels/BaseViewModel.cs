@@ -80,7 +80,7 @@ namespace AminoTools.ViewModels
             {
                 IsBusyData.Description = null;
                 IsBusyData.Progress = default(float);
-                IsBusyData.IsProgessType = false;
+                IsBusyData.IsProgessBarVisible = false;
                 IsBusyData.ClearCancellationTokenSource();
             }
             _doAsBusyStateTasks.Remove(task);
