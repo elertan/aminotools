@@ -26,15 +26,10 @@ namespace AminoTools.CustomControls
 
         public LoadingOverlay(BaseViewModel bvm)
         {
+            InitializeComponent();
+
             BaseViewModel = bvm;
-            try
-            {
-                InitializeComponent();
-            }
-            catch (NullReferenceException ex)
-            {
-                
-            }
+            MainGrid.BindingContext = bvm.IsBusyData;
         }
     }
 }

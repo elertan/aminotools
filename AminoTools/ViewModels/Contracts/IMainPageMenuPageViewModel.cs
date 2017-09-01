@@ -8,7 +8,7 @@ using MvvmHelpers;
 
 namespace AminoTools.ViewModels.Contracts
 {
-    interface IMainPageMenuPageViewModel
+    public interface IMainPageMenuPageViewModel
     {
         ObservableRangeCollection<MenuItem> MenuItems { get; set; }
         MenuItem SelectedItem { get; set; }

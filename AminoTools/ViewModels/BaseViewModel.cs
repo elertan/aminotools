@@ -22,7 +22,6 @@ namespace AminoTools.ViewModels
 
         public IsBusyData IsBusyData { get; }
 
-
         public bool IsInitializing
         {
             get;
@@ -59,15 +58,14 @@ namespace AminoTools.ViewModels
             return task;
         }
 
-        protected Task DoAsBusyStateCustom(Action action)
+        protected Task DoAsBusyStateCustom(Func<Task> action)
         {
-            var task = new Task(action);
-            task.Start();
-            DoAsBusyState(task);
+            var task = action();
+            HandleDoAsBusyState(task, true);
             return task;
         }
 
-        private async void HandleDoAsBusyState(Task task)
+        private async void HandleDoAsBusyState(Task task, bool resetIsBusyData = false)
         {
             if (!IsBusyData.IsBusy)
             {
@@ -75,6 +73,11 @@ namespace AminoTools.ViewModels
             }
             _doAsBusyStateTasks.Add(task);
             await task;
+            if (resetIsBusyData)
+            {
+                IsBusyData.Description = null;
+                IsBusyData.Progress = default(float);
+            }
             _doAsBusyStateTasks.Remove(task);
             if (_doAsBusyStateTasks.Any()) return;
             IsBusyData.IsBusy = false;

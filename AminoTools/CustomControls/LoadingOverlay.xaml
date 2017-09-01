@@ -5,17 +5,15 @@
              xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
              x:Class="AminoTools.CustomControls.LoadingOverlay"
              VerticalOptions="FillAndExpand"
-             HorizontalOptions="FillAndExpand"
-             x:Name="This"
-             BindingContext="{x:Reference This}">
+             HorizontalOptions="FillAndExpand">
     <ContentView.Resources>
-        <converters:StringIsNullOrWhiteSpaceToVisibleConverter x:Key="StringIsNullOrWhiteSpaceToVisibleConverter" />
+        <!--<converters:StringIsNullOrWhiteSpaceToVisibleConverter x:Key="StringIsNullOrWhiteSpaceToVisibleConverter" />-->
     </ContentView.Resources>
     <ContentView.Content>
         <Grid>
             <ContentView BackgroundColor="Black"
                          Opacity="0.85" />
-            <Grid BindingContext="{Binding BaseViewModel}">
+            <Grid x:Name="MainGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="7*" />
                     <RowDefinition Height="3*" />
@@ -23,12 +21,12 @@
                 <ActivityIndicator IsRunning="True"
                                    IsEnabled="True"
                                    Color="White"
-                                   VerticalOptions="CenterAndExpand"
-                                   HorizontalOptions="CenterAndExpand"/>
-                <Label IsVisible="{Binding IsBusyData.Description, Converter=StringIsNullOrWhiteSpaceToVisibleConverter}"
-                       Text="{Binding IsBusyData.Description}"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                <Label Text="{Binding Description}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="WhiteSmoke"
                        Grid.Row="1"/>
             </Grid>
         </Grid>
