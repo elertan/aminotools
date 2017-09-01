@@ -68,6 +68,24 @@
           "System.Xml.XDocument": "4.0.11"
         }
       },
+      "Newtonsoft.Json/10.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Refractored.MvvmHelpers/1.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/MvvmHelpers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/MvvmHelpers.dll": {}
+        }
+      },
       "runtime.native.System/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -367,7 +385,7 @@
           "lib/portable-net45+win8+wp8+wpa81/_._": {}
         }
       },
-      "Xamarin.Forms/2.3.4.247": {
+      "Xamarin.Forms/2.3.4.270": {
         "type": "package",
         "compile": {
           "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Xamarin.Forms.Core.dll": {},
@@ -437,6 +455,46 @@
         "dotnet_library_license.txt",
         "netstandard.library.1.6.0.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/10.0.3": {
+      "sha512": "wBM7i7i3U2WX0ecor4zdVGvgrwFUjuigBoHKiL+nH39fCOpCPjBY3RDqJM32edvdyTAVdjzlccHsg41+/+zpSA==",
+      "type": "package",
+      "path": "newtonsoft.json/10.0.3",
+      "files": [
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.10.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "tools/install.ps1"
+      ]
+    },
+    "Refractored.MvvmHelpers/1.3.0": {
+      "sha512": "IBBHbITCvULc5f5/QH4qB7WBgiGg7BdeKtA5nsBeAXDlhOBWwNt50TBjQOK/s5cm3O+0puDB8n68Yyd9m3JHWQ==",
+      "type": "package",
+      "path": "refractored.mvvmhelpers/1.3.0",
+      "files": [
+        "lib/netstandard1.0/MvvmHelpers.deps.json",
+        "lib/netstandard1.0/MvvmHelpers.dll",
+        "lib/netstandard1.0/MvvmHelpers.pdb",
+        "lib/netstandard1.0/MvvmHelpers.xml",
+        "refractored.mvvmhelpers.1.3.0.nupkg.sha512",
+        "refractored.mvvmhelpers.nuspec"
       ]
     },
     "runtime.native.System/4.0.0": {
@@ -2512,10 +2570,10 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "Xamarin.Forms/2.3.4.247": {
-      "sha512": "+6VN8IBSah7EcNJ4SV3pIhNA8tNlBaPLfr3+hQpPIllueJrXI5QtjM0tAJusPc2V1cYyC4YKvA1fs5c/A8RrBw==",
+    "Xamarin.Forms/2.3.4.270": {
+      "sha512": "D4QNulRsghAnjGefCuxvHaH9xLdk9gmSrqSoyIH9YqRa/+HNil7nLCt3Dwb7np1eNlKD6AoW+Kgv9Umur/yoUQ==",
       "type": "package",
-      "path": "xamarin.forms/2.3.4.247",
+      "path": "xamarin.forms/2.3.4.270",
       "files": [
         "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Mono.Cecil.Mdb.dll",
         "build/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20/Mono.Cecil.Pdb.dll",
@@ -2666,7 +2724,7 @@
         "lib/wpa81/Xamarin.Forms.Platform.dll",
         "lib/wpa81/Xamarin.Forms.Xaml.dll",
         "lib/wpa81/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.2.3.4.247.nupkg.sha512",
+        "xamarin.forms.2.3.4.270.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
@@ -2679,7 +2737,9 @@
   "projectFileDependencyGroups": {
     "": [
       "Autofac >= 4.6.1",
-      "Xamarin.Forms >= 2.3.4.247"
+      "Newtonsoft.Json >= 10.0.3",
+      "Refractored.MvvmHelpers >= 1.3.0",
+      "Xamarin.Forms >= 2.3.4.270"
     ],
     ".NETPortable,Version=v4.5,Profile=Profile111": []
   },
@@ -2688,12 +2748,12 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectUniqueName": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
       "projectName": "AminoTools",
-      "projectPath": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
-      "projectJsonPath": "Z:\\Projects\\AminoTools\\AminoTools\\project.json",
+      "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
+      "projectJsonPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\project.json",
       "packagesPath": "C:\\Users\\Elertan\\.nuget\\packages\\",
-      "outputPath": "Z:\\Projects\\AminoTools\\AminoTools\\obj\\",
+      "outputPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
         "C:\\Users\\Elertan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2706,8 +2766,8 @@
       "frameworks": {
         "portable45-net45+win8+wpa81": {
           "projectReferences": {
-            "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj": {
-              "projectPath": "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj"
+            "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj": {
+              "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj"
             }
           }
         }
@@ -2715,7 +2775,9 @@
     },
     "dependencies": {
       "Autofac": "4.6.1",
-      "Xamarin.Forms": "2.3.4.247"
+      "Newtonsoft.Json": "10.0.3",
+      "Refractored.MvvmHelpers": "1.3.0",
+      "Xamarin.Forms": "2.3.4.270"
     },
     "frameworks": {
       "portable45-net45+win8+wpa81": {}

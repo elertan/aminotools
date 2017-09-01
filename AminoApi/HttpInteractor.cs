@@ -40,7 +40,6 @@ namespace AminoApi
                     return response;
                 case DecompressionMethods.GZip:
                     throw new NotImplementedException();
-                    break;
                 default:
                     throw new NotImplementedException();
             }
@@ -59,7 +58,6 @@ namespace AminoApi
                     return await response.Content.ReadAsStringAsync();
                 case DecompressionMethods.GZip:
                     throw new NotImplementedException();
-                    break;
                 default:
                     throw new NotImplementedException();
             }
