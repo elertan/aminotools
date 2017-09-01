@@ -9,6 +9,7 @@
         <ResourceDictionary>
             <converters:AminoMarkupContentToNormalStringConverter x:Key="AminoMarkupContentToNormalStringConverter" />
             <converters:AminoBlogImageItemsToBlogPreviewImageSourceConverter x:Key="AminoBlogImageItemsToBlogPreviewImageSourceConverter" />
+            <converters:BoolToInvertedBoolConverter x:Key="BoolToInvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 </ContentPage>

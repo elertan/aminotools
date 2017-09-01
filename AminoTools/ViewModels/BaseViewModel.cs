@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using AminoTools.Annotations;
 using AminoTools.Models;
@@ -58,8 +59,10 @@ namespace AminoTools.ViewModels
             return task;
         }
 
-        protected Task DoAsBusyStateCustom(Func<Task> action)
+        protected Task DoAsBusyStateCustom(Func<Task> action, CancellationTokenSource cts = null)
         {
+            if (cts != null) IsBusyData.SetCancellationTokenSource(cts);
+            
             var task = action();
             HandleDoAsBusyState(task, true);
             return task;
@@ -77,6 +80,8 @@ namespace AminoTools.ViewModels
             {
                 IsBusyData.Description = null;
                 IsBusyData.Progress = default(float);
+                IsBusyData.IsProgessType = false;
+                IsBusyData.ClearCancellationTokenSource();
             }
             _doAsBusyStateTasks.Remove(task);
             if (_doAsBusyStateTasks.Any()) return;
@@ -91,6 +96,8 @@ namespace AminoTools.ViewModels
 
         public virtual void OnInitialize()
         {
+            App.CurrentViewModel = this;
+
             IsInitializing = true;
             Initialize?.Invoke(this, EventArgs.Empty);
             IsInitializing = false;

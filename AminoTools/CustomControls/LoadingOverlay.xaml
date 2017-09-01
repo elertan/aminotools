@@ -7,27 +7,54 @@
              VerticalOptions="FillAndExpand"
              HorizontalOptions="FillAndExpand">
     <ContentView.Resources>
-        <!--<converters:StringIsNullOrWhiteSpaceToVisibleConverter x:Key="StringIsNullOrWhiteSpaceToVisibleConverter" />-->
+        <ResourceDictionary>
+            <converters:BoolToInvertedBoolConverter x:Key="BoolToInvertedBoolConverter" />
+        </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
         <Grid>
             <ContentView BackgroundColor="Black"
                          Opacity="0.85" />
             <Grid x:Name="MainGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="7*" />
+                    <RowDefinition Height="2*" />
                     <RowDefinition Height="3*" />
+                    <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <ActivityIndicator IsRunning="True"
-                                   IsEnabled="True"
+                                   IsVisible="True"
                                    Color="White"
                                    VerticalOptions="Center"
-                                   HorizontalOptions="Center"/>
+                                   HorizontalOptions="Center"
+                                   Grid.ColumnSpan="3"/>
+                <ProgressBar Grid.Row="1" 
+                             IsVisible="{Binding IsProgressType}"
+                             VerticalOptions="Center"
+                             HorizontalOptions="FillAndExpand"
+                             Progress="{Binding Progress}"
+                             Grid.Column="1"/>
                 <Label Text="{Binding Description}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        TextColor="WhiteSmoke"
-                       Grid.Row="1"/>
+                       FontSize="18"
+                       Grid.Row="2"
+                       Grid.ColumnSpan="3" 
+                       Grid.Column="0" />
+                <Button Text="Cancel"
+                        IsEnabled="{Binding IsCancelButtonEnabled}"
+                        Command="{Binding CancelCommand}"
+                        IsVisible="{Binding IsCancellable}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Grid.Row="3"
+                        Grid.Column="1" />
             </Grid>
         </Grid>
     </ContentView.Content>

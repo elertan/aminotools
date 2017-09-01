@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="Converters\AminoBlogImageItemsToBlogPreviewImageSourceConverter.cs" />
     <Compile Include="Converters\AminoMarkupContentToNormalStringConverter.cs" />
+    <Compile Include="Converters\BoolToInvertedBoolConverter.cs" />
     <Compile Include="CustomControls\Cells\ButtonCell.xaml.cs">
       <DependentUpon>ButtonCell.xaml</DependentUpon>
     </Compile>

@@ -24,7 +24,6 @@
                         VerticalOptions="Center"
                         HorizontalOptions="Start"/>
                 <Button Text="Select None"
-                        
                         Command="{Binding Model.SelectNoneCommand}"
                         VerticalOptions="Center"
                         HorizontalOptions="End"></Button>
@@ -50,6 +49,7 @@
             </ListView>
             <Button Text="{Binding Model.SendButtonText}"
                     Command="{Binding Model.SendButtonCommand}"
+                    IsEnabled="{Binding Model.SendButtonIsEnabled}"
                     Margin="10"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"

@@ -8,6 +8,7 @@ using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
 using Xamarin.Forms;
 using AminoTools.Pages;
+using AminoTools.ViewModels;
 using AminoTools.ViewModels.Auth;
 using Xamarin.Forms.Xaml;
 using LoginPage = AminoTools.Pages.Auth.LoginPage;
@@ -30,6 +31,7 @@ namespace AminoTools
 
         public Account Account { get; set; }
         public Api Api { get; set; } = new Api(new HttpClient());
+        public BaseViewModel CurrentViewModel { get; set; }
 
         public App()
         {

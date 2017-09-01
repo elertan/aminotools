@@ -16,6 +16,7 @@ namespace AminoTools.ViewModels.Contracts.Blogs
         Command SelectAllCommand { get; set; }
         Command SelectNoneCommand { get; set; }
         string SendButtonText { get; }
+        bool SendButtonIsEnabled { get; }
         Command SendButtonCommand { get; set; }
     }
 }

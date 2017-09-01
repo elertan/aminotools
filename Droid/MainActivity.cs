@@ -14,6 +14,8 @@ namespace AminoTools.Droid
     [Activity(Label = "AminoTools.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        private App _app;
+
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -24,7 +26,19 @@ namespace AminoTools.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CachedImageRenderer.Init();
 
-            LoadApplication(new App());
+            _app = new App();
+            LoadApplication(_app);
+        }
+
+        public override void OnBackPressed()
+        {
+            // Prevent back from being pressed in certain scenario's
+            if (_app.CurrentViewModel.IsBusyData.IsBusy || _app.MainNavigation.NavigationStack.Count == 1)
+            {
+                return;
+            }
+
+            base.OnBackPressed();
         }
     }
 }
