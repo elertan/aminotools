@@ -18,12 +18,12 @@ namespace AminoTools.ViewModels.Blogs
     {
         private readonly ICommunityProvider _communityProvider;
         private readonly IBlogProvider _blogProvider;
-        private ObservableRangeCollection<SelectableItem<Community>> _selectableCommunities;
+        private ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> _selectableCommunities;
         private Command _selectAllCommand;
         private Command _selectNoneCommand;
         private Command _sendButtonCommand;
 
-        public ObservableRangeCollection<SelectableItem<Community>> SelectableCommunities
+        public ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> SelectableCommunities
         {
             get => _selectableCommunities;
             set
@@ -152,12 +152,12 @@ namespace AminoTools.ViewModels.Blogs
         {
             var communities = await DoAsBusyState(_communityProvider.GetJoinedCommunities());
             var selectableCommunties = GetSelectableCommuntiesByCommunities(communities);
-            SelectableCommunities = new ObservableRangeCollection<SelectableItem<Community>>(selectableCommunties);
+            SelectableCommunities = new ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>>(selectableCommunties);
         }
 
-        private IEnumerable<SelectableItem<Community>> GetSelectableCommuntiesByCommunities(IEnumerable<Community> communities)
+        private IEnumerable<SelectableItem<AminoApi.Models.Community.Community>> GetSelectableCommuntiesByCommunities(IEnumerable<AminoApi.Models.Community.Community> communities)
         {
-            var selectableItems = communities.Select(c => new SelectableItem<Community> { Item = c }).ToArray();
+            var selectableItems = communities.Select(c => new SelectableItem<AminoApi.Models.Community.Community> { Item = c }).ToArray();
             foreach (var item in selectableItems)
             {
                 item.IsSelectedChanged += Item_IsSelectedChanged;

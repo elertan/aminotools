@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<customPages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
+                      xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels.Contracts.Community;assembly=AminoTools"
+                      xmlns:cells="clr-namespace:AminoTools.CustomControls.Cells;assembly=AminoTools"
+                      xmlns:settingPages="clr-namespace:AminoTools.Pages.Settings;assembly=AminoTools"
+                      xmlns:pages="clr-namespace:AminoTools.Pages.Community;assembly=AminoTools"
+                      x:Class="AminoTools.Pages.Community.CommunityPage">
+    <customPages:BasePage.BindingContext>
+        <aminoTools:ViewModelResolver ViewModelType="{x:Type viewModels:ICommunityPageViewModel}" />
+    </customPages:BasePage.BindingContext>
+    <ContentPage.Content>
+        <TableView Intent="Settings">
+            <TableView.Root>
+                <TableSection>
+                    <cells:NavigationCell Text="Join Random Communities"
+                                          TargetPageType="{x:Type pages:JoinRandomCommunitiesPage}"/>
+                </TableSection>
+            </TableView.Root>
+        </TableView>
+    </ContentPage.Content>
+</customPages:BasePage>

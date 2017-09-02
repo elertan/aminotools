@@ -73,6 +73,12 @@
     <Compile Include="Pages\Blogs\MultiBlogPage.xaml.cs">
       <DependentUpon>MultiBlogPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Community\CommunityPage.xaml.cs">
+      <DependentUpon>CommunityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Community\JoinRandomCommunitiesPage.xaml.cs">
+      <DependentUpon>JoinRandomCommunitiesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -117,6 +123,7 @@
     <Compile Include="ViewModels\Blogs\BlogsPageViewModel.cs" />
     <Compile Include="ViewModels\Blogs\CommunitySelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Blogs\MultiBlogPageViewModel.cs" />
+    <Compile Include="ViewModels\Community\CommunityPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Auth\ILoginPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
@@ -129,6 +136,7 @@
     <Compile Include="ViewModels\Contracts\Settings\IAccountPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Settings\ISettingsPageViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Community\ICommunityPageViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainPageMenuPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountPageViewModel.cs" />
@@ -228,6 +236,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\LoadingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Community\CommunityPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Community\JoinRandomCommunitiesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

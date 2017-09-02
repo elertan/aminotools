@@ -33,8 +33,13 @@ namespace AminoTools.Droid
         public override void OnBackPressed()
         {
             // Prevent back from being pressed in certain scenario's
-            if (_app.CurrentViewModel.IsBusyData.IsBusy || _app.MainNavigation.NavigationStack.Count == 1)
+            if (_app.CurrentViewModel.IsBusyData.IsBusy)
             {
+                return;
+            }
+            if (_app.MainNavigation.NavigationStack.Count == 1)
+            {
+                if (!_app.MasterDetailPage.IsPresented) _app.MasterDetailPage.IsPresented = true;
                 return;
             }
 

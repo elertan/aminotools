@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AminoApi.Models.Auth;
 using AminoTools.Pages;
 using AminoTools.Pages.Blogs;
+using AminoTools.Pages.Community;
 using AminoTools.Pages.Settings;
 using AminoTools.ViewModels.Contracts;
 using MvvmHelpers;
@@ -70,6 +71,11 @@ namespace AminoTools.ViewModels
                 {
                     Title = "Blogs",
                     TargetPageType = typeof(BlogsPage)
+                },
+                new MenuItem
+                {
+                    Title = "Communities",
+                    TargetPageType = typeof(CommunityPage)
                 },
                 new MenuItem
                 {

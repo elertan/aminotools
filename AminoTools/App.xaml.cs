@@ -33,6 +33,7 @@ namespace AminoTools
         public Account Account { get; protected set; }
         public IApi Api { get; protected set; }
         public BaseViewModel CurrentViewModel { get; set; }
+        public MasterDetailPage MasterDetailPage { get; protected set; }
 
         public App()
         {
@@ -91,6 +92,7 @@ namespace AminoTools
         public void GoToStartPage()
         {
             var page = new MainPage();
+            MasterDetailPage = page;
             MainNavigation = page.Detail.Navigation;
             MainPage = page;
         }
