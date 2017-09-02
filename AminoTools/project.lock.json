@@ -2881,12 +2881,12 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
+      "projectUniqueName": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
       "projectName": "AminoTools",
-      "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
-      "projectJsonPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\project.json",
+      "projectPath": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectJsonPath": "Z:\\Projects\\AminoTools\\AminoTools\\project.json",
       "packagesPath": "C:\\Users\\Elertan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\obj\\",
+      "outputPath": "Z:\\Projects\\AminoTools\\AminoTools\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
         "C:\\Users\\Elertan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2899,8 +2899,8 @@
       "frameworks": {
         "portable45-net45+win8+wpa81": {
           "projectReferences": {
-            "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj": {
-              "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj"
+            "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj": {
+              "projectPath": "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj"
             }
           }
         }
