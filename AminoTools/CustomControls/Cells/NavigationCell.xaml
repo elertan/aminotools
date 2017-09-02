@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
           x:Class="AminoTools.CustomControls.Cells.NavigationCell"
           x:Name="This">
     <ViewCell.View>
@@ -12,6 +13,10 @@
                    FontSize="18"
                    VerticalOptions="Center"
                    Margin="20,0,0,0"/>
+            <ffImageLoading:CachedImage Source="ic_chevron_right_black_24dp.png"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="End"
+                                        Margin="0,0,10,0 "/>
         </Grid>
     </ViewCell.View>
 </ViewCell>
