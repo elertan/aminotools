@@ -67,6 +67,12 @@ namespace AminoApi
             return _apiResultBuilder.Build<CommunityList>(response);
         }
 
+        public async Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySections(int start = 0, int size = 25, string languageCode = "en")
+        {
+            var response = await _httpInteractor.GetAsync($"/g/s/community-collection/view/explore/sections?language={languageCode}&start={start}&size={size}");
+            return _apiResultBuilder.Build<CommunityCollectionResponse>(response);
+        }
+
         public async Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communityId, string userId,
             int start = 0, int size = 25)
         {

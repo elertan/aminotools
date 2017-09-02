@@ -124,12 +124,14 @@
     <Compile Include="ViewModels\Blogs\CommunitySelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Blogs\MultiBlogPageViewModel.cs" />
     <Compile Include="ViewModels\Community\CommunityPageViewModel.cs" />
+    <Compile Include="ViewModels\Community\JoinRandomCommunitiesPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Auth\ILoginPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Blogs\IBlogsPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Blogs\ICommunitySelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Blogs\IMultiBlogPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Community\IJoinRandomCommunitiesPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IHomePageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IMainPageMenuPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\ITestPageViewModel.cs" />

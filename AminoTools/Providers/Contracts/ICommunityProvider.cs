@@ -10,5 +10,6 @@ namespace AminoTools.Providers.Contracts
     public interface ICommunityProvider
     {
         Task<IEnumerable<Community>> GetJoinedCommunities(int index = 0, int amount = 50);
+        Task<CommunityCollectionResponse> GetCommunitiesFromExplore(int index = 0, int amount = 25);
     }
 }

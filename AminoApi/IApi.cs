@@ -22,6 +22,8 @@ namespace AminoApi
 
         Task<ApiResult<CommunityList>> GetJoinedCommunities(int start = 0, int size = 50);
 
+        Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySections(int start = 0, int size = 25, string languageCode = "en");
+
         Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communityId, string userId,
             int start = 0, int size = 25);
 

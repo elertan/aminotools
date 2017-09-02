@@ -38,8 +38,11 @@
     <Compile Include="Api.cs" />
     <Compile Include="ApiResult.cs" />
     <Compile Include="ApiResultBuilder.cs" />
+    <Compile Include="Models\Community\CommunityCollection.cs" />
+    <Compile Include="Models\Community\CommunityCollectionResponse.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IApi.cs" />
+    <Compile Include="Models\Community\CommunityCollectionSection.cs" />
     <Compile Include="Models\Feed\FeedHeadlines.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="HttpInteractor.cs" />
@@ -58,6 +61,7 @@
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResolveHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

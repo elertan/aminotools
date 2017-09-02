@@ -21,5 +21,11 @@ namespace AminoTools.Providers
             var result = await Api.GetJoinedCommunities(index, amount);
             return result.Data.Communities;
         }
+
+        public async Task<CommunityCollectionResponse> GetCommunitiesFromExplore(int index = 0, int amount = 25)
+        {
+            var result = await Api.GetCommunityCollectionBySections(index, amount);
+            return result.Data;
+        }
     }
 }

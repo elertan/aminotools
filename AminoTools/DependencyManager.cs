@@ -56,6 +56,7 @@ namespace AminoTools
 
             // ViewModels.Community
             cb.RegisterType<ViewModels.Community.CommunityPageViewModel>().As<ICommunityPageViewModel>();
+            cb.RegisterType<ViewModels.Community.JoinRandomCommunitiesPageViewModel>().As<IJoinRandomCommunitiesPageViewModel>();
 
             // ViewModels.Settings
             cb.RegisterType<ViewModels.Settings.SettingsPageViewModel>().As<ISettingsPageViewModel>();
