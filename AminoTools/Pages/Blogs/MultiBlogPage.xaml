@@ -4,7 +4,7 @@
              xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
              xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
              xmlns:blogContracts="clr-namespace:AminoTools.ViewModels.Contracts.Blogs;assembly=AminoTools"
-                      Title="MultiBlog Designer"
+                      Title="MultiBlog"
              x:Class="AminoTools.Pages.Blogs.MultiBlogPage">
     <customPages:BasePage.BindingContext>
         <aminoTools:ViewModelResolver ViewModelType="{x:Type blogContracts:IMultiBlogPageViewModel}" />
