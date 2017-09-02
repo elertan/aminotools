@@ -12,7 +12,7 @@ namespace AminoTools.Providers
 {
     public class FeedProvider : Provider, IFeedProvider
     {
-        public FeedProvider() : base(((App)Application.Current).Api)
+        public FeedProvider(IApi api) : base(api)
         {
 
         }

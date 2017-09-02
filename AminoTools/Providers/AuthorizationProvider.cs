@@ -12,7 +12,7 @@ namespace AminoTools.Providers
 {
     public class AuthorizationProvider : Provider, IAuthorizationProvider
     {
-        public AuthorizationProvider() : base(((App)Application.Current).Api)
+        public AuthorizationProvider(IApi api) : base(api)
         {
             
         }

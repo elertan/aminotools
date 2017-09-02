@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using AminoTools.Pages;
 using AminoTools.ViewModels;
 using AminoTools.ViewModels.Auth;
+using Autofac;
 using Xamarin.Forms.Xaml;
 using LoginPage = AminoTools.Pages.Auth.LoginPage;
 
@@ -29,14 +30,15 @@ namespace AminoTools
 
         public readonly DependencyManager DependencyManager;
 
-        public Account Account { get; set; }
-        public Api Api { get; set; } = new Api(new HttpClient());
+        public Account Account { get; protected set; }
+        public IApi Api { get; protected set; }
         public BaseViewModel CurrentViewModel { get; set; }
 
         public App()
         {
             DependencyManager = new DependencyManager();
             Variables = new VariablesClass();
+            Api = DependencyManager.Container.Resolve<IApi>();
 
             InitializeComponent();
 

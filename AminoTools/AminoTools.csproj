@@ -105,7 +105,9 @@
     <Compile Include="Providers\Contracts\ICommunityProvider.cs" />
     <Compile Include="Providers\Contracts\IAuthorizationProvider.cs" />
     <Compile Include="Providers\Contracts\IFeedProvider.cs" />
+    <Compile Include="Providers\Contracts\IMediaProvider.cs" />
     <Compile Include="Providers\FeedProvider.cs" />
+    <Compile Include="Providers\MediaProvider.cs" />
     <Compile Include="Providers\Provider.cs" />
     <Compile Include="Providers\BlogProvider.cs" />
     <Compile Include="Providers\Contracts\IBlogProvider.cs" />

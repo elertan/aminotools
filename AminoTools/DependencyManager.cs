@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using AminoApi;
 using AminoTools.Providers;
 using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts;
@@ -26,6 +28,12 @@ namespace AminoTools
 
         private void RegisterDependencies(ContainerBuilder cb)
         {
+            // General
+            cb.RegisterInstance(new HttpClient()).SingleInstance();
+
+            // Api
+            cb.RegisterType<Api>().As<IApi>().SingleInstance();
+
             // Providers
             cb.RegisterType<BlogProvider>().As<IBlogProvider>();
             cb.RegisterType<CommunityProvider>().As<ICommunityProvider>();

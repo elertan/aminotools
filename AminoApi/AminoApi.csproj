@@ -39,6 +39,7 @@
     <Compile Include="ApiResult.cs" />
     <Compile Include="ApiResultBuilder.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="IApi.cs" />
     <Compile Include="Models\Feed\FeedHeadlines.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="HttpInteractor.cs" />
