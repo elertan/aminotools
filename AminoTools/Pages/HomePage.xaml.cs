@@ -9,7 +9,7 @@ using Xamarin.Forms.Xaml;
 
 namespace AminoTools.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+	[XamlCompilation(XamlCompilationOptions.Skip)]
 	public partial class HomePage : BasePage
 	{
 		public HomePage ()

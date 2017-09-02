@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using AminoTools.Annotations;
 using AminoTools.Models;
@@ -21,7 +22,6 @@ namespace AminoTools.ViewModels
         }
 
         public IsBusyData IsBusyData { get; }
-
 
         public bool IsInitializing
         {
@@ -59,15 +59,16 @@ namespace AminoTools.ViewModels
             return task;
         }
 
-        protected Task DoAsBusyStateCustom(Action action)
+        protected Task DoAsBusyStateCustom(Func<Task> action, CancellationTokenSource cts = null)
         {
-            var task = new Task(action);
-            task.Start();
-            DoAsBusyState(task);
+            if (cts != null) IsBusyData.SetCancellationTokenSource(cts);
+            
+            var task = action();
+            HandleDoAsBusyState(task, true);
             return task;
         }
 
-        private async void HandleDoAsBusyState(Task task)
+        private async void HandleDoAsBusyState(Task task, bool resetIsBusyData = false)
         {
             if (!IsBusyData.IsBusy)
             {
@@ -75,6 +76,13 @@ namespace AminoTools.ViewModels
             }
             _doAsBusyStateTasks.Add(task);
             await task;
+            if (resetIsBusyData)
+            {
+                IsBusyData.Description = null;
+                IsBusyData.Progress = default(float);
+                IsBusyData.IsProgessBarVisible = false;
+                IsBusyData.ClearCancellationTokenSource();
+            }
             _doAsBusyStateTasks.Remove(task);
             if (_doAsBusyStateTasks.Any()) return;
             IsBusyData.IsBusy = false;
@@ -88,6 +96,8 @@ namespace AminoTools.ViewModels
 
         public virtual void OnInitialize()
         {
+            App.CurrentViewModel = this;
+
             IsInitializing = true;
             Initialize?.Invoke(this, EventArgs.Empty);
             IsInitializing = false;

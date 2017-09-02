@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AminoApi.Models.Community;
 using AminoTools.Models;
@@ -17,12 +18,12 @@ namespace AminoTools.ViewModels.Blogs
     {
         private readonly ICommunityProvider _communityProvider;
         private readonly IBlogProvider _blogProvider;
-        private ObservableRangeCollection<SelectableItem<Community>> _selectableCommunities;
+        private ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> _selectableCommunities;
         private Command _selectAllCommand;
         private Command _selectNoneCommand;
         private Command _sendButtonCommand;
 
-        public ObservableRangeCollection<SelectableItem<Community>> SelectableCommunities
+        public ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> SelectableCommunities
         {
             get => _selectableCommunities;
             set
@@ -58,11 +59,13 @@ namespace AminoTools.ViewModels.Blogs
             {
                 if (SelectableCommunities == null || !MaySendBlog())
                 {
-                    return "Select some communities first..";
+                    return "No communities selected";
                 }
                 return $"Send to {SelectableCommunities.Count(sc => sc.IsSelected)} communities!";
             }
         }
+
+        public bool SendButtonIsEnabled => !(SelectableCommunities == null || !MaySendBlog());
 
         public Command SendButtonCommand
         {
@@ -95,16 +98,33 @@ namespace AminoTools.ViewModels.Blogs
                 return;
             }
 
-            App.Variables.MultiBlog.Communities = SelectableCommunities.Where(sc => sc.IsSelected).Select(sc => sc.Item);
-
-            var blog = App.Variables.MultiBlog.Blog;
-            foreach (var community in App.Variables.MultiBlog.Communities)
+            var cts = new CancellationTokenSource();
+            await DoAsBusyStateCustom(async () =>
             {
-                await DoAsBusyState(_blogProvider.PostBlog(community.Id, blog.Title, blog.Content));
-            }
+                IsBusyData.Description = "Getting Selected Communities";
+                App.Variables.MultiBlog.Communities = SelectableCommunities.Where(sc => sc.IsSelected).Select(sc => sc.Item);
 
-            await Page.DisplayAlert("Yay!",
-                $"Your blog has been posted on {App.Variables.MultiBlog.Communities.Count()} communities!", "Wohoo!");
+                IsBusyData.IsProgessBarVisible = true;
+
+                var blog = App.Variables.MultiBlog.Blog;
+                var i = 0;
+                foreach (var community in App.Variables.MultiBlog.Communities)
+                {
+                    IsBusyData.Description = $"Sending blog to {community.Name}";
+                    if (i != 0) IsBusyData.Progress = i / (float)App.Variables.MultiBlog.Communities.Count();
+                    await _blogProvider.PostBlog(community.Id, blog.Title, blog.Content);
+                    i++;
+                    if (!cts.IsCancellationRequested) continue;
+
+                    await Page.DisplayAlert("Canceled", $"Your blog has been posted on {i} communities, we can't change that.", "Ok");
+                    return;
+                }
+                await Page.DisplayAlert("Succes!",
+                    $"Your blog has been posted on {i} communities", "Ok");
+            }, cts);
+
+            
+            await App.MainNavigation.PopToRootAsync();
         }
 
         private bool MaySendBlog()
@@ -132,22 +152,23 @@ namespace AminoTools.ViewModels.Blogs
         {
             var communities = await DoAsBusyState(_communityProvider.GetJoinedCommunities());
             var selectableCommunties = GetSelectableCommuntiesByCommunities(communities);
-            SelectableCommunities = new ObservableRangeCollection<SelectableItem<Community>>(selectableCommunties);
+            SelectableCommunities = new ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>>(selectableCommunties);
         }
 
-        private IEnumerable<SelectableItem<Community>> GetSelectableCommuntiesByCommunities(IEnumerable<Community> communities)
+        private IEnumerable<SelectableItem<AminoApi.Models.Community.Community>> GetSelectableCommuntiesByCommunities(IEnumerable<AminoApi.Models.Community.Community> communities)
         {
-            var selectableItems = communities.Select(c => new SelectableItem<Community> { Item = c });
+            var selectableItems = communities.Select(c => new SelectableItem<AminoApi.Models.Community.Community> { Item = c }).ToArray();
             foreach (var item in selectableItems)
             {
-                item.PropertyChanged += SelectableItem_PropertyChanged;
+                item.IsSelectedChanged += Item_IsSelectedChanged;
             }
             return selectableItems;
         }
 
-        private void SelectableItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Item_IsSelectedChanged(object sender, EventArgs e)
         {
             OnPropertyChanged(nameof(SendButtonText));
+            OnPropertyChanged(nameof(SendButtonIsEnabled));
         }
     }
 }

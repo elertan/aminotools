@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models;
 using AminoApi.Models.Blog;
+using AminoApi.Models.Feed;
 using AminoTools.Pages;
+using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts;
 using Xamarin.Forms;
 
@@ -13,25 +15,16 @@ namespace AminoTools.ViewModels
 {
     public class HomePageViewModel : BaseViewModel, IHomePageViewModel
     {
-        private Command _testButtonCommand;
-        private IEnumerable<Blog> _blogs;
+        private readonly IFeedProvider _feedProvider;
+        private IEnumerable<HeadLineBlog> _blogs;
 
-        public HomePageViewModel()
+        public HomePageViewModel(IFeedProvider feedProvider)
         {
+            _feedProvider = feedProvider;
             Initialize += HomePageViewModel_Initialize;
         }
 
-        public Command TestButtonCommand
-        {
-            get => _testButtonCommand;
-            set
-            {
-                _testButtonCommand = value; 
-                OnPropertyChanged();
-            }
-        }
-
-        public IEnumerable<Blog> Blogs
+        public IEnumerable<HeadLineBlog> Blogs
         {
             get => _blogs;
             set
@@ -43,10 +36,13 @@ namespace AminoTools.ViewModels
 
         private async void HomePageViewModel_Initialize(object sender, EventArgs e)
         {
-            TestButtonCommand = new Command(DoNavigateToTestPage);
+            await DoAsBusyStateCustom(async () =>
+            {
+                IsBusyData.Description = "Loading Feed";
+                var feedHeadlines = await _feedProvider.GetFeedHeadlines();
 
-            var result = await DoAsBusyState(App.Api.GetBlogsByUserIdAsync("x146561979", "9f8e3a79-03ca-4a25-bc95-3b257c765bad"));
-            Blogs = result.Data.Blogs;
+                Blogs = feedHeadlines.Blogs;
+            });
         }
 
         private async void DoNavigateToTestPage()

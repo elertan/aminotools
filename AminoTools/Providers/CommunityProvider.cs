@@ -12,7 +12,7 @@ namespace AminoTools.Providers
 {
     public class CommunityProvider : Provider, ICommunityProvider
     {
-        public CommunityProvider() : base(((App) Application.Current).Api)
+        public CommunityProvider(IApi api) : base(api)
         {
         }
 

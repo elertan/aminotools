@@ -11,6 +11,7 @@ namespace AminoTools.ViewModels.Contracts.Blogs
     public interface IMultiBlogPageViewModel
     {
         Blog Blog { get; set; }
+        Command ImagesCommand { get; set; }
         Command NextCommand { get; set; }
     }
 }

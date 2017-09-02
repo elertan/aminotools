@@ -14,6 +14,7 @@ namespace AminoTools.ViewModels.Blogs
     {
         private Blog _blog;
         private Command _nextCommand;
+        private Command _imagesCommand;
 
         public Blog Blog
         {
@@ -21,6 +22,16 @@ namespace AminoTools.ViewModels.Blogs
             set
             {
                 _blog = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public Command ImagesCommand
+        {
+            get => _imagesCommand;
+            set
+            {
+                _imagesCommand = value; 
                 OnPropertyChanged();
             }
         }
@@ -38,7 +49,13 @@ namespace AminoTools.ViewModels.Blogs
         public MultiBlogPageViewModel()
         {
             Blog = new Blog();
+            ImagesCommand = new Command(DoSelectImages);
             NextCommand = new Command(DoNext);
+        }
+
+        private void DoSelectImages()
+        {
+            
         }
 
         private async void DoNext()

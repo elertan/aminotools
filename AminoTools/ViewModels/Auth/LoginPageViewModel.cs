@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AminoApi;
+using AminoApi.Models.Auth;
 using AminoTools.Pages;
+using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts.Auth;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -9,58 +12,43 @@ namespace AminoTools.ViewModels.Auth
 {
     public class LoginPageViewModel : BaseViewModel, ILoginPageViewModel
     {
-        private static bool _alreadyLoggedInBefore;
+        private readonly IAuthorizationProvider _authorizationProvider;
 
-        public LoginPageViewModel()
+        public LoginPageViewModel(IAuthorizationProvider authorizationProvider)
         {
+            _authorizationProvider = authorizationProvider;
             LoginCommand = new Command(DoLogin);
 
-            Username = SettingsManager.GetSettingWithFallback(nameof(LoginPageViewModel) + nameof(Username), "");
-
-            Initialize += LoginPageViewModel_Initialize;
-        }
-
-        private void LoginPageViewModel_Initialize(object sender, EventArgs e)
-        {
-            if (!_alreadyLoggedInBefore)
-            {
-                var savedUsername = SettingsManager.GetSettingWithFallback(nameof(LoginPageViewModel) + nameof(Username), "");
-                var savedPassword = SettingsManager.GetSettingWithFallback(nameof(LoginPageViewModel) + nameof(Password), "");
-                if (!MayLogin
-                    && !string.IsNullOrWhiteSpace(savedUsername)
-                    && !string.IsNullOrWhiteSpace(savedPassword))
-                {
-                    Username = savedUsername;
-                    Password = savedPassword;
-                }
-                if (MayLogin) DoLogin();
-            }
+            Username = SettingsManager.GetSettingWithFallback(SettingsManager.AvailableSettings.Username, "");
         }
 
         private async void DoLogin()
         {
-            var result = await DoAsBusyState(App.Api.Login(Username, Password));
-            if (!result.DidSucceed())
+            Account account = null;
+            await DoAsBusyStateCustom(async () =>
             {
-                await Page.DisplayAlert("Error", result.Info.Message, "Ok");
+                IsBusyData.Description = "Logging in";
+
+                account = await _authorizationProvider.Login(Username, Password);
+                if (account == null) return;
+
+                IsBusyData.Description = "Saving settings";
+                await DoAsBusyState(SaveStateAsync());
+            });
+
+            if (account == null)
+            {
+                await Page.DisplayAlert("Whoops", "Logging in failed", "Ok");
                 return;
             }
-            await DoAsBusyState(SaveStateAsync());
-            await DoAsBusyState(SettingsManager.SaveSettingAsync(nameof(App) + nameof(App.Account),
-                JsonConvert.SerializeObject(result.Data)));
 
             // Set authentication on api
-            App.Login(result.Data);
-
-            _alreadyLoggedInBefore = true;
-
-            App.GoToStartPage();
+            await App.Login(account);
         }
 
         private async Task SaveStateAsync()
         {
-            await SettingsManager.SaveSettingAsync(nameof(LoginPageViewModel) + nameof(Username), Username);
-            await SettingsManager.SaveSettingAsync(nameof(LoginPageViewModel) + nameof(Password), Password);
+            await SettingsManager.SaveSettingAsync(SettingsManager.AvailableSettings.Username, Username);
         }
 
         private string _username;

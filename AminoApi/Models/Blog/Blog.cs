@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using AminoApi.Models.Media;
+using Newtonsoft.Json.Linq;
 
 namespace AminoApi.Models.Blog
 {
@@ -19,6 +21,7 @@ namespace AminoApi.Models.Blog
         private int _type;
         private int _votedValue;
         private int _votesCount;
+        private IEnumerable<ImageItem> _imageItems;
 
         public string BlogId
         {
@@ -160,6 +163,16 @@ namespace AminoApi.Models.Blog
             }
         }
 
+        public IEnumerable<ImageItem> ImageItems
+        {
+            get => _imageItems;
+            set
+            {
+                _imageItems = value; 
+                OnPropertyChanged();
+            }
+        }
+
         public override void JsonResolve(Dictionary<string, object> data)
         {
             if (data.ContainsKey("blog"))
@@ -171,22 +184,45 @@ namespace AminoApi.Models.Blog
             Author = new Author();
             Author.JsonResolve(data["author"].ToJObject().ToObject<Dictionary<string, object>>());
 
-            BlogId = Convert.ToString(data["blogId"]);
-            CommentsCount = Convert.ToInt32(data["commentsCount"]);
-            Content = Convert.ToString(data["content"]);
-            ContentRating = Convert.ToInt32(data["contentRating"]);
-            CreatedTime = DateTime.Parse(Convert.ToString(data["createdTime"]));
-            if (data["endTime"] != null)
+            if (data.ContainsKey("blogId"))  BlogId = Convert.ToString(data["blogId"]);
+            if (data.ContainsKey("commentsCount")) CommentsCount = Convert.ToInt32(data["commentsCount"]);
+            if (data.ContainsKey("content")) Content = Convert.ToString(data["content"]);
+            if (data.ContainsKey("contentRating")) ContentRating = Convert.ToInt32(data["contentRating"]);
+            if (data.ContainsKey("createdTime")) CreatedTime = DateTime.Parse(Convert.ToString(data["createdTime"]));
+            if (data.ContainsKey("endTime") && data["endTime"] != null)
             {
                 EndTime = DateTime.Parse(Convert.ToString(data["endTime"]));
             }
-            ModifiedTime = DateTime.Parse(Convert.ToString(data["modifiedTime"]));
-            Status = Convert.ToInt32(data["status"]);
-            Style = Convert.ToInt32(data["style"]);
-            Title = Convert.ToString(data["title"]);
-            Type = Convert.ToInt32(data["type"]);
-            VotedValue = Convert.ToInt32(data["votedValue"]);
-            VotesCount = Convert.ToInt32(data["votesCount"]);
+            if (data.ContainsKey("modifiedTime")) ModifiedTime = DateTime.Parse(Convert.ToString(data["modifiedTime"]));
+            if (data.ContainsKey("status")) Status = Convert.ToInt32(data["status"]);
+            if (data.ContainsKey("style")) Style = Convert.ToInt32(data["style"]);
+            if (data.ContainsKey("title")) Title = Convert.ToString(data["title"]);
+            if (data.ContainsKey("type")) Type = Convert.ToInt32(data["type"]);
+            if (data.ContainsKey("votedValue")) VotedValue = Convert.ToInt32(data["votedValue"]);
+            if (data.ContainsKey("votesCount")) VotesCount = Convert.ToInt32(data["votesCount"]);
+            if (data.ContainsKey("mediaList"))
+            {
+                var jArray = (JArray) data["mediaList"];
+                if (jArray == null) return;
+
+                var items = new List<ImageItem>();
+
+                foreach (var item in jArray)
+                {
+                    var array = (JArray) item;
+                    var imageItem = new ImageItem();
+                    imageItem.SomeValue = Convert.ToInt32(((JValue) array[0]).Value);
+                    imageItem.ImageUri = new Uri(Convert.ToString(((JValue) array[1]).Value));
+                    if (array.Count > 3)
+                    {
+                        imageItem.BlogReferenceId = Convert.ToString(((JValue)array[3]).Value);
+                    }
+
+                    items.Add(imageItem);
+                }
+
+                ImageItems = items;
+            }
         }
     }
 }

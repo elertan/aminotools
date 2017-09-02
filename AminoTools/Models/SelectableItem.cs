@@ -11,6 +11,8 @@ namespace AminoTools.Models
         private T _item;
         private bool _isSelected;
 
+        public event EventHandler IsSelectedChanged;
+
         public T Item
         {
             get => _item;
@@ -28,7 +30,13 @@ namespace AminoTools.Models
             {
                 _isSelected = value; 
                 OnPropertyChanged();
+                OnIsSelectedChanged();
             }
+        }
+
+        protected virtual void OnIsSelectedChanged()
+        {
+            IsSelectedChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

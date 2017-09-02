@@ -8,7 +8,9 @@ using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
 using Xamarin.Forms;
 using AminoTools.Pages;
+using AminoTools.ViewModels;
 using AminoTools.ViewModels.Auth;
+using Autofac;
 using Xamarin.Forms.Xaml;
 using LoginPage = AminoTools.Pages.Auth.LoginPage;
 
@@ -28,23 +30,36 @@ namespace AminoTools
 
         public readonly DependencyManager DependencyManager;
 
-        public Account Account { get; set; }
-        public Api Api { get; set; } = new Api(new HttpClient());
+        public Account Account { get; protected set; }
+        public IApi Api { get; protected set; }
+        public BaseViewModel CurrentViewModel { get; set; }
+        public MasterDetailPage MasterDetailPage { get; protected set; }
 
         public App()
         {
             DependencyManager = new DependencyManager();
             Variables = new VariablesClass();
+            Api = DependencyManager.Container.Resolve<IApi>();
 
             InitializeComponent();
 
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new LoadingPage();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             // Handle when your app starts
 
+            // Already logged in
+            var account = SettingsManager.GetSettingOrDefault<Account>(SettingsManager.AvailableSettings.Account);
+            if (account != null)
+            {
+                await Login(account);
+                return;
+            }
+
+            // Yet to log in
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnSleep()
@@ -77,6 +92,7 @@ namespace AminoTools
         public void GoToStartPage()
         {
             var page = new MainPage();
+            MasterDetailPage = page;
             MainNavigation = page.Detail.Navigation;
             MainPage = page;
         }
@@ -95,15 +111,19 @@ namespace AminoTools
         {
             Account = null;
             Api.Sid = null;
-            await SettingsManager.ClearSettingAsync(nameof(LoginPageViewModel) + nameof(LoginPageViewModel.Password));
+            await SettingsManager.ClearSettingAsync(SettingsManager.AvailableSettings.Account);
 
-            await SetMainPage(new LoginPage());
+            MainPage = new NavigationPage(new LoginPage());
         }
 
-        public void Login(Account account)
+        public async Task Login(Account account)
         {
+            await SettingsManager.SaveComplexSettingAsync(SettingsManager.AvailableSettings.Account, account);
+
             Api.Sid = account.Sid;
             Account = account;
+
+            GoToStartPage();
         }
     }
 }

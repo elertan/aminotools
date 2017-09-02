@@ -5,39 +5,62 @@
                       xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
                       xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
                       xmlns:contracts="clr-namespace:AminoTools.ViewModels.Contracts;assembly=AminoTools"
+                      xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
                       Title="Amino Tools"
+                      BackgroundColor="LightGray"
                       x:Class="AminoTools.Pages.HomePage">
     <customPages:BasePage.BindingContext>
         <aminoTools:ViewModelResolver ViewModelType="{x:Type contracts:IHomePageViewModel}" />
     </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Margin="20">
-                <Label Text="My Blogs"
-                       FontSize="26"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center" />
+            <StackLayout>
                 <ListView ItemsSource="{Binding Model.Blogs}"
-                          HasUnevenRows="True">
+                          HasUnevenRows="True"
+                          SeparatorVisibility="Default">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Margin="10">
-                                    <Label Text="{Binding Title}"
+                                <Grid Margin="0,0,0,35"
+                                      BackgroundColor="White">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding Community.Name}"
+                                           FontSize="11"
                                            FontAttributes="Bold"
-                                           FontSize="21" />
-                                    <Label Text="{Binding Content}"
-                                           FontSize="14" />
-                                </StackLayout>
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center"
+                                           Margin="15,0,0,0"
+                                           Grid.Row="0" />
+                                    <ffimageloading:CachedImage
+                                        Source="{Binding ImageItems, Converter={StaticResource AminoBlogImageItemsToBlogPreviewImageSourceConverter}}"
+                                        Aspect="AspectFill"
+                                        HeightRequest="250"
+                                        IsVisible="{Binding ImageItems, Converter={StaticResource IsNotNullToBoolConverter}}"
+                                        Grid.Row="1" />
+                                    <Label Text="{Binding Title}"
+                                           LineBreakMode="TailTruncation"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"
+                                           Margin="10,0,0,0"
+                                           FontSize="14"
+                                           Grid.Row="2" />
+                                    <Label
+                                        Text="{Binding Content, Converter={StaticResource AminoMarkupContentToNormalStringConverter}}"
+                                        FontSize="14"
+                                        VerticalOptions="Center"
+                                        Margin="10,0,0,10"
+                                        Grid.Row="3" />
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Text="Test Stuff"
-                        FontSize="21"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        Command="{Binding Model.TestButtonCommand}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

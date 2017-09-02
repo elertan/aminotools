@@ -21,7 +21,7 @@ namespace AminoTools.TesterConsoleApp
         {
             var api = new Api(new HttpClient());
             Console.WriteLine("Logging in...");
-            var loginResult = await api.Login("alavonemail@gmail.com", "4dpwpagvw");
+            var loginResult = await api.Login("myemail", "mypass");
             api.Sid = loginResult.Data.Sid;
 
             Console.WriteLine("Getting joined communities");

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AminoApi.Models.Auth;
 using AminoTools.Pages;
 using AminoTools.Pages.Blogs;
+using AminoTools.Pages.Community;
 using AminoTools.Pages.Settings;
 using AminoTools.ViewModels.Contracts;
 using MvvmHelpers;
@@ -40,6 +42,8 @@ namespace AminoTools.ViewModels
             }
         }
 
+        public Account Account => ((App) Application.Current).Account;
+
         private async void OnMenuItemTapped(MenuItem menuItem)
         {
             // Reset the menu item selection status
@@ -70,10 +74,23 @@ namespace AminoTools.ViewModels
                 },
                 new MenuItem
                 {
+                    Title = "Communities",
+                    TargetPageType = typeof(CommunityPage)
+                },
+                new MenuItem
+                {
                     Title = "Settings",
                     TargetPageType = typeof(SettingsPage)
                 }
             });
+#if DEBUG
+            MenuItems.Add(new MenuItem
+            {
+                Title = "Debug Test Page",
+                TargetPageType = typeof(TestPage)
+            });
+#endif
+
             SelectedItem = MenuItems.First();
         }
     }

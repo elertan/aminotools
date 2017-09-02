@@ -14,7 +14,7 @@ namespace AminoTools.Providers
 {
     public class BlogProvider : Provider, IBlogProvider
     {
-        public BlogProvider() : base(((App)Application.Current).Api)
+        public BlogProvider(IApi api) : base(api)
         {
             
         }

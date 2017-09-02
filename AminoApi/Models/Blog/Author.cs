@@ -96,7 +96,8 @@ namespace AminoApi.Models.Blog
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
-            IconUri = new Uri(Convert.ToString(data["icon"]));
+            var uriString = Convert.ToString(data["icon"]);
+            if (!string.IsNullOrWhiteSpace(uriString)) IconUri = new Uri(uriString);
             Level = Convert.ToInt32(data["level"]);
             //Mood = Convert.To???(data["mood"]);
             Nickname = Convert.ToString(data["nickname"]);

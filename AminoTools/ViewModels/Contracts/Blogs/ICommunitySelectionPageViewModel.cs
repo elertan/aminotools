@@ -12,10 +12,11 @@ namespace AminoTools.ViewModels.Contracts.Blogs
 {
     public interface ICommunitySelectionPageViewModel
     {
-        ObservableRangeCollection<SelectableItem<Community>> SelectableCommunities { get; set; }
+        ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> SelectableCommunities { get; set; }
         Command SelectAllCommand { get; set; }
         Command SelectNoneCommand { get; set; }
         string SendButtonText { get; }
+        bool SendButtonIsEnabled { get; }
         Command SendButtonCommand { get; set; }
     }
 }

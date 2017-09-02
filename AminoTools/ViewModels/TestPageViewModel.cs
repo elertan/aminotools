@@ -41,10 +41,13 @@ namespace AminoTools.ViewModels
             await DoAsBusyStateCustom(async () =>
             {
                 IsBusyData.Description = "Getting Blogs";
-                await _blogProvider.GetBlogsByUserIdAsync("x146561979",
-                    "9f8e3a79-03ca-4a25-bc95-3b257c765bad");
-                IsBusyData.Description = "Waiting";
                 await Task.Delay(2000);
+                IsBusyData.Description = "Cleaning up";
+                await Task.Delay(1000);
+                IsBusyData.Description = "Updating view!";
+                await Task.Delay(1000);
+                IsBusyData.Description = "Finished : )!";
+                await Task.Delay(1000);
             });
         }
     }

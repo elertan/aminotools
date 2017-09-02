@@ -8,11 +8,12 @@ using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
+using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
 
 namespace AminoApi
 {
-    public class Api
+    public class Api : IApi
     {
         private readonly HttpInteractor _httpInteractor;
         private readonly ApiResultBuilder _apiResultBuilder;
@@ -74,7 +75,8 @@ namespace AminoApi
             return _apiResultBuilder.Build<BlogList>(response);
         }
 
-        public async Task<ApiResult<Blog>> PostBlog(string communityId, string title, string content, IEnumerable<ImageItem> imageItems = null)
+        public async Task<ApiResult<Blog>> PostBlog(string communityId, string title, string content,
+            IEnumerable<ImageItem> imageItems = null)
         {
             const int type = 0;
 
@@ -95,6 +97,12 @@ namespace AminoApi
 
             var result = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/blog", data);
             return _apiResultBuilder.Build<Blog>(result);
+        }
+
+        public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int start = 0, int size = 25)
+        {
+            var response = await _httpInteractor.GetAsync($"/g/s/feed/headlines?start={start}&size={size}");
+            return _apiResultBuilder.Build<FeedHeadlines>(response);
         }
     }
 }

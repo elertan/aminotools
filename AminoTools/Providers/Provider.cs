@@ -9,9 +9,9 @@ namespace AminoTools.Providers
 {
     public class Provider
     {
-        protected readonly Api Api;
+        protected readonly IApi Api;
 
-        public Provider(Api api)
+        public Provider(IApi api)
         {
             Api = api;
         }

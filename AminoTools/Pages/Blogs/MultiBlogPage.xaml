@@ -24,22 +24,25 @@
             <!--First Row-->
             <Entry Text="{Binding Model.Blog.Title}"
                    Placeholder="Title"
+                   FontSize="15"
                    Margin="3"
                    Grid.Row="0" />
             
             <!--Second Row-->
             <Frame OutlineColor="Black"
                    HasShadow="True"
+                   Padding="0"
                    Margin="3"
                    Grid.Row="1">
-                <Editor Text="{Binding Model.Blog.Content}"></Editor>
+                <Editor Text="{Binding Model.Blog.Content}"
+                        FontSize="13" />
             </Frame>
 
             <!--Third Row-->
-            <Label Text="Here will come more buttons for images and stuff x)"
-                   FontSize="14"
-                   Margin="3"
-                   Grid.Row="2" />
+            <Grid Grid.Row="2">
+                <Button Text="Images"
+                        Command="{Binding Model.ImagesCommand}"/>
+            </Grid>
             
             <!--Fourth Row-->
             <Grid Grid.Row="3">
