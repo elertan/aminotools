@@ -58,6 +58,7 @@
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DependencyManager.cs" />
+    <Compile Include="DependencyServices\IFileLogger.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Models\IsBusyData.cs" />
     <Compile Include="IsBusyTask.cs" />
@@ -78,6 +79,10 @@
     </Compile>
     <Compile Include="Pages\Community\JoinRandomCommunitiesPage.xaml.cs">
       <DependentUpon>JoinRandomCommunitiesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionManager.cs" />
+    <Compile Include="Pages\ExceptionPage.xaml.cs">
+      <DependentUpon>ExceptionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -250,6 +255,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Community\JoinRandomCommunitiesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ExceptionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

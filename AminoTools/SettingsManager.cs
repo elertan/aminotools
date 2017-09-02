@@ -11,6 +11,11 @@ namespace AminoTools
 {
     public class SettingsManager
     {
+        public static void LogCrashReport(string msg)
+        {
+            SaveSettingAsync(AvailableSettings.ExceptionMessage, msg).RunSynchronously();
+        }
+
         public static async Task ClearSettingAsync(AvailableSettings key)
         {
             if (Application.Current.Properties.ContainsKey(key.ToString()))
@@ -79,7 +84,8 @@ namespace AminoTools
         public enum AvailableSettings
         {
             Account,
-            Username
+            Username,
+            ExceptionMessage
         }
     }
 }

@@ -23,11 +23,19 @@ namespace AminoTools.Droid
 
             base.OnCreate(bundle);
 
+            // Exception Handling
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CachedImageRenderer.Init();
 
             _app = new App();
             LoadApplication(_app);
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            _app.ExceptionOccured(sender, e.ExceptionObject as Exception);
         }
 
         public override void OnBackPressed()

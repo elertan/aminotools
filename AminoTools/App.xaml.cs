@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AminoApi;
@@ -50,6 +51,18 @@ namespace AminoTools
         {
             // Handle when your app starts
 
+            var exception = await ExceptionManager.GetExceptionAsync();
+            if (exception != null)
+            {
+                MainPage = new ExceptionPage(exception);
+                return;
+            }
+
+            await StartUp();
+        }
+
+        public async Task StartUp()
+        {
             // Already logged in
             var account = SettingsManager.GetSettingOrDefault<Account>(SettingsManager.AvailableSettings.Account);
             if (account != null)
@@ -124,6 +137,15 @@ namespace AminoTools
             Account = account;
 
             GoToStartPage();
+        }
+
+        // MAY NOT BE ASYNC
+        public void ExceptionOccured(object sender, Exception ex)
+        {
+            if (ex != null)
+            {
+                ExceptionManager.ReportException(ex);
+            }
         }
     }
 }

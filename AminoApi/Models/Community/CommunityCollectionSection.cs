@@ -8,5 +8,13 @@ namespace AminoApi.Models.Community
 {
     public class CommunityCollectionSection : ModelBase
     {
+        public string CollectionId { get; set; }
+        public IEnumerable<Community> Communities { get; set; }
+
+        public override void JsonResolve(Dictionary<string, object> data)
+        {
+            CollectionId = data.Resolve<string>("collectionId");
+
+        }
     }
 }
