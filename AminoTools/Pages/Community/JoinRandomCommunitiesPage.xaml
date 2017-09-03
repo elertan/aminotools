@@ -12,10 +12,20 @@
     </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="8*" />
+            </Grid.RowDefinitions>
+            <Entry Placeholder="Minimum Amount Of Members"
+                   Text="{Binding Model.MinimumAmountOfMembers}"
+                   Keyboard="Numeric"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
             <Button Text="Join Communities"
                     Command="{Binding Model.JoinCommunitiesCommand}"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center"
+                    Grid.Row="1" />
         </Grid>
     </ContentPage.Content>
 </customPages:BasePage>

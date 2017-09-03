@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models.Blog;
+using AminoTools.DependencyServices;
 using AminoTools.Pages.Blogs;
 using AminoTools.ViewModels.Contracts.Blogs;
 using Xamarin.Forms;
@@ -15,6 +17,17 @@ namespace AminoTools.ViewModels.Blogs
         private Blog _blog;
         private Command _nextCommand;
         private Command _imagesCommand;
+        private IEnumerable<Stream> _imageStreams;
+
+        public IEnumerable<Stream> ImageStreams
+        {
+            get => _imageStreams;
+            set
+            {
+                _imageStreams = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public Blog Blog
         {
@@ -53,9 +66,13 @@ namespace AminoTools.ViewModels.Blogs
             NextCommand = new Command(DoNext);
         }
 
-        private void DoSelectImages()
+        private async void DoSelectImages()
         {
-            
+            var picturePicker = DependencyService.Get<IPicturePicker>();
+            var stream = await picturePicker.GetImageStreamAsync();
+            if (stream == null) return;
+
+
         }
 
         private async void DoNext()

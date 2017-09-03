@@ -119,7 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyServices\FileLogger.cs" />
+    <Compile Include="DependencyServices\PicturePicker.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="RequestCodes.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -32,6 +32,8 @@ namespace AminoTools
             // General
             cb.RegisterInstance(new HttpClient()).SingleInstance();
 
+            cb.RegisterType<RandomWordProvider>().As<IRandomWordProvider>().SingleInstance();
+
             // Api
             cb.RegisterType<Api>().As<IApi>().SingleInstance();
 

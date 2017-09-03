@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.IO;
+using AminoTools.Droid.DependencyServices;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -11,7 +12,7 @@ using FFImageLoading.Forms.Droid;
 
 namespace AminoTools.Droid
 {
-    [Activity(Label = "AminoTools.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "AminoTools", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private App _app;
@@ -31,6 +32,29 @@ namespace AminoTools.Droid
 
             _app = new App();
             LoadApplication(_app);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            base.OnActivityResult(requestCode, resultCode, intent);
+
+            switch (requestCode)
+            {
+                case (int)RequestCodes.PicturePicker:
+                    if (resultCode == Result.Ok && intent != null)
+                    {
+                        var uri = intent.Data;
+                        var stream = ContentResolver.OpenInputStream(uri);
+
+                        // Set the Stream as the completion of the Task
+                        PicturePicker.TaskCompletionSource.SetResult(stream);
+                    }
+                    else
+                    {
+                        PicturePicker.TaskCompletionSource.SetResult(null);
+                    }
+                    break;
+            }
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

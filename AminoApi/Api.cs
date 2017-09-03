@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
 using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
+using AminoApi.Models.User;
 
 namespace AminoApi
 {
@@ -67,6 +70,25 @@ namespace AminoApi
             return _apiResultBuilder.Build<CommunityList>(response);
         }
 
+        public async Task<ApiResult<CommunityList>> GetSuggestedCommunities(int start = 0, int size = 50)
+        {
+            var response = await _httpInteractor.GetAsync($"/g/s/community/suggested?start={start}&size={size}");
+            return _apiResultBuilder.Build<CommunityList>(response);
+        }
+
+        public async Task<ApiResult<CommunityList>> GetCommuntiesByQuery(string query, int start = 0, int size = 0)
+        {
+            var q = WebUtility.UrlEncode(query);
+            var response = await _httpInteractor.GetAsync($"/g/s/community/search?q={q}start={start}&size={size}&language=en");
+            return _apiResultBuilder.Build<CommunityList>(response);
+        }
+
+        public async Task<ApiResult<UserProfile>> JoinAmino(string id)
+        {
+            var response = await _httpInteractor.PostAsync($"/x{id}/s/community/join");
+            return _apiResultBuilder.Build<UserProfile>(response);
+        }
+
         public async Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySections(int start = 0, int size = 25, string languageCode = "en")
         {
             var response = await _httpInteractor.GetAsync($"/g/s/community-collection/view/explore/sections?language={languageCode}&start={start}&size={size}");
@@ -109,6 +131,12 @@ namespace AminoApi
         {
             var response = await _httpInteractor.GetAsync($"/g/s/feed/headlines?start={start}&size={size}");
             return _apiResultBuilder.Build<FeedHeadlines>(response);
+        }
+
+        public async Task<ApiResult<ImageItem>> UploadImage(Stream imageStream)
+        {
+            var response = await _httpInteractor.PostStreamAsync("/g/s/media/upload", imageStream);
+            return _apiResultBuilder.Build<ImageItem>(response);
         }
     }
 }

@@ -13,37 +13,65 @@ namespace AminoTools.ViewModels.Community
     public class JoinRandomCommunitiesPageViewModel : BaseViewModel, IJoinRandomCommunitiesPageViewModel
     {
         private readonly ICommunityProvider _communityProvider;
+        private readonly IRandomWordProvider _randomWordProvider;
+        private int _minimumAmountOfMembers;
+
+        public int MinimumAmountOfMembers
+        {
+            get => _minimumAmountOfMembers;
+            set
+            {
+                _minimumAmountOfMembers = value; 
+                OnPropertyChanged();
+            }
+        }
+
         public Command JoinCommunitiesCommand { get; }
 
-        public JoinRandomCommunitiesPageViewModel(ICommunityProvider communityProvider)
+        public JoinRandomCommunitiesPageViewModel(ICommunityProvider communityProvider, IRandomWordProvider randomWordProvider)
         {
             _communityProvider = communityProvider;
+            _randomWordProvider = randomWordProvider;
             JoinCommunitiesCommand = new Command(DoJoinCommunities);
+
+            MinimumAmountOfMembers = 500;
         }
 
         private async void DoJoinCommunities()
         {
+            var joinedCommunityIds = new List<string>();
+
             var cts = new CancellationTokenSource();
+            var i = 0;
             await DoAsBusyStateCustom(async () =>
             {
-                var i = 0;
+                IsBusyData.Description = "Getting Communities";
                 while (!cts.IsCancellationRequested)
                 {
-                    IsBusyData.Description = "Getting Communities";
-                    var response = await _communityProvider.GetCommunitiesFromExplore(i * 25);
-                    var section = response.Sections.FirstOrDefault();
-                    if (section == null) return;
+                    var searchTerm = await _randomWordProvider.GetRandomWord();
+                    IsBusyData.Description = $"Searching Communties for {searchTerm}";
+                    var communities = await _communityProvider.GetCommunitiesByQuery(searchTerm);
+                    communities = communities.Where(c => joinedCommunityIds.All(jci => jci != c.Id) && c.AmountOfMembers >= MinimumAmountOfMembers).ToList();
 
-                    foreach (var community in section.Communities)
+                    foreach (var community in communities)
                     {
                         IsBusyData.Description = $"Joining {community.Name}";
-                        await Task.Delay(500);
+                        await _communityProvider.JoinCommunity(community.Id);
+                        joinedCommunityIds.Add(community.Id);
+                        i++;
                         if (cts.IsCancellationRequested) return;
                     }
-
-                    i++;
                 }
             }, cts);
+
+            if (cts.IsCancellationRequested)
+            {
+                await Page.DisplayAlert("Canceled", $"You have joined {i} communities!", "Ok");
+            }
+            else
+            {
+                await Page.DisplayAlert("Finished", $"You have joined {i} communities!", "Ok");
+            }
         }
     }
 }

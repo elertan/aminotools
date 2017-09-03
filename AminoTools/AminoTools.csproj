@@ -59,7 +59,9 @@
     </Compile>
     <Compile Include="DependencyManager.cs" />
     <Compile Include="DependencyServices\IFileLogger.cs" />
+    <Compile Include="DependencyServices\IPicturePicker.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Models\Blogs\MultiBlogPage\BlogImageSource.cs" />
     <Compile Include="Models\IsBusyData.cs" />
     <Compile Include="IsBusyTask.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -117,11 +119,13 @@
     <Compile Include="Providers\Contracts\IAuthorizationProvider.cs" />
     <Compile Include="Providers\Contracts\IFeedProvider.cs" />
     <Compile Include="Providers\Contracts\IMediaProvider.cs" />
+    <Compile Include="Providers\Contracts\IRandomWordProvider.cs" />
     <Compile Include="Providers\FeedProvider.cs" />
     <Compile Include="Providers\MediaProvider.cs" />
     <Compile Include="Providers\Provider.cs" />
     <Compile Include="Providers\BlogProvider.cs" />
     <Compile Include="Providers\Contracts\IBlogProvider.cs" />
+    <Compile Include="Providers\RandomWordProvider.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Converters\StringIsNullOrWhiteSpaceToVisibleConverter.cs" />
     <Compile Include="ViewModelResolver.cs" />
@@ -264,6 +268,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedResources\querywords.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

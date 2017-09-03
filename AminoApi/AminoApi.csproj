@@ -59,6 +59,7 @@
     <Compile Include="Models\Media\ImageItem.cs" />
     <Compile Include="Models\Misc\ApiResultInfo.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\User\UserProfile.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolveHelpers.cs" />

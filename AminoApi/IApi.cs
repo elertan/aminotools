@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -9,6 +10,7 @@ using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
 using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
+using AminoApi.Models.User;
 
 namespace AminoApi
 {
@@ -22,6 +24,12 @@ namespace AminoApi
 
         Task<ApiResult<CommunityList>> GetJoinedCommunities(int start = 0, int size = 50);
 
+        Task<ApiResult<CommunityList>> GetSuggestedCommunities(int start = 0, int size = 50);
+
+        Task<ApiResult<CommunityList>> GetCommuntiesByQuery(string query, int start = 0, int size = 0);
+
+        Task<ApiResult<UserProfile>> JoinAmino(string id);
+
         Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySections(int start = 0, int size = 25, string languageCode = "en");
 
         Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communityId, string userId,
@@ -31,5 +39,7 @@ namespace AminoApi
             IEnumerable<ImageItem> imageItems = null);
 
         Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int start = 0, int size = 25);
+
+        Task<ApiResult<ImageItem>> UploadImage(Stream imageStream);
     }
 }

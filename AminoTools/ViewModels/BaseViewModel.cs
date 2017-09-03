@@ -70,22 +70,30 @@ namespace AminoTools.ViewModels
 
         private async void HandleDoAsBusyState(Task task, bool resetIsBusyData = false)
         {
-            if (!IsBusyData.IsBusy)
+            try
             {
-                IsBusyData.IsBusy = true;
+                if (!IsBusyData.IsBusy)
+                {
+                    IsBusyData.IsBusy = true;
+                }
+                _doAsBusyStateTasks.Add(task);
+                await task;
+                if (resetIsBusyData)
+                {
+                    IsBusyData.Description = null;
+                    IsBusyData.Progress = default(float);
+                    IsBusyData.IsProgessBarVisible = false;
+                    IsBusyData.ClearCancellationTokenSource();
+                }
+                _doAsBusyStateTasks.Remove(task);
+                if (_doAsBusyStateTasks.Any()) return;
+                IsBusyData.IsBusy = false;
             }
-            _doAsBusyStateTasks.Add(task);
-            await task;
-            if (resetIsBusyData)
+            catch (Exception ex)
             {
-                IsBusyData.Description = null;
-                IsBusyData.Progress = default(float);
-                IsBusyData.IsProgessBarVisible = false;
-                IsBusyData.ClearCancellationTokenSource();
+                await Page.DisplayAlert("Error", ex.Message, "Close Application");
+                throw ex;
             }
-            _doAsBusyStateTasks.Remove(task);
-            if (_doAsBusyStateTasks.Any()) return;
-            IsBusyData.IsBusy = false;
         }
 
         [NotifyPropertyChangedInvocator]

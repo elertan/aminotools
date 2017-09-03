@@ -9,6 +9,7 @@ namespace AminoTools.ViewModels.Contracts.Community
 {
     public interface IJoinRandomCommunitiesPageViewModel
     {
+        int MinimumAmountOfMembers { get; set; }
         Command JoinCommunitiesCommand { get; }
     }
 }
