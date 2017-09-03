@@ -49,6 +49,7 @@ namespace AminoTools.ViewModels.Auth
         private async Task SaveStateAsync()
         {
             await SettingsManager.SaveSettingAsync(SettingsManager.AvailableSettings.Username, Username);
+            await SettingsManager.SaveSettingAsync(SettingsManager.AvailableSettings.Password, Password);
         }
 
         private string _username;

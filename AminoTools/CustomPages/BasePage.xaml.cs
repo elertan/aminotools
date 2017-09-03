@@ -14,6 +14,7 @@ namespace AminoTools.CustomPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BasePage : ContentPage
     {
+        private bool _firstTimeAppearing = true;
         public View ParentPageContent { get; set; }
         public BaseViewModel BaseViewModel { get; set; }
         public BasePage()
@@ -23,6 +24,9 @@ namespace AminoTools.CustomPages
 
         private void BasePage_OnAppearing(object sender, EventArgs e)
         {
+            if (!_firstTimeAppearing) return;
+            _firstTimeAppearing = false;
+
             if (ParentPageContent == null) ParentPageContent = Content;
 
             // Get ViewModel

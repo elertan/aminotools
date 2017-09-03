@@ -48,6 +48,7 @@ namespace AminoApi.Models.Community
                 communityCollectionSection.JsonResolve(dictionary);
 
                 communityCollectionSections.Add(communityCollectionSection);
+                break;
             }
 
             Sections = communityCollectionSections;

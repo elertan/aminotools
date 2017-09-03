@@ -24,15 +24,24 @@ namespace AminoTools.ViewModels.Community
         private async void DoJoinCommunities()
         {
             var cts = new CancellationTokenSource();
-            var i = 0;
             await DoAsBusyStateCustom(async () =>
             {
+                var i = 0;
                 while (!cts.IsCancellationRequested)
                 {
-                    IsBusyData.Description = "We're counting! " + i;
+                    IsBusyData.Description = "Getting Communities";
+                    var response = await _communityProvider.GetCommunitiesFromExplore(i * 25);
+                    var section = response.Sections.FirstOrDefault();
+                    if (section == null) return;
+
+                    foreach (var community in section.Communities)
+                    {
+                        IsBusyData.Description = $"Joining {community.Name}";
+                        await Task.Delay(500);
+                        if (cts.IsCancellationRequested) return;
+                    }
+
                     i++;
-                    var response = await _communityProvider.GetCommunitiesFromExplore();
-                    break;
                 }
             }, cts);
         }

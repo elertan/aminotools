@@ -9,6 +9,7 @@ using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
 using Xamarin.Forms;
 using AminoTools.Pages;
+using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels;
 using AminoTools.ViewModels.Auth;
 using Autofac;
@@ -67,7 +68,14 @@ namespace AminoTools
             var account = SettingsManager.GetSettingOrDefault<Account>(SettingsManager.AvailableSettings.Account);
             if (account != null)
             {
-                await Login(account);
+                var email = SettingsManager.GetSetting<string>(SettingsManager.AvailableSettings.Username);
+                var password = SettingsManager.GetSetting<string>(SettingsManager.AvailableSettings.Password);
+
+                // Retry login
+                var provider = DependencyManager.Container.Resolve<IAuthorizationProvider>();
+                var acc = await provider.Login(email, password);
+
+                await Login(acc);
                 return;
             }
 
