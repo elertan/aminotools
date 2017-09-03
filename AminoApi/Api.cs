@@ -13,6 +13,7 @@ using AminoApi.Models.Community;
 using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
 using AminoApi.Models.User;
+using Newtonsoft.Json.Linq;
 
 namespace AminoApi
 {
@@ -114,7 +115,7 @@ namespace AminoApi
             {
                 ["title"] = title,
                 ["content"] = content,
-                ["mediaList"] = imageItems?.ToArray(),
+                ["mediaList"] = null,
                 ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
                 ["type"] = type,
                 ["latitude"] = 0,
@@ -122,6 +123,21 @@ namespace AminoApi
                 ["extensions"] = null,
                 ["address"] = null
             };
+
+            if (imageItems != null)
+            {
+                var jArray = new JArray();
+                foreach (var imageItem in imageItems)
+                {
+                    var innerArray = new JArray();
+                    innerArray.Add(100);
+                    innerArray.Add(imageItem.ImageUri.ToString());
+                    innerArray.Add(null);
+                    if (imageItem.BlogReferenceId != null) innerArray.Add(imageItem.BlogReferenceId);
+                    jArray.Add(innerArray);
+                }
+                data["mediaList"] = jArray;
+            }
 
             var result = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/blog", data);
             return _apiResultBuilder.Build<Blog>(result);

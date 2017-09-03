@@ -23,6 +23,20 @@ namespace AminoTools.Providers
             return result.Data.Communities;
         }
 
+        public async Task<IEnumerable<Community>> GetAllJoinedCommunities()
+        {
+            var list = new List<Community>();
+
+            for (var i = 0;; i++)
+            {
+                var communities = await GetJoinedCommunities(50 * i);
+                if (!communities.Any()) break;
+                list.AddRange(communities);
+            }
+
+            return list;
+        }
+
         public async Task<IEnumerable<Community>> GetSuggestedCommunities(int index = 0, int amount = 50)
         {
             var result = await Api.GetSuggestedCommunities(index, amount);

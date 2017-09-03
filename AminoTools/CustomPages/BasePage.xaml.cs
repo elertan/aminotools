@@ -29,9 +29,13 @@ namespace AminoTools.CustomPages
 
             if (ParentPageContent == null) ParentPageContent = Content;
 
-            // Get ViewModel
-            var resolver = (ViewModelResolver)BindingContext;
-            BaseViewModel = (BaseViewModel)resolver.Model;
+            if (BaseViewModel == null)
+            {
+                // Get ViewModel
+                var resolver = (ViewModelResolver)BindingContext;
+                BaseViewModel = (BaseViewModel)resolver.Model;
+            }
+
             BaseViewModel.Page = this;
             BaseViewModel.IsBusyData.PropertyChanged += IsBusyData_PropertyChanged;
 

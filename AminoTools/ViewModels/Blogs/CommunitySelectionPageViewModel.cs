@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AminoApi.Models.Community;
+using AminoApi.Models.Media;
 using AminoTools.Models;
 using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts.Blogs;
@@ -18,6 +19,7 @@ namespace AminoTools.ViewModels.Blogs
     {
         private readonly ICommunityProvider _communityProvider;
         private readonly IBlogProvider _blogProvider;
+        private readonly IMediaProvider _mediaProvider;
         private ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> _selectableCommunities;
         private Command _selectAllCommand;
         private Command _selectNoneCommand;
@@ -78,10 +80,12 @@ namespace AminoTools.ViewModels.Blogs
         }
 
         public CommunitySelectionPageViewModel(ICommunityProvider communityProvider,
-            IBlogProvider blogProvider)
+            IBlogProvider blogProvider,
+            IMediaProvider mediaProvider)
         {
             _communityProvider = communityProvider;
             _blogProvider = blogProvider;
+            _mediaProvider = mediaProvider;
 
             SelectAllCommand = new Command(DoSelectAll);
             SelectNoneCommand = new Command(DoSelectNone);
@@ -106,13 +110,27 @@ namespace AminoTools.ViewModels.Blogs
 
                 IsBusyData.IsProgessBarVisible = true;
 
+                IsBusyData.Description = "Uploading Images";
+                var imageItems = new List<ImageItem>();
+                var imagesIterator = 0;
+                foreach (var imageSource in App.Variables.MultiBlog.BlogImageSources)
+                {
+                    var imageItem = await _mediaProvider.UploadImage(imageSource.MemoryStream);
+                    imageItems.Add(imageItem);
+                    imagesIterator++;
+
+                    IsBusyData.Progress = imagesIterator / (float)App.Variables.MultiBlog.BlogImageSources.Count;
+                }
+
+                IsBusyData.Progress = 0f;
+
                 var blog = App.Variables.MultiBlog.Blog;
                 var i = 0;
                 foreach (var community in App.Variables.MultiBlog.Communities)
                 {
                     IsBusyData.Description = $"Sending blog to {community.Name}";
                     if (i != 0) IsBusyData.Progress = i / (float)App.Variables.MultiBlog.Communities.Count();
-                    await _blogProvider.PostBlog(community.Id, blog.Title, blog.Content);
+                    await _blogProvider.PostBlog(community.Id, blog.Title, blog.Content, imageItems);
                     i++;
                     if (!cts.IsCancellationRequested) continue;
 
@@ -150,7 +168,7 @@ namespace AminoTools.ViewModels.Blogs
 
         private async void CommunitySelectionPageViewModel_Initialize(object sender, EventArgs e)
         {
-            var communities = await DoAsBusyState(_communityProvider.GetJoinedCommunities());
+            var communities = await DoAsBusyState(_communityProvider.GetAllJoinedCommunities());
             var selectableCommunties = GetSelectableCommuntiesByCommunities(communities);
             SelectableCommunities = new ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>>(selectableCommunties);
         }

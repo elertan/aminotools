@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AminoApi;
@@ -7,6 +8,7 @@ using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
+using AminoTools.Models.Common.ImageSelection;
 using Xamarin.Forms;
 using AminoTools.Pages;
 using AminoTools.Providers.Contracts;
@@ -100,6 +102,7 @@ namespace AminoTools
             public VariablesClass()
             {
                 MultiBlog = new MultiBlogClass();
+                ImageSelection = new ImageSelectionClass();
             }
 
             public readonly MultiBlogClass MultiBlog;
@@ -107,6 +110,19 @@ namespace AminoTools
             {
                 public Blog Blog { get; set; }
                 public IEnumerable<Community> Communities { get; set; }
+                public List<BlogImageSource> BlogImageSources { get; set; }
+            }
+
+            public readonly ImageSelectionClass ImageSelection;
+            public class ImageSelectionClass
+            {
+                public ObservableCollection<BlogImageSource> BlogImageSources { get; set; }
+                public event EventHandler UpdatedImages;
+
+                public virtual void OnUpdatedImages()
+                {
+                    UpdatedImages?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
