@@ -137,6 +137,7 @@
     <Compile Include="ViewModels\Blogs\MultiBlogPageViewModel.cs" />
     <Compile Include="ViewModels\Common\ImageSelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Community\CommunityPageViewModel.cs" />
+    <Compile Include="ViewModels\Community\JoinRandomCommunitiesPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Auth\ILoginPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginPageViewModel.cs" />
