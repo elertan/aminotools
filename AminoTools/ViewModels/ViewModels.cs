@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AminoTools.ViewModels.Contracts;
 using AminoTools.ViewModels.Contracts.Auth;
 using AminoTools.ViewModels.Contracts.Blogs;
+using AminoTools.ViewModels.Contracts.Chatting;
 using AminoTools.ViewModels.Contracts.Common;
 using AminoTools.ViewModels.Contracts.Community;
 using AminoTools.ViewModels.Contracts.Settings;
@@ -35,6 +36,10 @@ namespace AminoTools.ViewModels
             .Resolve<ICommunitySelectionPageViewModel>();
 
         public static IMultiBlogPageViewModel MultiBlogPageViewModel => Container.Resolve<IMultiBlogPageViewModel>();
+
+        // ViewModels.Chatting
+        public static IGlobalChattingPageViewModel GlobalChattingPageViewModel => Container
+            .Resolve<IGlobalChattingPageViewModel>();
 
         // ViewModels.Common
         public static IImageSelectionPageViewModel ImageSelectionPageViewModel => Container

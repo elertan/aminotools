@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AminoApi.Models.Auth;
 using AminoTools.Pages;
 using AminoTools.Pages.Blogs;
+using AminoTools.Pages.Chatting;
 using AminoTools.Pages.Community;
 using AminoTools.Pages.Settings;
 using AminoTools.ViewModels.Contracts;
@@ -66,6 +67,11 @@ namespace AminoTools.ViewModels
                 {
                     Title  = "Home",
                     TargetPageType = typeof(HomePage)
+                },
+                new MenuItem
+                {
+                    Title  = "Chats",
+                    TargetPageType = typeof(GlobalChattingPage)
                 },
                 new MenuItem
                 {

@@ -10,6 +10,7 @@ using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts;
 using AminoTools.ViewModels.Contracts.Auth;
 using AminoTools.ViewModels.Contracts.Blogs;
+using AminoTools.ViewModels.Contracts.Chatting;
 using AminoTools.ViewModels.Contracts.Common;
 using AminoTools.ViewModels.Contracts.Community;
 using AminoTools.ViewModels.Contracts.Settings;
@@ -60,6 +61,9 @@ namespace AminoTools
             cb.RegisterType<ViewModels.Blogs.BlogsPageViewModel>().As<IBlogsPageViewModel>();
             cb.RegisterType<ViewModels.Blogs.MultiBlogPageViewModel>().As<IMultiBlogPageViewModel>();
             cb.RegisterType<ViewModels.Blogs.CommunitySelectionPageViewModel>().As<ICommunitySelectionPageViewModel>();
+
+            // ViewModels.Chatting
+            cb.RegisterType<ViewModels.Chatting.GlobalChattingPageViewModel>().As<IGlobalChattingPageViewModel>();
 
             // ViewModels.Community
             cb.RegisterType<ViewModels.Community.CommunityPageViewModel>().As<ICommunityPageViewModel>();
