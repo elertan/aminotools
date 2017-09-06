@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
+using AminoApi.Models.Chat;
 using AminoApi.Models.Community;
 using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
@@ -155,6 +156,12 @@ namespace AminoApi
         {
             var response = await _httpInteractor.PostStreamAsync("/g/s/media/upload", imageStream);
             return _apiResultBuilder.Build<ImageItem>(response);
+        }
+
+        public async Task<ApiResult<ThreadList>> GetJoinedChats(string communityId, int start = 0, int size = 25)
+        {
+            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread?type=joined-me&start={start}&size={size}&cv=1.2 ");
+            return _apiResultBuilder.Build<ThreadList>(response);
         }
     }
 }

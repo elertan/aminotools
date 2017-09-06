@@ -38,6 +38,10 @@
     <Compile Include="Api.cs" />
     <Compile Include="ApiResult.cs" />
     <Compile Include="ApiResultBuilder.cs" />
+    <Compile Include="Models\Chat\AlertOptions.cs" />
+    <Compile Include="Models\Chat\Chat.cs" />
+    <Compile Include="Models\Chat\Message.cs" />
+    <Compile Include="Models\Chat\ThreadList.cs" />
     <Compile Include="Models\Community\CommunityCollection.cs" />
     <Compile Include="Models\Community\CommunityCollectionResponse.cs" />
     <Compile Include="ExtensionMethods.cs" />
