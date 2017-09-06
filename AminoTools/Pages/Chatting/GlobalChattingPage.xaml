@@ -11,15 +11,16 @@
                       x:Class="AminoTools.Pages.Chatting.GlobalChattingPage">
     <ContentPage.Content>
         <Grid>
-            <ListView ItemsSource="{Binding Chats}">
+            <ListView ItemsSource="{Binding Chats}"
+                      RowHeight="60">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="75" />
                                     <ColumnDefinition Width="6*" />
-                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -27,27 +28,39 @@
                                 </Grid.RowDefinitions>
                                 
                                 <!--Full Height and First Column-->
-                                <ffImageLoading:CachedImage Grid.RowSpan="2">
+                                <ffImageLoading:CachedImage Grid.RowSpan="2"
+                                                            Margin="10,0,0,0"
+                                                            VerticalOptions="Center"
+                                                            HorizontalOptions="Center"
+                                                            WidthRequest="50"
+                                                            Source="http://pm1.narvii.com/5772/caa1dc8887917ba80ee15e0e0a8a7c889f6cf14f_hq.jpg">
                                     <ffImageLoading:CachedImage.Transformations>
-                                        <transformations:CircleTransformation />
+                                        <transformations:CircleTransformation BorderHexColor="#000000"
+                                                                              BorderSize="1" />
                                     </ffImageLoading:CachedImage.Transformations>
                                 </ffImageLoading:CachedImage>
 
                                 <!--Top Row in Second Column-->
                                 <Label FontAttributes="Bold"
-                                       FontSize="16"
+                                       FontSize="14"
+                                       Margin="0,5,0,0"
                                        Text="TatiSchokiii"
+                                       VerticalOptions="End"
                                        Grid.Row="0"
                                        Grid.Column="1" />
                                 
-                                <Label FontSize="15"
+                                <Label FontSize="13"
                                        Text="As the background of the chat"
+                                       VerticalOptions="Start"
+                                       LineBreakMode="TailTruncation"
                                        TextColor="DimGray"
                                        Grid.Row="1"
                                        Grid.Column="1" />
                                 
-                                <Label FontSize="14"
-                                       Text="A moment ago"
+                                <Label FontSize="11"
+                                       Text="a moment ago"
+                                       Margin="0,5,0,0"
+                                       VerticalOptions="End"
                                        TextColor="DimGray"
                                        Grid.Row="0"
                                        Grid.Column="2" />

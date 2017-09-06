@@ -58,11 +58,13 @@ namespace AminoApi
         {
             await WaitForApiDelay();
 
-            var response = await _httpClient.GetStringAsync(_prefix + url);
+            var response = await _httpClient.GetAsync(_prefix + url);
+            
+            var data = await response.Content.ReadAsStringAsync();
             switch (dm)
             {
                 case DecompressionMethods.None:
-                    return response;
+                    return data;
                 case DecompressionMethods.GZip:
                     throw new NotImplementedException();
                 default:
