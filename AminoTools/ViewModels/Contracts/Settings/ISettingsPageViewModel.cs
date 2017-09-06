@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AminoTools.ViewModels.Contracts.Settings
 {
-    interface ISettingsPageViewModel
+    public interface ISettingsPageViewModel
     {
     }
 }

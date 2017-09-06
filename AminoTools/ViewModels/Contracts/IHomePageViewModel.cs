@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace AminoTools.ViewModels.Contracts
 {
-    interface IHomePageViewModel
+    public interface IHomePageViewModel
     {
         IEnumerable<HeadLineBlog> Blogs { get; set; }
     }

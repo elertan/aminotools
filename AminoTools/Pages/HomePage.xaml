@@ -7,16 +7,15 @@
                       xmlns:contracts="clr-namespace:AminoTools.ViewModels.Contracts;assembly=AminoTools"
                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                       xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
                       Title="Home"
                       BackgroundColor="LightGray"
+                      BindingContext="{x:Static viewModels:ViewModels.HomePageViewModel}"
                       x:Class="AminoTools.Pages.HomePage">
-    <customPages:BasePage.BindingContext>
-        <aminoTools:ViewModelResolver ViewModelType="{x:Type contracts:IHomePageViewModel}" />
-    </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <ListView ItemsSource="{Binding Model.Blogs}"
+                <ListView ItemsSource="{Binding Blogs}"
                           HasUnevenRows="True"
                           SeparatorVisibility="Default">
                     <ListView.ItemTemplate>
