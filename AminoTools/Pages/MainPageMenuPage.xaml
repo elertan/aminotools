@@ -8,12 +8,11 @@
                       xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
                       xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
                       x:Class="AminoTools.Pages.MainPageMenuPage"
+                      BindingContext="{x:Static viewModels:}"
                       Icon="menuIcon.png"
                       Title="Menu">
-    <ContentPage.BindingContext>
-        <aminoTools:ViewModelResolver ViewModelType="{x:Type contracts:IMainPageMenuPageViewModel}" />
-    </ContentPage.BindingContext>
     <StackLayout HorizontalOptions="FillAndExpand"
                  VerticalOptions="FillAndExpand">
         <Grid BackgroundColor="DodgerBlue"
