@@ -158,6 +158,7 @@
     <Compile Include="ViewModels\Settings\AccountPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\TestPageViewModel.cs" />
+    <Compile Include="ViewModels\ViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
