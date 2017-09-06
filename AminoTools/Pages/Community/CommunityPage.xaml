@@ -8,6 +8,7 @@
                       xmlns:cells="clr-namespace:AminoTools.CustomControls.Cells;assembly=AminoTools"
                       xmlns:settingPages="clr-namespace:AminoTools.Pages.Settings;assembly=AminoTools"
                       xmlns:pages="clr-namespace:AminoTools.Pages.Community;assembly=AminoTools"
+                      Title="Communities"
                       x:Class="AminoTools.Pages.Community.CommunityPage">
     <customPages:BasePage.BindingContext>
         <aminoTools:ViewModelResolver ViewModelType="{x:Type viewModels:ICommunityPageViewModel}" />

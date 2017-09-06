@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AminoApi;
@@ -6,8 +8,10 @@ using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
+using AminoTools.Models.Common.ImageSelection;
 using Xamarin.Forms;
 using AminoTools.Pages;
+using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels;
 using AminoTools.ViewModels.Auth;
 using Autofac;
@@ -50,11 +54,30 @@ namespace AminoTools
         {
             // Handle when your app starts
 
+            var exception = await ExceptionManager.GetExceptionAsync();
+            if (exception != null)
+            {
+                MainPage = new ExceptionPage(exception);
+                return;
+            }
+
+            await StartUp();
+        }
+
+        public async Task StartUp()
+        {
             // Already logged in
             var account = SettingsManager.GetSettingOrDefault<Account>(SettingsManager.AvailableSettings.Account);
             if (account != null)
             {
-                await Login(account);
+                var email = SettingsManager.GetSetting<string>(SettingsManager.AvailableSettings.Username);
+                var password = SettingsManager.GetSetting<string>(SettingsManager.AvailableSettings.Password);
+
+                // Retry login
+                var provider = DependencyManager.Container.Resolve<IAuthorizationProvider>();
+                var acc = await provider.Login(email, password);
+
+                await Login(acc.Data);
                 return;
             }
 
@@ -79,6 +102,7 @@ namespace AminoTools
             public VariablesClass()
             {
                 MultiBlog = new MultiBlogClass();
+                ImageSelection = new ImageSelectionClass();
             }
 
             public readonly MultiBlogClass MultiBlog;
@@ -86,6 +110,19 @@ namespace AminoTools
             {
                 public Blog Blog { get; set; }
                 public IEnumerable<Community> Communities { get; set; }
+                public List<BlogImageSource> BlogImageSources { get; set; }
+            }
+
+            public readonly ImageSelectionClass ImageSelection;
+            public class ImageSelectionClass
+            {
+                public ObservableCollection<BlogImageSource> BlogImageSources { get; set; }
+                public event EventHandler UpdatedImages;
+
+                public virtual void OnUpdatedImages()
+                {
+                    UpdatedImages?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -124,6 +161,15 @@ namespace AminoTools
             Account = account;
 
             GoToStartPage();
+        }
+
+        // MAY NOT BE ASYNC
+        public void ExceptionOccured(object sender, Exception ex)
+        {
+            if (ex != null)
+            {
+                ExceptionManager.ReportException(ex);
+            }
         }
     }
 }

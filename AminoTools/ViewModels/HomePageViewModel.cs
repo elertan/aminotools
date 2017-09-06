@@ -39,15 +39,16 @@ namespace AminoTools.ViewModels
             await DoAsBusyStateCustom(async () =>
             {
                 IsBusyData.Description = "Loading Feed";
-                var feedHeadlines = await _feedProvider.GetFeedHeadlines();
+                var feedHeadlinesResult = await _feedProvider.GetFeedHeadlines();
 
-                Blogs = feedHeadlines.Blogs;
+                if (!feedHeadlinesResult.DidSucceed())
+                {
+                    await Page.DisplayAlert("Something went wrong", feedHeadlinesResult.Info.Message, "Ok");
+                    return;
+                }
+
+                Blogs = feedHeadlinesResult.Data.Blogs;
             });
-        }
-
-        private async void DoNavigateToTestPage()
-        {
-            await App.MainNavigation.PushAsync(new TestPage(), true);
         }
     }
 }

@@ -79,7 +79,8 @@ namespace AminoTools
         public enum AvailableSettings
         {
             Account,
-            Username
+            Username,
+            Password
         }
     }
 }

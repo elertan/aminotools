@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,8 @@ using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
 using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
+using AminoApi.Models.User;
+using Newtonsoft.Json.Linq;
 
 namespace AminoApi
 {
@@ -67,6 +71,31 @@ namespace AminoApi
             return _apiResultBuilder.Build<CommunityList>(response);
         }
 
+        public async Task<ApiResult<CommunityList>> GetSuggestedCommunities(int start = 0, int size = 50)
+        {
+            var response = await _httpInteractor.GetAsync($"/g/s/community/suggested?start={start}&size={size}");
+            return _apiResultBuilder.Build<CommunityList>(response);
+        }
+
+        public async Task<ApiResult<CommunityList>> GetCommuntiesByQuery(string query, int start = 0, int size = 0)
+        {
+            var q = WebUtility.UrlEncode(query);
+            var response = await _httpInteractor.GetAsync($"/g/s/community/search?q={q}start={start}&size={size}&language=en");
+            return _apiResultBuilder.Build<CommunityList>(response);
+        }
+
+        public async Task<ApiResult<UserProfile>> JoinAmino(string id)
+        {
+            var response = await _httpInteractor.PostAsync($"/x{id}/s/community/join");
+            return _apiResultBuilder.Build<UserProfile>(response);
+        }
+
+        public async Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySections(int start = 0, int size = 25, string languageCode = "en")
+        {
+            var response = await _httpInteractor.GetAsync($"/g/s/community-collection/view/explore/sections?language={languageCode}&start={start}&size={size}");
+            return _apiResultBuilder.Build<CommunityCollectionResponse>(response);
+        }
+
         public async Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communityId, string userId,
             int start = 0, int size = 25)
         {
@@ -86,7 +115,7 @@ namespace AminoApi
             {
                 ["title"] = title,
                 ["content"] = content,
-                ["mediaList"] = imageItems?.ToArray(),
+                ["mediaList"] = null,
                 ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
                 ["type"] = type,
                 ["latitude"] = 0,
@@ -95,14 +124,37 @@ namespace AminoApi
                 ["address"] = null
             };
 
+            if (imageItems != null) AddMediaToData(data, imageItems);
+
             var result = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/blog", data);
             return _apiResultBuilder.Build<Blog>(result);
+        }
+
+        private void AddMediaToData(Dictionary<string, object> data, IEnumerable<ImageItem> imageItems)
+        {
+            var jArray = new JArray();
+            foreach (var imageItem in imageItems)
+            {
+                var innerArray = new JArray();
+                innerArray.Add(100);
+                innerArray.Add(imageItem.ImageUri.ToString());
+                innerArray.Add(null);
+                if (imageItem.BlogReferenceId != null) innerArray.Add(imageItem.BlogReferenceId);
+                jArray.Add(innerArray);
+            }
+            data["mediaList"] = jArray;
         }
 
         public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int start = 0, int size = 25)
         {
             var response = await _httpInteractor.GetAsync($"/g/s/feed/headlines?start={start}&size={size}");
             return _apiResultBuilder.Build<FeedHeadlines>(response);
+        }
+
+        public async Task<ApiResult<ImageItem>> UploadImage(Stream imageStream)
+        {
+            var response = await _httpInteractor.PostStreamAsync("/g/s/media/upload", imageStream);
+            return _apiResultBuilder.Build<ImageItem>(response);
         }
     }
 }

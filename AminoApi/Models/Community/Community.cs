@@ -77,13 +77,13 @@ namespace AminoApi.Models.Community
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
-            Id = Convert.ToString(data["ndcId"]);
-            Name = Convert.ToString(data["name"]);
-            PrimaryLanguage = Convert.ToString(data["primaryLanguage"]);
-            AmountOfMembers = Convert.ToInt32(data["membersCount"]);
-            var linkStr = Convert.ToString(data["link"]);
+            Id = data.Resolve<string>("ndcId");
+            Name = data.Resolve<string>("name");
+            PrimaryLanguage = data.Resolve<string>("primaryLanguage");
+            AmountOfMembers = data.Resolve<int>("membersCount");
+            var linkStr = data.Resolve<string>("link");
             if (!string.IsNullOrWhiteSpace(linkStr)) Link = new Uri(linkStr);
-            Tagline = Convert.ToString(data["tagline"]);
+            Tagline = data.Resolve<string>("tagline");
         }
     }
 }

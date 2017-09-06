@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,20 +25,20 @@ namespace AminoTools
         public static bool IsValidJson(string strInput)
         {
             strInput = strInput.Trim();
-            if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
-                (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
+            if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || // For object
+                (strInput.StartsWith("[") && strInput.EndsWith("]"))) // For array
             {
                 try
                 {
-                    var obj = JToken.Parse(strInput);
+                    JToken.Parse(strInput);
                     return true;
                 }
-                catch (JsonReaderException jex)
+                catch (JsonReaderException)
                 {
                     //Exception in parsing json
                     return false;
                 }
-                catch (Exception ex) //some other exception
+                catch (Exception)
                 {
                     return false;
                 }
@@ -50,7 +51,7 @@ namespace AminoTools
 
         public static int GetUnixTimeStamp()
         {
-            return (Int32) (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            return (int) DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
     }
 }

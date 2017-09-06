@@ -10,6 +10,7 @@ using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts;
 using AminoTools.ViewModels.Contracts.Auth;
 using AminoTools.ViewModels.Contracts.Blogs;
+using AminoTools.ViewModels.Contracts.Common;
 using AminoTools.ViewModels.Contracts.Community;
 using AminoTools.ViewModels.Contracts.Settings;
 using Autofac;
@@ -32,6 +33,8 @@ namespace AminoTools
             // General
             cb.RegisterInstance(new HttpClient()).SingleInstance();
 
+            cb.RegisterType<RandomWordProvider>().As<IRandomWordProvider>().SingleInstance();
+
             // Api
             cb.RegisterType<Api>().As<IApi>().SingleInstance();
 
@@ -40,11 +43,15 @@ namespace AminoTools
             cb.RegisterType<CommunityProvider>().As<ICommunityProvider>();
             cb.RegisterType<AuthorizationProvider>().As<IAuthorizationProvider>();
             cb.RegisterType<FeedProvider>().As<IFeedProvider>();
+            cb.RegisterType<MediaProvider>().As<IMediaProvider>();
 
             // ViewModels
             cb.RegisterType<ViewModels.MainPageMenuPageViewModel>().As<IMainPageMenuPageViewModel>();
             cb.RegisterType<ViewModels.TestPageViewModel>().As<ITestPageViewModel>();
             cb.RegisterType<ViewModels.HomePageViewModel>().As<IHomePageViewModel>();
+
+            // ViewModels.Common
+            cb.RegisterType<ViewModels.Common.ImageSelectionPageViewModel>().As<IImageSelectionPageViewModel>();
 
             // ViewModels.Auth
             cb.RegisterType<ViewModels.Auth.LoginPageViewModel>().As<ILoginPageViewModel>();
@@ -56,6 +63,7 @@ namespace AminoTools
 
             // ViewModels.Community
             cb.RegisterType<ViewModels.Community.CommunityPageViewModel>().As<ICommunityPageViewModel>();
+            cb.RegisterType<ViewModels.Community.JoinRandomCommunitiesPageViewModel>().As<IJoinRandomCommunitiesPageViewModel>();
 
             // ViewModels.Settings
             cb.RegisterType<ViewModels.Settings.SettingsPageViewModel>().As<ISettingsPageViewModel>();

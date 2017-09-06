@@ -42,6 +42,13 @@ namespace AminoApi.Models.Media
             }
         }
 
+        public override void JsonResolve(Dictionary<string, object> data)
+        {
+            var url = data.Resolve<string>("mediaValue");
+            if (url != null)
+                ImageUri = new Uri(url);
+        }
+
         public override void JsonResolveArray(object[] data)
         {
             SomeValue = Convert.ToInt32(data[0]);

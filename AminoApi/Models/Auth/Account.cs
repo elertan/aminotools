@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AminoApi.Models.User;
 
 namespace AminoApi.Models.Auth
 {
@@ -55,32 +56,25 @@ namespace AminoApi.Models.Auth
     "api:timestamp": "2017-08-20T14:04:35Z"
 }
          */
-    public class Account : ModelBase
+    public class Account : UserProfile
     {
         public string Secret { get; set; }
         public string Sid { get; set; }
-        public int Status { get; set; }
-        public string Uid { get; set; }
         public bool PhoneNumberActivation { get; set; }
         public bool EmailActivation { get; set; }
         public string FacebookId { get; set; }
         public AdvancedSettings AdvancedSettings { get; set; }
         public string Email { get; set; }
-        public string Nickname { get; set; }
-        public Uri Icon { get; set; }
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
-            Secret = Convert.ToString(data["secret"]);
-            Sid = Convert.ToString(data["sid"]);
+            Secret = data.Resolve<string>("secret");
+            Sid = data.Resolve<string>("sid");
 
             var account = data["account"].ToJObject().ToDictionary();
 
-            Status = Convert.ToInt32(account["status"]);
-            Uid = Convert.ToString(account["uid"]);
-            Email = Convert.ToString(account["email"]);
-            Nickname = Convert.ToString(account["nickname"]);
-            Icon = new Uri(Convert.ToString(account["icon"]));
+            base.JsonResolve(account);
+            Email = account.Resolve<string>("email");
 
             AdvancedSettings = new AdvancedSettings();
             AdvancedSettings.JsonResolve(account["advancedSettings"].ToJObject().ToDictionary());

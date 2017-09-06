@@ -12,15 +12,12 @@ namespace AminoTools.Providers
 {
     public class FeedProvider : Provider, IFeedProvider
     {
-        public FeedProvider(IApi api) : base(api)
-        {
+        public FeedProvider(IApi api) : base(api) { }
 
-        }
-
-        public async Task<FeedHeadlines> GetFeedHeadlines(int index = 0, int amount = 25)
+        public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int index = 0, int amount = 25)
         {
             var result = await Api.GetFeedHeadlines(index, amount);
-            return result.Data;
+            return result;
         }
     }
 }
