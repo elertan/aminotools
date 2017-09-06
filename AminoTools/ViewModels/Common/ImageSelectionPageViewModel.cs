@@ -53,6 +53,7 @@ namespace AminoTools.ViewModels.Common
         private void DoRemoveImage(object o)
         {
             var blogImageSource = (BlogImageSource) o;
+            BlogImageSources.Remove(blogImageSource);
         }
 
         private async void DoAddNewImage()

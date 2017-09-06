@@ -9,6 +9,7 @@
                       x:Class="AminoTools.Pages.Common.ImageSelectionPage"
                       xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
                       BindingContext="{x:Static viewModels:ViewModels.ImageSelectionPageViewModel}"
+                      x:Name="This"
                       Title="Select Images">
     <ContentPage.Content>
         <Grid>
@@ -31,6 +32,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <ffImageLoading:CachedImage Source="{Binding ImageSource}"
                                                             VerticalOptions="Fill"
@@ -40,6 +42,14 @@
                                        VerticalOptions="Center"
                                        Margin="10,0,0,0"
                                        Grid.Column="1" />
+                                <Button Text="Remove"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="End"
+                                        TextColor="Red"
+                                        Margin="0,0,20,0"
+                                        Command="{Binding BindingContext.RemoveImageCommand, Source={x:Reference This}}"
+                                        CommandParameter="{Binding}"
+                                        Grid.Column="2"></Button>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

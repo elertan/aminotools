@@ -70,8 +70,16 @@ namespace AminoTools
             var account = SettingsManager.GetSettingOrDefault<Account>(SettingsManager.AvailableSettings.Account);
             if (account != null)
             {
-                var email = SettingsManager.GetSetting<string>(SettingsManager.AvailableSettings.Username);
-                var password = SettingsManager.GetSetting<string>(SettingsManager.AvailableSettings.Password);
+                var email = SettingsManager.GetSettingWithFallback(SettingsManager.AvailableSettings.Username, String.Empty);
+                var password = SettingsManager.GetSettingWithFallback(SettingsManager.AvailableSettings.Password, String.Empty);
+
+                if (string.IsNullOrWhiteSpace(email)
+                    || string.IsNullOrWhiteSpace(password))
+                {
+                    // Yet to log in
+                    MainPage = new NavigationPage(new LoginPage());
+                    return;
+                }
 
                 // Retry login
                 var provider = DependencyManager.Container.Resolve<IAuthorizationProvider>();
