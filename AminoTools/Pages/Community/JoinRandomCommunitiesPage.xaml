@@ -5,11 +5,10 @@
                       xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
                       xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
                       xmlns:community="clr-namespace:AminoTools.ViewModels.Contracts.Community;assembly=AminoTools"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
                       Title="Join Random Communities"
+                      BindingContext="{x:Static viewModels:ViewModels.JoinRandomCommunitiesPageViewModel}"
                       x:Class="AminoTools.Pages.Community.JoinRandomCommunitiesPage">
-    <customPages:BasePage.BindingContext>
-        <aminoTools:ViewModelResolver ViewModelType="{x:Type community:IJoinRandomCommunitiesPageViewModel}" />
-    </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -17,12 +16,12 @@
                 <RowDefinition Height="8*" />
             </Grid.RowDefinitions>
             <Entry Placeholder="Minimum Amount Of Members"
-                   Text="{Binding Model.MinimumAmountOfMembers}"
+                   Text="{Binding MinimumAmountOfMembers}"
                    Keyboard="Numeric"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
             <Button Text="Join Communities"
-                    Command="{Binding Model.JoinCommunitiesCommand}"
+                    Command="{Binding JoinCommunitiesCommand}"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Grid.Row="1" />

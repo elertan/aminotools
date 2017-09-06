@@ -7,17 +7,16 @@
                       xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
                       xmlns:settings="clr-namespace:AminoTools.ViewModels.Contracts.Settings;assembly=AminoTools"
                       x:Class="AminoTools.Pages.Settings.AccountPage"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
+                      BindingContext="{x:Static viewModels:ViewModels.AccountPageViewModel}"
                       Title="Account">
-    <customPages:BasePage.BindingContext>
-        <aminoTools:ViewModelResolver ViewModelType="{x:Type settings:IAccountPageViewModel}" />
-    </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <TableView Intent="Settings">
             <TableView.Root>
                 <TableRoot>
                     <TableSection Title="General">
                         <cells:ButtonCell Text="Log Out"
-                                          Command="{Binding Model.LogOutCommand}"
+                                          Command="{Binding LogOutCommand}"
                                           TextColor="Red" />
                     </TableSection>
                 </TableRoot>

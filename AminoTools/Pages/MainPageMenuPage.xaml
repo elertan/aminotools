@@ -10,7 +10,7 @@
                       xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
                       xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
                       x:Class="AminoTools.Pages.MainPageMenuPage"
-                      BindingContext="{x:Static viewModels:}"
+                      BindingContext="{x:Static viewModels:ViewModels.MainPageMenuPageViewModel}"
                       Icon="menuIcon.png"
                       Title="Menu">
     <StackLayout HorizontalOptions="FillAndExpand"
@@ -32,7 +32,7 @@
                    FontSize="26"
                    TextColor="White" />
             <ffImageLoading:CachedImage Grid.Row="1"
-                                        Source="{Binding Model.Account.Icon}"
+                                        Source="{Binding Account.Icon}"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Center"
                                         WidthRequest="150"
@@ -47,13 +47,13 @@
                    VerticalOptions="Center"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
-                   Text="{Binding Model.Account.Nickname}"
+                   Text="{Binding Account.Nickname}"
                    FontSize="18"
                    TextColor="White" />
         </Grid>
         <ListView SeparatorVisibility="None"
-                  SelectedItem="{Binding Model.SelectedItem, Mode=TwoWay}"
-                  ItemsSource="{Binding Model.MenuItems}">
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding MenuItems}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

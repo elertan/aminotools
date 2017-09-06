@@ -10,10 +10,8 @@
     xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
     xmlns:authContracts="clr-namespace:AminoTools.ViewModels.Contracts.Auth;assembly=AminoTools"
     Title="Login"
+    BindingContext="{x:Static viewModels:ViewModels.LoginPageViewModel}"
     x:Class="AminoTools.Pages.Auth.LoginPage">
-    <ContentPage.BindingContext>
-      <aminoTools:ViewModelResolver ViewModelType="{x:Type authContracts:ILoginPageViewModel}" />
-    </ContentPage.BindingContext>
     <Grid Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" />
@@ -29,14 +27,14 @@
             </Grid.RowDefinitions>
             <Entry Placeholder="Email"
                    Keyboard="Email"
-                   Text="{Binding Model.Username}" />
+                   Text="{Binding Username}" />
             <Entry Placeholder="Password"
                    IsPassword="True"
-                   Text="{Binding Model.Password}"
+                   Text="{Binding Password}"
                    Grid.Row="1" />
             <Button Text="Login"
-                    IsEnabled="{Binding Model.MayLogin}"
-                    Command="{Binding Model.LoginCommand}"
+                    IsEnabled="{Binding MayLogin}"
+                    Command="{Binding LoginCommand}"
                     Grid.Row="2" />
         </Grid>
     </Grid>

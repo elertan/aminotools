@@ -7,11 +7,10 @@
                       xmlns:blogContracts="clr-namespace:AminoTools.ViewModels.Contracts.Blogs;assembly=AminoTools"
                       xmlns:cells="clr-namespace:AminoTools.CustomControls.Cells;assembly=AminoTools"
                       xmlns:blogPages="clr-namespace:AminoTools.Pages.Blogs;assembly=AminoTools"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
                       Title="Blogs"
+                      BindingContext="{x:Static viewModels:ViewModels.BlogsPageViewModel}"
                       x:Class="AminoTools.Pages.Blogs.BlogsPage">
-    <customPages:BasePage.BindingContext>
-        <aminoTools:ViewModelResolver ViewModelType="{x:Type blogContracts:IBlogsPageViewModel}" />
-    </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <Grid>
             <TableView Intent="Settings">

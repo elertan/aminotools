@@ -7,17 +7,16 @@
                       xmlns:common="clr-namespace:AminoTools.ViewModels.Contracts.Common;assembly=AminoTools"
                       xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                       x:Class="AminoTools.Pages.Common.ImageSelectionPage"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
+                      BindingContext="{x:Static viewModels:ViewModels.ImageSelectionPageViewModel}"
                       Title="Select Images">
-    <customPages:BasePage.BindingContext>
-        <aminoTools:ViewModelResolver ViewModelType="{x:Type common:IImageSelectionPageViewModel}" />
-    </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <ListView ItemsSource="{Binding Model.BlogImageSources}"
+            <ListView ItemsSource="{Binding BlogImageSources}"
                       HasUnevenRows="True"
                       RowHeight="100"
                       VerticalOptions="FillAndExpand"
@@ -47,7 +46,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Button Text="Add New"
-                    Command="{Binding Model.AddNewImageCommand}"
+                    Command="{Binding AddNewImageCommand}"
                     Grid.Row="1" />
         </Grid>
     </ContentPage.Content>

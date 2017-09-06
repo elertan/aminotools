@@ -6,10 +6,9 @@
                       xmlns:aminoTools="clr-namespace:AminoTools;assembly=AminoTools"
                       xmlns:blogContracts="clr-namespace:AminoTools.ViewModels.Contracts.Blogs;assembly=AminoTools"
                       Title="Community Selection"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
+                      BindingContext="{x:Static viewModels:ViewModels.CommunitySelectionPageViewModel}"
                       x:Class="AminoTools.Pages.Blogs.CommunitySelectionPage">
-    <customPages:BasePage.BindingContext>
-        <aminoTools:ViewModelResolver ViewModelType="{x:Type blogContracts:ICommunitySelectionPageViewModel}" />
-    </customPages:BasePage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Make a selection of communities you want the blog to appear on"
@@ -20,15 +19,15 @@
             <StackLayout Orientation="Horizontal"
                          Margin="5">
                 <Button Text="Select All"
-                        Command="{Binding Model.SelectAllCommand}"
+                        Command="{Binding SelectAllCommand}"
                         VerticalOptions="Center"
                         HorizontalOptions="Start"/>
                 <Button Text="Select None"
-                        Command="{Binding Model.SelectNoneCommand}"
+                        Command="{Binding SelectNoneCommand}"
                         VerticalOptions="Center"
                         HorizontalOptions="End"></Button>
             </StackLayout>
-            <ListView ItemsSource="{Binding Model.SelectableCommunities}">
+            <ListView ItemsSource="{Binding SelectableCommunities}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -47,9 +46,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="{Binding Model.SendButtonText}"
-                    Command="{Binding Model.SendButtonCommand}"
-                    IsEnabled="{Binding Model.SendButtonIsEnabled}"
+            <Button Text="{Binding SendButtonText}"
+                    Command="{Binding SendButtonCommand}"
+                    IsEnabled="{Binding SendButtonIsEnabled}"
                     Margin="10"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"

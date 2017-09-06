@@ -32,8 +32,15 @@ namespace AminoTools.CustomPages
             if (BaseViewModel == null)
             {
                 // Get ViewModel
-                var resolver = (ViewModelResolver)BindingContext;
-                BaseViewModel = (BaseViewModel)resolver.Model;
+                if (BindingContext is ViewModelResolver)
+                {
+                    var resolver = (ViewModelResolver) BindingContext;
+                    BaseViewModel = (BaseViewModel) resolver.Model;
+                }
+                else
+                {
+                    BaseViewModel = (BaseViewModel) BindingContext;
+                }
             }
 
             BaseViewModel.Page = this;
