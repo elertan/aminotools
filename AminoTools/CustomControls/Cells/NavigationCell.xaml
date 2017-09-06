@@ -16,7 +16,8 @@
             <ffImageLoading:CachedImage Source="ic_chevron_right_black_24dp.png"
                                         VerticalOptions="Center"
                                         HorizontalOptions="End"
-                                        Margin="0,0,10,0 "/>
+                                        Opacity="0.7"
+                                        Margin="0,0,5,0 "/>
         </Grid>
     </ViewCell.View>
 </ViewCell>
