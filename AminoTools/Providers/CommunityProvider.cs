@@ -17,48 +17,49 @@ namespace AminoTools.Providers
         {
         }
 
-        public async Task<IEnumerable<Community>> GetJoinedCommunities(int index = 0, int amount = 50)
+        public async Task<ApiResult<IEnumerable<Community>>> GetJoinedCommunities(int index = 0, int amount = 50)
         {
             var result = await Api.GetJoinedCommunities(index, amount);
-            return result.Data.Communities;
+            return ApiResult.Create((IEnumerable<Community>)result.Data.Communities, result.Info);
         }
 
-        public async Task<IEnumerable<Community>> GetAllJoinedCommunities()
+        public async Task<ApiResult<IEnumerable<Community>>> GetAllJoinedCommunities()
         {
             var list = new List<Community>();
 
             for (var i = 0;; i++)
             {
-                var communities = await GetJoinedCommunities(50 * i);
-                if (!communities.Any()) break;
-                list.AddRange(communities);
+                var result = await GetJoinedCommunities(50 * i);
+                if (!result.DidSucceed()) return result;
+                if (!result.Data.Any()) break;
+                list.AddRange(result.Data);
             }
 
-            return list;
+            return ApiResult.Create((IEnumerable<Community>)list);
         }
 
-        public async Task<IEnumerable<Community>> GetSuggestedCommunities(int index = 0, int amount = 50)
+        public async Task<ApiResult<IEnumerable<Community>>> GetSuggestedCommunities(int index = 0, int amount = 50)
         {
             var result = await Api.GetSuggestedCommunities(index, amount);
-            return result.Data.Communities;
+            return ApiResult.Create((IEnumerable<Community>) result.Data.Communities, result.Info);
         }
 
-        public async Task<IEnumerable<Community>> GetCommunitiesByQuery(string query, int index = 0, int amount = 25)
+        public async Task<ApiResult<IEnumerable<Community>>> GetCommunitiesByQuery(string query, int index = 0, int amount = 25)
         {
             var result = await Api.GetCommuntiesByQuery(query, index, amount);
-            return result.Data.Communities;
+            return ApiResult.Create((IEnumerable<Community>) result.Data.Communities, result.Info);
         }
 
-        public async Task<CommunityCollectionResponse> GetCommunitiesFromExplore(int index = 0, int amount = 25)
+        public async Task<ApiResult<CommunityCollectionResponse>> GetCommunitiesFromExplore(int index = 0, int amount = 25)
         {
             var result = await Api.GetCommunityCollectionBySections(index, amount);
-            return result.Data;
+            return result;
         }
 
-        public async Task<UserProfile> JoinCommunity(string id)
+        public async Task<ApiResult<UserProfile>> JoinCommunity(string id)
         {
             var result = await Api.JoinAmino(id);
-            return result.Data;
+            return result;
         }
     }
 }

@@ -124,23 +124,25 @@ namespace AminoApi
                 ["address"] = null
             };
 
-            if (imageItems != null)
-            {
-                var jArray = new JArray();
-                foreach (var imageItem in imageItems)
-                {
-                    var innerArray = new JArray();
-                    innerArray.Add(100);
-                    innerArray.Add(imageItem.ImageUri.ToString());
-                    innerArray.Add(null);
-                    if (imageItem.BlogReferenceId != null) innerArray.Add(imageItem.BlogReferenceId);
-                    jArray.Add(innerArray);
-                }
-                data["mediaList"] = jArray;
-            }
+            if (imageItems != null) AddMediaToData(data, imageItems);
 
             var result = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/blog", data);
             return _apiResultBuilder.Build<Blog>(result);
+        }
+
+        private void AddMediaToData(Dictionary<string, object> data, IEnumerable<ImageItem> imageItems)
+        {
+            var jArray = new JArray();
+            foreach (var imageItem in imageItems)
+            {
+                var innerArray = new JArray();
+                innerArray.Add(100);
+                innerArray.Add(imageItem.ImageUri.ToString());
+                innerArray.Add(null);
+                if (imageItem.BlogReferenceId != null) innerArray.Add(imageItem.BlogReferenceId);
+                jArray.Add(innerArray);
+            }
+            data["mediaList"] = jArray;
         }
 
         public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int start = 0, int size = 25)

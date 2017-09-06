@@ -16,10 +16,10 @@ namespace AminoTools.Providers
         {
         }
 
-        public async Task<ImageItem> UploadImage(Stream imageStream)
+        public async Task<ApiResult<ImageItem>> UploadImage(Stream imageStream)
         {
             var result = await Api.UploadImage(imageStream);
-            return result.Data;
+            return result;
         }
     }
 }

@@ -19,17 +19,17 @@ namespace AminoTools.Providers
             
         }
 
-        public async Task<Blog> PostBlog(string communityId, string title, string content, IEnumerable<ImageItem> imageItems = null)
+        public async Task<ApiResult<Blog>> PostBlog(string communityId, string title, string content, IEnumerable<ImageItem> imageItems = null)
         {
             var result = await Api.PostBlog(communityId, title, content, imageItems);
-            return result.Data;
+            return ApiResult.Create(result.Data, result.Info);
         }
 
-        public async Task<IEnumerable<Blog>> GetBlogsByUserIdAsync(string communtityId, string userId, int index = 0, int amount = 25)
+        public async Task<ApiResult<IEnumerable<Blog>>> GetBlogsByUserIdAsync(string communtityId, string userId, int index = 0, int amount = 25)
         {
             var result = await Api.GetBlogsByUserIdAsync(communtityId, userId, index, amount);
             if (!result.DidSucceed()) throw new Exception(result.Info.Message);
-            return result.Data.Blogs;
+            return ApiResult.Create((IEnumerable<Blog>)result.Data.Blogs, result.Info);
         }
     }
 }

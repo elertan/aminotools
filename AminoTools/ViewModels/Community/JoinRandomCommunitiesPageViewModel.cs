@@ -50,8 +50,16 @@ namespace AminoTools.ViewModels.Community
                 {
                     var searchTerm = await _randomWordProvider.GetRandomWord();
                     IsBusyData.Description = $"Searching Communties for {searchTerm}";
-                    var communities = await _communityProvider.GetCommunitiesByQuery(searchTerm);
-                    communities = communities.Where(c => joinedCommunityIds.All(jci => jci != c.Id) && c.AmountOfMembers >= MinimumAmountOfMembers).ToList();
+                    var communitiesResult = await _communityProvider.GetCommunitiesByQuery(searchTerm);
+
+                    if (!communitiesResult.DidSucceed())
+                    {
+                        await Page.DisplayAlert("Something went wrong", communitiesResult.Info.Message, "Ok");
+                        cts.Cancel();
+                        return;
+                    }
+
+                    var communities = communitiesResult.Data.Where(c => joinedCommunityIds.All(jci => jci != c.Id) && c.AmountOfMembers >= MinimumAmountOfMembers).ToList();
 
                     foreach (var community in communities)
                     {

@@ -24,26 +24,23 @@ namespace AminoTools.ViewModels.Auth
 
         private async void DoLogin()
         {
-            Account account = null;
             await DoAsBusyStateCustom(async () =>
             {
                 IsBusyData.Description = "Logging in";
 
-                account = await _authorizationProvider.Login(Username, Password);
-                if (account == null) return;
+                var apiResult = await _authorizationProvider.Login(Username, Password);
+                if (!apiResult.DidSucceed())
+                {
+                    await Page.DisplayAlert("Something went wrong", apiResult.Info.Message, "Ok");
+                    return;
+                }
 
                 IsBusyData.Description = "Saving settings";
-                await DoAsBusyState(SaveStateAsync());
+                await SaveStateAsync();
+
+                // Set authentication on api
+                await App.Login(apiResult.Data);
             });
-
-            if (account == null)
-            {
-                await Page.DisplayAlert("Whoops", "Logging in failed", "Ok");
-                return;
-            }
-
-            // Set authentication on api
-            await App.Login(account);
         }
 
         private async Task SaveStateAsync()

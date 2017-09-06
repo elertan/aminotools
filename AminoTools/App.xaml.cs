@@ -77,7 +77,7 @@ namespace AminoTools
                 var provider = DependencyManager.Container.Resolve<IAuthorizationProvider>();
                 var acc = await provider.Login(email, password);
 
-                await Login(acc);
+                await Login(acc.Data);
                 return;
             }
 

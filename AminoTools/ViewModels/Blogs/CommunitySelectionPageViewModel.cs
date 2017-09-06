@@ -115,8 +115,15 @@ namespace AminoTools.ViewModels.Blogs
                 var imagesIterator = 0;
                 foreach (var imageSource in App.Variables.MultiBlog.BlogImageSources)
                 {
-                    var imageItem = await _mediaProvider.UploadImage(imageSource.MemoryStream);
-                    imageItems.Add(imageItem);
+                    var imageItemResult = await _mediaProvider.UploadImage(imageSource.MemoryStream);
+
+                    if (!imageItemResult.DidSucceed())
+                    {
+                        await Page.DisplayAlert("Image Upload Failed", imageItemResult.Info.Message, "Ok");
+                        return;
+                    }
+
+                    imageItems.Add(imageItemResult.Data);
                     imagesIterator++;
 
                     IsBusyData.Progress = imagesIterator / (float)App.Variables.MultiBlog.BlogImageSources.Count;
@@ -168,8 +175,15 @@ namespace AminoTools.ViewModels.Blogs
 
         private async void CommunitySelectionPageViewModel_Initialize(object sender, EventArgs e)
         {
-            var communities = await DoAsBusyState(_communityProvider.GetAllJoinedCommunities());
-            var selectableCommunties = GetSelectableCommuntiesByCommunities(communities);
+            var communitiesResult = await DoAsBusyState(_communityProvider.GetAllJoinedCommunities());
+
+            if (!communitiesResult.DidSucceed())
+            {
+                await Page.DisplayAlert("Something went wrong", communitiesResult.Info.Message, "Ok");
+                return;
+            }
+
+            var selectableCommunties = GetSelectableCommuntiesByCommunities(communitiesResult.Data);
             SelectableCommunities = new ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>>(selectableCommunties);
         }
 
