@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace AminoTools.ViewModels.Contracts
 {
-    interface ITestPageViewModel
+    public interface ITestPageViewModel
     {
         Command ButtonCommand { get; set; }
     }

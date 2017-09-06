@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace AminoTools.ViewModels.Contracts.Settings
 {
-    interface IAccountPageViewModel
+    public interface IAccountPageViewModel
     {
         Command LogOutCommand { get; set; }
     }
