@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi;
+using AminoApi.Models.Auth;
 using AminoApi.Models.Media;
 
 namespace AminoTools.TesterConsoleApp
@@ -20,28 +21,37 @@ namespace AminoTools.TesterConsoleApp
         private static async void MainAsync()
         {
             var api = new Api(new HttpClient());
-            Console.WriteLine("Logging in...");
-            var loginResult = await api.Login("myemail", "mypass");
-            api.Sid = loginResult.Data.Sid;
 
-            Console.WriteLine("Getting joined communities");
-            var communitiesResult = await api.GetJoinedCommunities();
-            if (communitiesResult.DidSucceed())
+            while (true)
             {
-                foreach (var community in communitiesResult.Data.Communities)
+                Console.Write("Enter username: ");
+                var email = Console.ReadLine();
+                Console.WriteLine();
+
+                Console.Write("Enter password: ");
+                var password = Console.ReadLine();
+                Console.WriteLine();
+
+                Console.WriteLine("Logging in...");
+                var loginResult = await api.Login(email, password);
+                if (loginResult.DidSucceed())
                 {
-                    Console.WriteLine($"{community.Name} ({community.AmountOfMembers} Members) - {community.Tagline}");
+                    api.Sid = loginResult.Data.Sid;
+                    break;
                 }
-
-                Console.WriteLine("Posting new blog");
-                var com = communitiesResult.Data.Communities.First(c => c.Name == "Test Amino Elertan");
-
-                var postBlogResult = await api.PostBlog(com.Id, "TestBlog123", "Some ExampleContent", new ImageItem[0]);
+                Console.Clear();
+                Console.WriteLine("Error:\n" + loginResult.Info.Message);
+                Console.ReadKey();
+                Console.Clear();
             }
-            else
-            {
-                Console.WriteLine($"Error: {communitiesResult.Info.Message}");
-            }
+
+            await DoTest(api);
+        }
+
+        private static async Task DoTest(Api api)
+        {
+            var apiResult = await api.GetJoinedChats("24");
+            Console.WriteLine(apiResult.DidSucceed());
         }
     }
 }
