@@ -45,11 +45,8 @@ namespace AminoTools.Models.Chatting.GlobalChatting
         {
             get
             {
-                if (Chat.AmountOfMembers < 3)
-                {
-                    return Chat.Members.First(m => m.Uid != _myUserId).Icon?.ToString();
-                }
-                return Chat.Icon?.ToString();
+                if (Chat.Icon != null) return Chat.Icon.ToString();
+                return Chat.Members.FirstOrDefault(m => m.Uid != _myUserId)?.Icon?.ToString();
             }
         }
 

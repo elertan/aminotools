@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,9 +52,22 @@ namespace AminoTools.ViewModels.Chatting
                 var chatsResult = await _chatProvider.GetChatsByCommunityAsync(community.Id);
                 if (chatsResult.Data.Any())
                 {
+                    //foreach (var chat in chatsResult.Data)
+                    //{
+                    //    foreach (var userProfile in chat.Members)
+                    //    {
+                    //        if (userProfile.Nickname.Contains("multi"))
+                    //        {
+                    //            Debug.WriteLine("found");
+                    //        }
+                    //    }
+                    //}
                     var chatCommunityModels = chatsResult.Data.Select(c => new ChatCommunityModel(App.Account.Uid) { Chat = c, Community = community });
-                    Chats.AddRange(chatCommunityModels);
+                    var chats = Chats.ToList();
+                    chats.AddRange(chatCommunityModels);
+                    Chats = new ObservableRangeCollection<ChatCommunityModel>(chats.OrderByDescending(c => c.Chat.LastMessage?.CreatedTime));
                 }
+                
             }
         }
 

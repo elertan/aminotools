@@ -15,6 +15,8 @@ using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels;
 using AminoTools.ViewModels.Auth;
 using Autofac;
+using FFImageLoading;
+using FFImageLoading.Config;
 using Xamarin.Forms.Xaml;
 using LoginPage = AminoTools.Pages.Auth.LoginPage;
 
@@ -44,6 +46,9 @@ namespace AminoTools
             DependencyManager = new DependencyManager();
             Variables = new VariablesClass();
             Api = DependencyManager.Container.Resolve<IApi>();
+
+            var httpClient = new HttpClient(); // this handler will not throw if hostname is different
+            ImageService.Instance.Initialize(new Configuration() { HttpClient = httpClient, ExecuteCallbacksOnUIThread = false, AnimateGifs = false});
 
             InitializeComponent();
 

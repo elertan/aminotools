@@ -26,7 +26,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="75" />
                                     <ColumnDefinition Width="6*" />
-                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -39,7 +39,10 @@
                                                             VerticalOptions="Center"
                                                             HorizontalOptions="Center"
                                                             WidthRequest="50"
+                                                            FadeAnimationEnabled="True"
                                                             Source="{Binding ChatIcon}">
+
+                                    <!--Source="{Binding ChatIcon}"-->
                                     <ffImageLoading:CachedImage.Transformations>
                                         <transformations:CircleTransformation BorderHexColor="#000000"
                                                                               BorderSize="1" />
@@ -63,10 +66,11 @@
                                        Grid.Row="1"
                                        Grid.Column="1" />
                                 
-                                <Label FontSize="11"
+                                <Label FontSize="10"
                                        Text="{Binding Chat.LastMessage.CreatedTime, Converter={StaticResource DateTimeToNowRelatedStringConverter}}"
-                                       Margin="0,5,0,0"
+                                       Margin="0,5,10,0"
                                        VerticalOptions="End"
+                                       HorizontalOptions="End"
                                        TextColor="DimGray"
                                        Grid.Row="0"
                                        Grid.Column="2" />

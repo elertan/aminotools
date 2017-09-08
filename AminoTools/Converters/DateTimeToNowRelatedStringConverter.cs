@@ -15,23 +15,23 @@ namespace AminoTools.Converters
             if (value == null) return "n/a";
             var time = (DateTime) value;
             var timeDifference = DateTime.Now - time;
-            if (timeDifference.Seconds <= 30)
+            if (timeDifference.TotalSeconds <= 30)
             {
                 return "a moment ago";
             }
-            if (timeDifference.Hours == 0)
+            if (timeDifference.TotalHours <= 1)
             {
                 return $"{timeDifference.Minutes} minutes ago";
             }
-            if (timeDifference.Days == 0)
+            if (timeDifference.TotalDays <= 1)
             {
                 return $"{timeDifference.Hours} hours ago";
             }
-            if (timeDifference.Days <= 7)
+            if (timeDifference.TotalDays <= 7)
             {
                 return $"{timeDifference.Days} days ago";
             }
-            return time.ToString("g");
+            return time.ToString("d");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
