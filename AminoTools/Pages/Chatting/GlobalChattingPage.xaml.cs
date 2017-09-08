@@ -16,5 +16,10 @@ namespace AminoTools.Pages.Chatting
         {
             InitializeComponent();
         }
+
+        public Grid GetLoadingGrid()
+        {
+            return LoadingGrid;
+        }
     }
 }
