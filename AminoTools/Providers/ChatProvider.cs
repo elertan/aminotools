@@ -29,5 +29,10 @@ namespace AminoTools.Providers
                 chats.AddRange(threadListResult.Data.Chats);
             }
         }
+
+        public async Task<ApiResult<MessageList>> GetMessagesAsync(string communityId, string threadId, int index = 0)
+        {
+            return await Api.GetMessagesForUserByCommunityIdAsync(communityId, threadId, index * 25);
+        }
     }
 }

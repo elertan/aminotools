@@ -41,6 +41,7 @@
     <Compile Include="Models\Chat\AlertOptions.cs" />
     <Compile Include="Models\Chat\Chat.cs" />
     <Compile Include="Models\Chat\Message.cs" />
+    <Compile Include="Models\Chat\MessageList.cs" />
     <Compile Include="Models\Chat\ThreadList.cs" />
     <Compile Include="Models\Community\CommunityCollection.cs" />
     <Compile Include="Models\Community\CommunityCollectionResponse.cs" />

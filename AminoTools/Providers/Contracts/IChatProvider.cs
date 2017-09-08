@@ -11,5 +11,6 @@ namespace AminoTools.Providers.Contracts
     public interface IChatProvider
     {
         Task<ApiResult<List<Chat>>> GetChatsByCommunityAsync(string communityId);
+        Task<ApiResult<MessageList>> GetMessagesAsync(string communityId, string threadId, int index = 0);
     }
 }

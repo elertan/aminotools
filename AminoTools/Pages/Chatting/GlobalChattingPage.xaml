@@ -43,7 +43,7 @@
                              Grid.Row="1" />
             </Grid>
             <ListView ItemsSource="{Binding Chats}"
-                      RowHeight="60"
+                      HasUnevenRows="True"
                       Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>

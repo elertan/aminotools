@@ -44,5 +44,8 @@ namespace AminoApi
         Task<ApiResult<ImageItem>> UploadImageAsync(Stream imageStream);
 
         Task<ApiResult<ThreadList>> GetJoinedChatsAsync(string communityId, int start = 0, int size = 25);
+
+        Task<ApiResult<MessageList>> GetMessagesForUserByCommunityIdAsync(string communityId, string threadId, int start = 0,
+            int size = 25);
     }
 }
