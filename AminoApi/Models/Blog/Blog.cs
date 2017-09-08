@@ -211,12 +211,8 @@ namespace AminoApi.Models.Blog
                 {
                     var array = (JArray) item;
                     var imageItem = new ImageItem();
-                    imageItem.SomeValue = Convert.ToInt32(((JValue) array[0]).Value);
-                    imageItem.ImageUri = new Uri(Convert.ToString(((JValue) array[1]).Value));
-                    if (array.Count > 3)
-                    {
-                        imageItem.BlogReferenceId = Convert.ToString(((JValue)array[3]).Value);
-                    }
+                    var objects = array.ToObject<object[]>();
+                    imageItem.JsonResolveArray(objects);
 
                     items.Add(imageItem);
                 }

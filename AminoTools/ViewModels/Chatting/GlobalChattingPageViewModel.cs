@@ -31,6 +31,23 @@ namespace AminoTools.ViewModels.Chatting
             Initialize += GlobalChattingPageViewModel_Initialize;
 
             Chats = new ObservableRangeCollection<ChatCommunityModel>();
+            Device.StartTimer(TimeSpan.FromMinutes(1), UpdateTimeOnChatsTimerCallback);
+        }
+
+        private bool UpdateTimeOnChatsTimerCallback()
+        {
+            if (Chats != null)
+            {
+                foreach (var chat in Chats)
+                {
+                    if (chat.Chat.LastMessage != null)
+                    {
+                        // Cause on property changed
+                        chat.Chat.LastMessage.CreatedTime = chat.Chat.LastMessage.CreatedTime;
+                    }
+                }
+            }
+            return !WantsDisposal;
         }
 
         private async void GlobalChattingPageViewModel_Initialize(object sender, EventArgs e)

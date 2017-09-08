@@ -42,11 +42,15 @@
     <Compile Include="Converters\AminoBlogImageItemsToBlogPreviewImageSourceConverter.cs" />
     <Compile Include="Converters\AminoMarkupContentToNormalStringConverter.cs" />
     <Compile Include="Converters\BoolToInvertedBoolConverter.cs" />
+    <Compile Include="Converters\BoolToValueConverter.cs" />
     <Compile Include="Converters\DateTimeToNowRelatedStringConverter.cs" />
     <Compile Include="Converters\IsNotNullToBoolConverter.cs" />
     <Compile Include="Converters\IsNullToBoolConverter.cs" />
     <Compile Include="CustomControls\Cells\ButtonCell.xaml.cs">
       <DependentUpon>ButtonCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\Cells\ChatCell.xaml.cs">
+      <DependentUpon>ChatCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\Cells\NavigationCell.xaml.cs">
       <DependentUpon>NavigationCell.xaml</DependentUpon>
@@ -139,6 +143,7 @@
     <Compile Include="Providers\RandomWordProvider.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Converters\StringIsNullOrWhiteSpaceToVisibleConverter.cs" />
+    <Compile Include="ViewExtensions.cs" />
     <Compile Include="ViewModelResolver.cs" />
     <Compile Include="ViewModels\Blogs\BlogsPageViewModel.cs" />
     <Compile Include="ViewModels\Blogs\CommunitySelectionPageViewModel.cs" />
@@ -297,6 +302,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\Chatting\GlobalChattingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\Cells\ChatCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

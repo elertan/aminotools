@@ -25,6 +25,7 @@ namespace AminoTools.CustomPages
         protected override bool OnBackButtonPressed()
         {
             if (BaseViewModel.IsInitializing) BaseViewModel.OnCancelledInitialization();
+            BaseViewModel.WantsDisposal = true;
 
             return base.OnBackButtonPressed();
         }

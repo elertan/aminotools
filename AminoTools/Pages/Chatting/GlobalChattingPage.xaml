@@ -7,13 +7,13 @@
                       xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
                       xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
+                      xmlns:xf="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Core"
+                      xmlns:cells="clr-namespace:AminoTools.CustomControls.Cells;assembly=AminoTools"
                       BindingContext="{x:Static viewModels:ViewModels.GlobalChattingPageViewModel}"
                       Title="Global Chat"
                       x:Class="AminoTools.Pages.Chatting.GlobalChattingPage">
     <customPages:BasePage.Resources>
-        <ResourceDictionary>
-            <converters:DateTimeToNowRelatedStringConverter x:Key="DateTimeToNowRelatedStringConverter" />
-        </ResourceDictionary>
+        
     </customPages:BasePage.Resources>
     <ContentPage.Content>
         <Grid>
@@ -47,64 +47,7 @@
                       Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="6*" />
-                                    <ColumnDefinition Width="2*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-
-                                <!--Full Height and First Column-->
-                                <ffImageLoading:CachedImage Grid.RowSpan="2"
-                                                            Margin="10,0,0,0"
-                                                            VerticalOptions="Center"
-                                                            HorizontalOptions="Center"
-                                                            WidthRequest="50"
-                                                            FadeAnimationEnabled="True"
-                                                            Source="{Binding ChatIcon}">
-
-                                    <!--Source="{Binding ChatIcon}"-->
-                                    <ffImageLoading:CachedImage.Transformations>
-                                        <transformations:CircleTransformation BorderHexColor="#000000"
-                                                                              BorderSize="1" />
-                                    </ffImageLoading:CachedImage.Transformations>
-                                </ffImageLoading:CachedImage>
-
-                                <!--Top Row in Second Column-->
-                                <Label FontAttributes="Bold"
-                                       FontSize="14"
-                                       Margin="0,5,0,0"
-                                       Text="{Binding ChatTitle}"
-                                       VerticalOptions="End"
-                                       Grid.Row="0"
-                                       Grid.Column="1" />
-
-                                <Label FontSize="13"
-                                       Text="{Binding LastMessageText}"
-                                       VerticalOptions="Start"
-                                       LineBreakMode="TailTruncation"
-                                       TextColor="DimGray"
-                                       Grid.Row="1"
-                                       Grid.Column="1" />
-
-                                <Label FontSize="10"
-                                       Text="{Binding Chat.LastMessage.CreatedTime, Converter={StaticResource DateTimeToNowRelatedStringConverter}}"
-                                       Margin="0,5,10,0"
-                                       VerticalOptions="End"
-                                       HorizontalOptions="End"
-                                       TextColor="DimGray"
-                                       Grid.Row="0"
-                                       Grid.Column="2" />
-                              
-                                <ffImageLoading:CachedImage Source="{Binding Community.Icon}"></ffImageLoading:CachedImage>
-
-                            </Grid>
-                        </ViewCell>
+                        <cells:ChatCell />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

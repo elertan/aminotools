@@ -10,21 +10,175 @@ namespace AminoApi.Models.Chat
 {
     public class Chat : ModelBase
     {
-        public AlertOptions AlertOptions { get; set; }
-        public DateTime CreatedTime { get; set; }
-        public DateTime LastReadTime { get; set; }
-        public DateTime LastActivityTime { get; set; }
-        public int AmountOfMembers { get; set; }
-        public List<UserProfile> Members { get; set; }
-        public DateTime ModifiedTime { get; set; }
-        public string ThreadId { get; set; }
-        public string Title { get; set; }
-        public string RoomOwnerUserId { get; set; }
-        public Uri Icon { get; set; }
-        public string Keywords { get; set; }
-        public string Content { get; set; }
-        public Message LastMessage { get; set; }
-        public string UserId { get; set; }
+        private AlertOptions _alertOptions;
+        private DateTime _createdTime;
+        private DateTime _lastReadTime;
+        private DateTime _lastActivityTime;
+        private int _amountOfMembers;
+        private List<UserProfile> _members;
+        private DateTime _modifiedTime;
+        private string _threadId;
+        private string _title;
+        private string _roomOwnerUserId;
+        private Uri _icon;
+        private string _keywords;
+        private string _content;
+        private Message _lastMessage;
+        private string _userId;
+
+        public AlertOptions AlertOptions
+        {
+            get => _alertOptions;
+            set
+            {
+                _alertOptions = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime CreatedTime
+        {
+            get => _createdTime;
+            set
+            {
+                _createdTime = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime LastReadTime
+        {
+            get => _lastReadTime;
+            set
+            {
+                _lastReadTime = value; 
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasUnreadContent));
+            }
+        }
+
+        public DateTime LastActivityTime
+        {
+            get => _lastActivityTime;
+            set
+            {
+                _lastActivityTime = value; 
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasUnreadContent));
+            }
+        }
+
+        public int AmountOfMembers
+        {
+            get => _amountOfMembers;
+            set
+            {
+                _amountOfMembers = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public List<UserProfile> Members
+        {
+            get => _members;
+            set
+            {
+                _members = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime ModifiedTime
+        {
+            get => _modifiedTime;
+            set
+            {
+                _modifiedTime = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string ThreadId
+        {
+            get => _threadId;
+            set
+            {
+                _threadId = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                _title = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string RoomOwnerUserId
+        {
+            get => _roomOwnerUserId;
+            set
+            {
+                _roomOwnerUserId = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public Uri Icon
+        {
+            get => _icon;
+            set
+            {
+                _icon = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string Keywords
+        {
+            get => _keywords;
+            set
+            {
+                _keywords = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string Content
+        {
+            get => _content;
+            set
+            {
+                _content = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Message LastMessage
+        {
+            get => _lastMessage;
+            set
+            {
+                _lastMessage = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string UserId
+        {
+            get => _userId;
+            set
+            {
+                _userId = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public bool HasUnreadContent => LastActivityTime != LastReadTime;
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
