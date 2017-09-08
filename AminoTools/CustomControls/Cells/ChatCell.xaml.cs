@@ -6,29 +6,46 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AminoTools.Models.Chatting.GlobalChatting;
+using AminoTools.Pages.Chatting;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace AminoTools.CustomControls.Cells
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ChatCell : ViewCell
+    public partial class ChatCell : ViewCell, INotifyPropertyChanged
     {
         private bool _firstTimeAppearing = true;
         private ChatCommunityModel _chatCommunityModel;
         private CancellationTokenSource _cancellationTokenSource;
         private Task _glowTask;
-        private static readonly Color _glowColor = Color.FromHex("#ffd668");
+        private static readonly Color GlowColor = Color.FromHex("#ffd668");
         private readonly Color _defaultColor;
-        private static readonly Color _baseHighlightColor = Color.FromHex("#fffecc");
+        private static readonly Color BaseHighlightColor = Color.FromHex("#fffecc");
+
 
         public ChatCell()
         {
             InitializeComponent();
             Appearing += ChatCell_Appearing;
+            
+            OpenChatCommand = new Command(DoOpenChat);
 
             _defaultColor = MainGrid.BackgroundColor;
         }
+
+        private async void DoOpenChat()
+        {
+            //await ChatImage.RotateTo(-90);
+            //await ChatImage.TranslateTo(MainGrid.Width + ChatImage.Width, 0, 500, Easing.CubicIn);
+            //await ChatImage.ScaleTo(30, 500, Easing.CubicIn);
+
+            await ((App) Application.Current).MainNavigation.PushAsync(new ChatPage((ChatCommunityModel) BindingContext));
+
+            //ChatImage.Scale = 1;
+        }
+
+        public Command OpenChatCommand { get; }
 
         private void ChatCell_Appearing(object sender, EventArgs e)
         {
@@ -74,8 +91,8 @@ namespace AminoTools.CustomControls.Cells
         {
             while (!_cancellationTokenSource.IsCancellationRequested)
             {
-                await MainGrid.ColorTo(_baseHighlightColor, _glowColor, c => MainGrid.BackgroundColor = c, 1500U, Easing.SinOut);
-                await MainGrid.ColorTo(_glowColor, _baseHighlightColor, c => MainGrid.BackgroundColor = c, 1500U, Easing.SinIn);
+                await MainGrid.ColorTo(BaseHighlightColor, GlowColor, c => MainGrid.BackgroundColor = c, 1500U, Easing.SinOut);
+                await MainGrid.ColorTo(GlowColor, BaseHighlightColor, c => MainGrid.BackgroundColor = c, 1500U, Easing.SinIn);
             }
         }
 

@@ -55,6 +55,9 @@
     <Compile Include="CustomControls\Cells\NavigationCell.xaml.cs">
       <DependentUpon>NavigationCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\Chatting\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\LoadingOverlay.xaml.cs">
       <DependentUpon>LoadingOverlay.xaml</DependentUpon>
     </Compile>
@@ -82,6 +85,9 @@
     </Compile>
     <Compile Include="Pages\Blogs\MultiBlogPage.xaml.cs">
       <DependentUpon>MultiBlogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Chatting\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Chatting\GlobalChattingPage.xaml.cs">
       <DependentUpon>GlobalChattingPage.xaml</DependentUpon>
@@ -148,6 +154,7 @@
     <Compile Include="ViewModels\Blogs\BlogsPageViewModel.cs" />
     <Compile Include="ViewModels\Blogs\CommunitySelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Blogs\MultiBlogPageViewModel.cs" />
+    <Compile Include="ViewModels\Chatting\ChatPageViewModel.cs" />
     <Compile Include="ViewModels\Chatting\GlobalChattingPageViewModel.cs" />
     <Compile Include="ViewModels\Common\ImageSelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Community\CommunityPageViewModel.cs" />
@@ -158,6 +165,7 @@
     <Compile Include="ViewModels\Contracts\Blogs\IBlogsPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Blogs\ICommunitySelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Blogs\IMultiBlogPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Chatting\IChatPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Chatting\IGlobalChattingPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Common\IImageSelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Community\IJoinRandomCommunitiesPageViewModel.cs" />
@@ -308,6 +316,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CustomControls\Cells\ChatCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Chatting\ChatPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\Chatting\MessageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

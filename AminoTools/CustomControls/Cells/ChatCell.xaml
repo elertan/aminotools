@@ -5,15 +5,22 @@
           xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
           xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
           xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
+          xmlns:customControls="clr-namespace:AminoTools.CustomControls;assembly=AminoTools"
+          x:Name="This"
           x:Class="AminoTools.CustomControls.Cells.ChatCell">
     <ViewCell.View>
-        <Grid x:Name="MainGrid">
+        <Grid x:Name="MainGrid"
+              Padding="0,5">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding Source={x:Reference This}, Path=OpenChatCommand}" />
+            </Grid.GestureRecognizers>
             <Grid.Resources>
-            <ResourceDictionary>
-                <converters:DateTimeToNowRelatedStringConverter x:Key="DateTimeToNowRelatedStringConverter" />
-                <converters:BoolToValueConverter x:Key="BoolToValueConverter" />
-            </ResourceDictionary>
-        </Grid.Resources>
+                <ResourceDictionary>
+                    <converters:DateTimeToNowRelatedStringConverter x:Key="DateTimeToNowRelatedStringConverter" />
+                    <converters:BoolToValueConverter x:Key="BoolToValueConverter" />
+                </ResourceDictionary>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -23,6 +30,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <forms:CachedImage Source="{Binding Community.Icon}"
@@ -30,6 +38,7 @@
                                HorizontalOptions="Center"
                                Margin="5,0,0,0"
                                Grid.RowSpan="2"
+                               x:Name="CommunityImage"
                                WidthRequest="25">
                 <forms:CachedImage.Transformations>
                     <transformations:RoundedTransformation Radius="85" />
@@ -45,6 +54,7 @@
                                HorizontalOptions="Center"
                                WidthRequest="50"
                                FadeAnimationEnabled="True"
+                               x:Name="ChatImage"
                                Source="{Binding ChatIcon}">
                 <forms:CachedImage.Transformations>
                     <transformations:CircleTransformation BorderHexColor="#000000"
@@ -57,6 +67,7 @@
                    FontSize="14"
                    Margin="0,5,0,0"
                    Text="{Binding ChatTitle}"
+                   LineBreakMode="TailTruncation"
                    VerticalOptions="End"
                    Grid.Row="0"
                    Grid.Column="2" />

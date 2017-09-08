@@ -160,8 +160,14 @@ namespace AminoApi
 
         public async Task<ApiResult<ThreadList>> GetJoinedChatsAsync(string communityId, int start = 0, int size = 25)
         {
-            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread?type=joined-me&start={start}&size={size}&cv=1.2 ");
+            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread?type=joined-me&start={start}&size={size}&cv=1.2");
             return _apiResultBuilder.Build<ThreadList>(response);
+        }
+
+        public async Task<ApiResult<MessageList>> GetMessagesForUserByCommunityIdAsync(string communityId, string threadId, int start = 0, int size = 25)
+        {
+            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread/{threadId}/message?start={start}&size={size}&cv=1.2");
+            return _apiResultBuilder.Build<MessageList>(response);
         }
     }
 }

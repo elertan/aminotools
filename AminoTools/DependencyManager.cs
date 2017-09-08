@@ -65,6 +65,7 @@ namespace AminoTools
 
             // ViewModels.Chatting
             cb.RegisterType<ViewModels.Chatting.GlobalChattingPageViewModel>().As<IGlobalChattingPageViewModel>();
+            cb.RegisterType<ViewModels.Chatting.ChatPageViewModel>().As<IChatPageViewModel>();
 
             // ViewModels.Community
             cb.RegisterType<ViewModels.Community.CommunityPageViewModel>().As<ICommunityPageViewModel>();

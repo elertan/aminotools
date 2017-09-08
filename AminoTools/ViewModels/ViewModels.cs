@@ -41,6 +41,8 @@ namespace AminoTools.ViewModels
         public static IGlobalChattingPageViewModel GlobalChattingPageViewModel => Container
             .Resolve<IGlobalChattingPageViewModel>();
 
+        public static IChatPageViewModel ChatPageViewModel => Container.Resolve<IChatPageViewModel>();
+
         // ViewModels.Common
         public static IImageSelectionPageViewModel ImageSelectionPageViewModel => Container
             .Resolve<IImageSelectionPageViewModel>();
