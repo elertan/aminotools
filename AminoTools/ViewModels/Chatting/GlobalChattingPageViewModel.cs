@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models.Chat;
 using AminoTools.Models.Chatting.GlobalChatting;
+using AminoTools.Pages.Chatting;
 using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts.Chatting;
 using MvvmHelpers;
@@ -18,6 +19,9 @@ namespace AminoTools.ViewModels.Chatting
         private readonly ICommunityProvider _communityProvider;
         private readonly IChatProvider _chatProvider;
         private ObservableRangeCollection<ChatCommunityModel> _chats;
+        private bool _isLoading;
+        private string _loadingText;
+        private float _loadingProgress;
 
         public GlobalChattingPageViewModel(ICommunityProvider communityProvider, 
             IChatProvider chatProvider)
@@ -48,13 +52,11 @@ namespace AminoTools.ViewModels.Chatting
 
         private async void GlobalChattingPageViewModel_Initialize(object sender, EventArgs e)
         {
-            List<AminoApi.Models.Community.Community> communities = new List<AminoApi.Models.Community.Community>();
-            await DoAsBusyStateCustom(async () =>
-            {
-                IsBusyData.Description = "Getting communities";
-                var communitiesResult = await _communityProvider.GetAllJoinedCommunities();
-                communities.AddRange(communitiesResult.Data);
-            });
+            IsLoading = true;
+            await LoadingGrid.FadeTo(1);
+            LoadingText = "Getting communities";
+            var communitiesResult = await _communityProvider.GetAllJoinedCommunities();
+            var communities = new List<AminoApi.Models.Community.Community>(communitiesResult.Data);
 
             if (!communities.Any())
             {
@@ -63,10 +65,12 @@ namespace AminoTools.ViewModels.Chatting
                 return;
             }
 
+            var i = 1;
             foreach (var community in communities)
             {
                 if (IsInitializationCanceled) return;
-
+                LoadingText = $"Chats for community {i} / {communities.Count}";
+                LoadingProgress = (i - 1) / (float)communities.Count;
                 var chatsResult = await _chatProvider.GetChatsByCommunityAsync(community.Id);
                 if (chatsResult.Data.Any())
                 {
@@ -75,9 +79,14 @@ namespace AminoTools.ViewModels.Chatting
                     chats.AddRange(chatCommunityModels);
                     Chats = new ObservableRangeCollection<ChatCommunityModel>(chats.OrderByDescending(c => c.Chat.LastMessage?.CreatedTime));
                 }
-                
+
+                i++;
             }
+            await LoadingGrid.LayoutTo(new Rectangle(0, 0, LoadingGrid.Width, 0), 250U, Easing.BounceIn);
+            IsLoading = false;
         }
+
+        private Grid LoadingGrid => ((GlobalChattingPage) Page).LoadingGrid;
 
         public ObservableRangeCollection<ChatCommunityModel> Chats
         {
@@ -85,6 +94,36 @@ namespace AminoTools.ViewModels.Chatting
             set
             {
                 _chats = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public string LoadingText
+        {
+            get => _loadingText;
+            set
+            {
+                _loadingText = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public float LoadingProgress
+        {
+            get => _loadingProgress;
+            set
+            {
+                _loadingProgress = value; 
                 OnPropertyChanged();
             }
         }

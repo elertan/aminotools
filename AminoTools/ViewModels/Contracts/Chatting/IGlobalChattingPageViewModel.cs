@@ -12,5 +12,8 @@ namespace AminoTools.ViewModels.Contracts.Chatting
     public interface IGlobalChattingPageViewModel
     {
         ObservableRangeCollection<ChatCommunityModel> Chats { get; set; }
+        bool IsLoading { get; set; }
+        string LoadingText { get; set; }
+        float LoadingProgress { get; set; }
     }
 }

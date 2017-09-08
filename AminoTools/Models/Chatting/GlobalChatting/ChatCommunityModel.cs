@@ -36,8 +36,15 @@ namespace AminoTools.Models.Chatting.GlobalChatting
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(Chat.Title)) return Chat.Title;
-                return Chat.Members.First(m => m.Uid != _myUserId).Nickname;
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(Chat.Title)) return Chat.Title;
+                    return Chat.Members.First(m => m.Uid != _myUserId).Nickname;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 

@@ -59,6 +59,7 @@
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DependencyManager.cs" />
+    <Compile Include="DependencyServices\IDatabaseService.cs" />
     <Compile Include="DependencyServices\IFileLogger.cs" />
     <Compile Include="DependencyServices\IPicturePicker.cs" />
     <Compile Include="Helpers.cs" />
