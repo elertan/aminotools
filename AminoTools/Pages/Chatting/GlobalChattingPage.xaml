@@ -12,13 +12,39 @@
                       x:Class="AminoTools.Pages.Chatting.GlobalChattingPage">
     <customPages:BasePage.Resources>
         <ResourceDictionary>
-          <converters:DateTimeToNowRelatedStringConverter x:Key="DateTimeToNowRelatedStringConverter" />
+            <converters:DateTimeToNowRelatedStringConverter x:Key="DateTimeToNowRelatedStringConverter" />
         </ResourceDictionary>
     </customPages:BasePage.Resources>
     <ContentPage.Content>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                  BackgroundColor="DodgerBlue"
+                  HorizontalOptions="FillAndExpand"
+                  Padding="15"
+                  x:Name="LoadingGrid"
+                  IsVisible="{Binding IsLoading}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Text="{Binding LoadingText}"
+                       TextColor="White"
+                       Margin="5"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <ProgressBar Progress="{Binding LoadingProgress}"
+                             Margin="5"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Center"
+                             Grid.Row="1" />
+            </Grid>
             <ListView ItemsSource="{Binding Chats}"
-                      RowHeight="60">
+                      RowHeight="60"
+                      Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -32,7 +58,7 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                
+
                                 <!--Full Height and First Column-->
                                 <ffImageLoading:CachedImage Grid.RowSpan="2"
                                                             Margin="10,0,0,0"
@@ -57,7 +83,7 @@
                                        VerticalOptions="End"
                                        Grid.Row="0"
                                        Grid.Column="1" />
-                                
+
                                 <Label FontSize="13"
                                        Text="{Binding LastMessageText}"
                                        VerticalOptions="Start"
@@ -65,7 +91,7 @@
                                        TextColor="DimGray"
                                        Grid.Row="1"
                                        Grid.Column="1" />
-                                
+
                                 <Label FontSize="10"
                                        Text="{Binding Chat.LastMessage.CreatedTime, Converter={StaticResource DateTimeToNowRelatedStringConverter}}"
                                        Margin="0,5,10,0"
@@ -74,7 +100,7 @@
                                        TextColor="DimGray"
                                        Grid.Row="0"
                                        Grid.Column="2" />
-                                
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
