@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AminoApi.Models.Chat;
+using AminoTools.Models.Chatting.GlobalChatting;
 using MvvmHelpers;
 
 namespace AminoTools.ViewModels.Contracts.Chatting
 {
     public interface IGlobalChattingPageViewModel
     {
-        ObservableRangeCollection<object> Chats { get; set; }
+        ObservableRangeCollection<ChatCommunityModel> Chats { get; set; }
     }
 }

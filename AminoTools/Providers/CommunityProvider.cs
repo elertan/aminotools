@@ -19,7 +19,7 @@ namespace AminoTools.Providers
 
         public async Task<ApiResult<IEnumerable<Community>>> GetJoinedCommunities(int index = 0, int amount = 50)
         {
-            var result = await Api.GetJoinedCommunities(index, amount);
+            var result = await Api.GetJoinedCommunitiesAsync(index, amount);
             return ApiResult.Create((IEnumerable<Community>)result.Data.Communities, result.Info);
         }
 
@@ -40,25 +40,25 @@ namespace AminoTools.Providers
 
         public async Task<ApiResult<IEnumerable<Community>>> GetSuggestedCommunities(int index = 0, int amount = 50)
         {
-            var result = await Api.GetSuggestedCommunities(index, amount);
+            var result = await Api.GetSuggestedCommunitiesAsync(index, amount);
             return ApiResult.Create((IEnumerable<Community>) result.Data.Communities, result.Info);
         }
 
         public async Task<ApiResult<IEnumerable<Community>>> GetCommunitiesByQuery(string query, int index = 0, int amount = 25)
         {
-            var result = await Api.GetCommuntiesByQuery(query, index, amount);
+            var result = await Api.GetCommuntiesByQueryAsync(query, index, amount);
             return ApiResult.Create((IEnumerable<Community>) result.Data.Communities, result.Info);
         }
 
         public async Task<ApiResult<CommunityCollectionResponse>> GetCommunitiesFromExplore(int index = 0, int amount = 25)
         {
-            var result = await Api.GetCommunityCollectionBySections(index, amount);
+            var result = await Api.GetCommunityCollectionBySectionsAsync(index, amount);
             return result;
         }
 
         public async Task<ApiResult<UserProfile>> JoinCommunity(string id)
         {
-            var result = await Api.JoinAmino(id);
+            var result = await Api.JoinAminoAsync(id);
             return result;
         }
     }

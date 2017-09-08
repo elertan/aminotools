@@ -21,7 +21,7 @@ namespace AminoTools.Providers
 
         public async Task<ApiResult<Blog>> PostBlog(string communityId, string title, string content, IEnumerable<ImageItem> imageItems = null)
         {
-            var result = await Api.PostBlog(communityId, title, content, imageItems);
+            var result = await Api.PostBlogAsync(communityId, title, content, imageItems);
             return ApiResult.Create(result.Data, result.Info);
         }
 

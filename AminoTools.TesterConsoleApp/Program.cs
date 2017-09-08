@@ -33,7 +33,7 @@ namespace AminoTools.TesterConsoleApp
                 Console.WriteLine();
 
                 Console.WriteLine("Logging in...");
-                var loginResult = await api.Login(email, password);
+                var loginResult = await api.LoginAsync(email, password);
                 if (loginResult.DidSucceed())
                 {
                     api.Sid = loginResult.Data.Sid;
@@ -50,7 +50,7 @@ namespace AminoTools.TesterConsoleApp
 
         private static async Task DoTest(Api api)
         {
-            var apiResult = await api.GetJoinedChats("24");
+            var apiResult = await api.GetJoinedChatsAsync("24");
             Console.WriteLine(apiResult.DidSucceed());
         }
     }

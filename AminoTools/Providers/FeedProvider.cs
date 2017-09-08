@@ -16,7 +16,7 @@ namespace AminoTools.Providers
 
         public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int index = 0, int amount = 25)
         {
-            var result = await Api.GetFeedHeadlines(index, amount);
+            var result = await Api.GetFeedHeadlinesAsync(index, amount);
             return result;
         }
     }

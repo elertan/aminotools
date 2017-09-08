@@ -45,6 +45,7 @@ namespace AminoTools
             cb.RegisterType<AuthorizationProvider>().As<IAuthorizationProvider>();
             cb.RegisterType<FeedProvider>().As<IFeedProvider>();
             cb.RegisterType<MediaProvider>().As<IMediaProvider>();
+            cb.RegisterType<ChatProvider>().As<IChatProvider>();
 
             // ViewModels
             cb.RegisterType<ViewModels.MainPageMenuPageViewModel>().As<IMainPageMenuPageViewModel>();

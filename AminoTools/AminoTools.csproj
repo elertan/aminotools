@@ -42,6 +42,7 @@
     <Compile Include="Converters\AminoBlogImageItemsToBlogPreviewImageSourceConverter.cs" />
     <Compile Include="Converters\AminoMarkupContentToNormalStringConverter.cs" />
     <Compile Include="Converters\BoolToInvertedBoolConverter.cs" />
+    <Compile Include="Converters\DateTimeToNowRelatedStringConverter.cs" />
     <Compile Include="Converters\IsNotNullToBoolConverter.cs" />
     <Compile Include="Converters\IsNullToBoolConverter.cs" />
     <Compile Include="CustomControls\Cells\ButtonCell.xaml.cs">
@@ -61,6 +62,7 @@
     <Compile Include="DependencyServices\IFileLogger.cs" />
     <Compile Include="DependencyServices\IPicturePicker.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Models\Chatting\GlobalChatting\ChatCommunityModel.cs" />
     <Compile Include="Models\Common\ImageSelection\BlogImageSource.cs" />
     <Compile Include="Models\IsBusyData.cs" />
     <Compile Include="IsBusyTask.cs" />
@@ -120,7 +122,9 @@
     </Compile>
     <Compile Include="Exceptions\SettingDoesNotExistException.cs" />
     <Compile Include="Providers\AuthorizationProvider.cs" />
+    <Compile Include="Providers\ChatProvider.cs" />
     <Compile Include="Providers\CommunityProvider.cs" />
+    <Compile Include="Providers\Contracts\IChatProvider.cs" />
     <Compile Include="Providers\Contracts\ICommunityProvider.cs" />
     <Compile Include="Providers\Contracts\IAuthorizationProvider.cs" />
     <Compile Include="Providers\Contracts\IFeedProvider.cs" />

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
+using AminoApi.Models.Chat;
 using AminoApi.Models.Community;
 using AminoApi.Models.Feed;
 using AminoApi.Models.Media;
@@ -20,26 +21,28 @@ namespace AminoApi
         string DeviceId { get; set; }
         string Sid { get; set; }
 
-        Task<ApiResult<Account>> Login(string email, string password);
+        Task<ApiResult<Account>> LoginAsync(string email, string password);
 
-        Task<ApiResult<CommunityList>> GetJoinedCommunities(int start = 0, int size = 50);
+        Task<ApiResult<CommunityList>> GetJoinedCommunitiesAsync(int start = 0, int size = 50);
 
-        Task<ApiResult<CommunityList>> GetSuggestedCommunities(int start = 0, int size = 50);
+        Task<ApiResult<CommunityList>> GetSuggestedCommunitiesAsync(int start = 0, int size = 50);
 
-        Task<ApiResult<CommunityList>> GetCommuntiesByQuery(string query, int start = 0, int size = 0);
+        Task<ApiResult<CommunityList>> GetCommuntiesByQueryAsync(string query, int start = 0, int size = 0);
 
-        Task<ApiResult<UserProfile>> JoinAmino(string id);
+        Task<ApiResult<UserProfile>> JoinAminoAsync(string id);
 
-        Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySections(int start = 0, int size = 25, string languageCode = "en");
+        Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySectionsAsync(int start = 0, int size = 25, string languageCode = "en");
 
         Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communityId, string userId,
             int start = 0, int size = 25);
 
-        Task<ApiResult<Blog>> PostBlog(string communityId, string title, string content,
+        Task<ApiResult<Blog>> PostBlogAsync(string communityId, string title, string content,
             IEnumerable<ImageItem> imageItems = null);
 
-        Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int start = 0, int size = 25);
+        Task<ApiResult<FeedHeadlines>> GetFeedHeadlinesAsync(int start = 0, int size = 25);
 
-        Task<ApiResult<ImageItem>> UploadImage(Stream imageStream);
+        Task<ApiResult<ImageItem>> UploadImageAsync(Stream imageStream);
+
+        Task<ApiResult<ThreadList>> GetJoinedChatsAsync(string communityId, int start = 0, int size = 25);
     }
 }

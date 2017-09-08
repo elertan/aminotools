@@ -50,7 +50,7 @@ namespace AminoApi
         }
 
         // login POST
-        public async Task<ApiResult<Account>> Login(string email, string password)
+        public async Task<ApiResult<Account>> LoginAsync(string email, string password)
         {
             var data = new Dictionary<string, object>
             {
@@ -66,32 +66,32 @@ namespace AminoApi
             return _apiResultBuilder.Build<Account>(response);
         }
 
-        public async Task<ApiResult<CommunityList>> GetJoinedCommunities(int start = 0, int size = 50)
+        public async Task<ApiResult<CommunityList>> GetJoinedCommunitiesAsync(int start = 0, int size = 50)
         {
             var response = await _httpInteractor.GetAsync($"/g/s/community/joined?start={start}&size={size}");
             return _apiResultBuilder.Build<CommunityList>(response);
         }
 
-        public async Task<ApiResult<CommunityList>> GetSuggestedCommunities(int start = 0, int size = 50)
+        public async Task<ApiResult<CommunityList>> GetSuggestedCommunitiesAsync(int start = 0, int size = 50)
         {
             var response = await _httpInteractor.GetAsync($"/g/s/community/suggested?start={start}&size={size}");
             return _apiResultBuilder.Build<CommunityList>(response);
         }
 
-        public async Task<ApiResult<CommunityList>> GetCommuntiesByQuery(string query, int start = 0, int size = 0)
+        public async Task<ApiResult<CommunityList>> GetCommuntiesByQueryAsync(string query, int start = 0, int size = 0)
         {
             var q = WebUtility.UrlEncode(query);
             var response = await _httpInteractor.GetAsync($"/g/s/community/search?q={q}start={start}&size={size}&language=en");
             return _apiResultBuilder.Build<CommunityList>(response);
         }
 
-        public async Task<ApiResult<UserProfile>> JoinAmino(string id)
+        public async Task<ApiResult<UserProfile>> JoinAminoAsync(string id)
         {
             var response = await _httpInteractor.PostAsync($"/x{id}/s/community/join");
             return _apiResultBuilder.Build<UserProfile>(response);
         }
 
-        public async Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySections(int start = 0, int size = 25, string languageCode = "en")
+        public async Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySectionsAsync(int start = 0, int size = 25, string languageCode = "en")
         {
             var response = await _httpInteractor.GetAsync($"/g/s/community-collection/view/explore/sections?language={languageCode}&start={start}&size={size}");
             return _apiResultBuilder.Build<CommunityCollectionResponse>(response);
@@ -105,7 +105,7 @@ namespace AminoApi
             return _apiResultBuilder.Build<BlogList>(response);
         }
 
-        public async Task<ApiResult<Blog>> PostBlog(string communityId, string title, string content,
+        public async Task<ApiResult<Blog>> PostBlogAsync(string communityId, string title, string content,
             IEnumerable<ImageItem> imageItems = null)
         {
             const int type = 0;
@@ -146,19 +146,19 @@ namespace AminoApi
             data["mediaList"] = jArray;
         }
 
-        public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlines(int start = 0, int size = 25)
+        public async Task<ApiResult<FeedHeadlines>> GetFeedHeadlinesAsync(int start = 0, int size = 25)
         {
             var response = await _httpInteractor.GetAsync($"/g/s/feed/headlines?start={start}&size={size}");
             return _apiResultBuilder.Build<FeedHeadlines>(response);
         }
 
-        public async Task<ApiResult<ImageItem>> UploadImage(Stream imageStream)
+        public async Task<ApiResult<ImageItem>> UploadImageAsync(Stream imageStream)
         {
             var response = await _httpInteractor.PostStreamAsync("/g/s/media/upload", imageStream);
             return _apiResultBuilder.Build<ImageItem>(response);
         }
 
-        public async Task<ApiResult<ThreadList>> GetJoinedChats(string communityId, int start = 0, int size = 25)
+        public async Task<ApiResult<ThreadList>> GetJoinedChatsAsync(string communityId, int start = 0, int size = 25)
         {
             var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread?type=joined-me&start={start}&size={size}&cv=1.2 ");
             return _apiResultBuilder.Build<ThreadList>(response);

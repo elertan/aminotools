@@ -19,7 +19,7 @@ namespace AminoTools.Providers
 
         public async Task<ApiResult<Account>> Login(string email, string password)
         {
-            var result = await Api.Login(email, password);
+            var result = await Api.LoginAsync(email, password);
             return result;
         }
     }

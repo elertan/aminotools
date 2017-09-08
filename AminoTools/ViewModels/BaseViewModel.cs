@@ -23,7 +23,19 @@ namespace AminoTools.ViewModels
 
         public IsBusyData IsBusyData { get; }
 
+        /// <summary>
+        /// Is the view model currently initializing
+        /// </summary>
         public bool IsInitializing
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// In case the page will disappear, use this to determine wether to cancel any running tasks
+        /// </summary>
+        public bool IsInitializationCanceled
         {
             get;
             private set;
@@ -34,6 +46,8 @@ namespace AminoTools.ViewModels
         public Page Page { get; set; }
 
         public event EventHandler Initialize;
+
+        public event EventHandler CancelledInitialization;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -109,6 +123,12 @@ namespace AminoTools.ViewModels
             IsInitializing = true;
             Initialize?.Invoke(this, EventArgs.Empty);
             IsInitializing = false;
+        }
+
+        public virtual void OnCancelledInitialization()
+        {
+            IsInitializationCanceled = true;
+            CancelledInitialization?.Invoke(this, EventArgs.Empty);
         }
     }
 }

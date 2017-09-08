@@ -22,6 +22,13 @@ namespace AminoTools.CustomPages
             InitializeComponent();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            if (BaseViewModel.IsInitializing) BaseViewModel.OnCancelledInitialization();
+
+            return base.OnBackButtonPressed();
+        }
+
         private void BasePage_OnAppearing(object sender, EventArgs e)
         {
             if (!_firstTimeAppearing) return;
@@ -77,5 +84,6 @@ namespace AminoTools.CustomPages
                 Content = ParentPageContent;
             }
         }
+
     }
 }
