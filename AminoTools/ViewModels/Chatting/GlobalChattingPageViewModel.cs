@@ -9,6 +9,7 @@ using AminoTools.Models.Chatting.GlobalChatting;
 using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts.Chatting;
 using MvvmHelpers;
+using Xamarin.Forms;
 
 namespace AminoTools.ViewModels.Chatting
 {
@@ -26,6 +27,23 @@ namespace AminoTools.ViewModels.Chatting
             Initialize += GlobalChattingPageViewModel_Initialize;
 
             Chats = new ObservableRangeCollection<ChatCommunityModel>();
+            Device.StartTimer(TimeSpan.FromMinutes(1), UpdateTimeOnChatsTimerCallback);
+        }
+
+        private bool UpdateTimeOnChatsTimerCallback()
+        {
+            if (Chats != null)
+            {
+                foreach (var chat in Chats)
+                {
+                    if (chat.Chat.LastMessage != null)
+                    {
+                        // Cause on property changed
+                        chat.Chat.LastMessage.CreatedTime = chat.Chat.LastMessage.CreatedTime;
+                    }
+                }
+            }
+            return !WantsDisposal;
         }
 
         private async void GlobalChattingPageViewModel_Initialize(object sender, EventArgs e)
@@ -52,16 +70,6 @@ namespace AminoTools.ViewModels.Chatting
                 var chatsResult = await _chatProvider.GetChatsByCommunityAsync(community.Id);
                 if (chatsResult.Data.Any())
                 {
-                    //foreach (var chat in chatsResult.Data)
-                    //{
-                    //    foreach (var userProfile in chat.Members)
-                    //    {
-                    //        if (userProfile.Nickname.Contains("multi"))
-                    //        {
-                    //            Debug.WriteLine("found");
-                    //        }
-                    //    }
-                    //}
                     var chatCommunityModels = chatsResult.Data.Select(c => new ChatCommunityModel(App.Account.Uid) { Chat = c, Community = community });
                     var chats = Chats.ToList();
                     chats.AddRange(chatCommunityModels);

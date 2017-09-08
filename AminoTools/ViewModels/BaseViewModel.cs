@@ -23,6 +23,8 @@ namespace AminoTools.ViewModels
 
         public IsBusyData IsBusyData { get; }
 
+        public bool WantsDisposal { get; set; }
+
         /// <summary>
         /// Is the view model currently initializing
         /// </summary>

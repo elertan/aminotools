@@ -41,8 +41,6 @@
                                                             WidthRequest="50"
                                                             FadeAnimationEnabled="True"
                                                             Source="{Binding ChatIcon}">
-
-                                    <!--Source="{Binding ChatIcon}"-->
                                     <ffImageLoading:CachedImage.Transformations>
                                         <transformations:CircleTransformation BorderHexColor="#000000"
                                                                               BorderSize="1" />
