@@ -11,6 +11,28 @@ namespace AminoApi.Models.Community
         private string _primaryLanguage;
         private string _id;
         private string _tagline;
+        private Uri _icon;
+        private Uri _splashArt;
+
+        public Uri Icon
+        {
+            get => _icon;
+            set
+            {
+                _icon = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public Uri SplashArt
+        {
+            get => _splashArt;
+            set
+            {
+                _splashArt = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public Uri Link
         {

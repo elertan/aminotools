@@ -100,6 +100,8 @@
                                        TextColor="DimGray"
                                        Grid.Row="0"
                                        Grid.Column="2" />
+                              
+                                <ffImageLoading:CachedImage Source="{Binding Community.Icon}"></ffImageLoading:CachedImage>
 
                             </Grid>
                         </ViewCell>
