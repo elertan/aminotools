@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using AminoApi.Models.Media;
+using Newtonsoft.Json.Linq;
 
 namespace AminoApi.Models.Community
 {
@@ -13,6 +15,7 @@ namespace AminoApi.Models.Community
         private string _tagline;
         private Uri _icon;
         private Uri _splashArt;
+        private List<ImageItem> _imageItems;
 
         public Uri Icon
         {
@@ -20,6 +23,16 @@ namespace AminoApi.Models.Community
             set
             {
                 _icon = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public List<ImageItem> ImageItems
+        {
+            get => _imageItems;
+            set
+            {
+                _imageItems = value; 
                 OnPropertyChanged();
             }
         }
@@ -106,6 +119,23 @@ namespace AminoApi.Models.Community
             var linkStr = data.Resolve<string>("link");
             if (!string.IsNullOrWhiteSpace(linkStr)) Link = new Uri(linkStr);
             Tagline = data.Resolve<string>("tagline");
+
+            //var jArray = (JArray) data["launchPage"].ToJObject()["mediaList"];
+            //if (jArray == null) return;
+
+            //var items = new List<ImageItem>();
+            //foreach (var item in jArray)
+            //{
+            //    var array = (JArray)item;
+            //    var imageItem = new ImageItem();
+            //    imageItem.JsonResolveArray(array.ToObject<object[]>());
+
+            //    items.Add(imageItem);
+            //}
+            //ImageItems = items;
+
+            var iconString = data.Resolve<string>("icon");
+            if (!string.IsNullOrWhiteSpace(iconString)) Icon = new Uri(iconString);
         }
     }
 }

@@ -86,7 +86,7 @@ namespace AminoTools.ViewModels.Chatting
             IsLoading = false;
         }
 
-        private Grid LoadingGrid => ((GlobalChattingPage) Page).LoadingGrid;
+        private Grid LoadingGrid => ((GlobalChattingPage) Page).GetLoadingGrid();
 
         public ObservableRangeCollection<ChatCommunityModel> Chats
         {

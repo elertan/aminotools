@@ -16,7 +16,7 @@ namespace AminoTools.Converters
 
             var time = (DateTime) value;
             var timeDifference = DateTime.Now - time;
-            if (timeDifference.TotalSeconds <= 30)
+            if (timeDifference.TotalSeconds <= 60)
             {
                 return "a moment ago";
             }

@@ -8,16 +8,17 @@ namespace AminoApi.Models.Media
 {
     public class ImageItem : ModelBase
     {
-        private int _someValue;
+        private int _mediaItemId;
         private Uri _imageUri;
         private string _blogReferenceId;
+        private string _description;
 
-        public int SomeValue
+        public int MediaItemId
         {
-            get => _someValue;
+            get => _mediaItemId;
             set
             {
-                _someValue = value; 
+                _mediaItemId = value; 
                 OnPropertyChanged();
             }
         }
@@ -28,6 +29,16 @@ namespace AminoApi.Models.Media
             set
             {
                 _imageUri = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                _description = value; 
                 OnPropertyChanged();
             }
         }
@@ -51,8 +62,9 @@ namespace AminoApi.Models.Media
 
         public override void JsonResolveArray(object[] data)
         {
-            SomeValue = Convert.ToInt32(data[0]);
+            MediaItemId = Convert.ToInt32(data[0]);
             ImageUri = new Uri(Convert.ToString(data[1]));
+            Description = Convert.ToString(data[2]);
             if (DoesContainBlogReferenceId(data))
             {
                 BlogReferenceId = Convert.ToString(data[3]);

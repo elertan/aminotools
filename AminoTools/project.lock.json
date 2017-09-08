@@ -3076,12 +3076,12 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectUniqueName": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
       "projectName": "AminoTools",
-      "projectPath": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
-      "projectJsonPath": "Z:\\Projects\\AminoTools\\AminoTools\\project.json",
+      "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\AminoTools.csproj",
+      "projectJsonPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\project.json",
       "packagesPath": "C:\\Users\\Elertan\\.nuget\\packages\\",
-      "outputPath": "Z:\\Projects\\AminoTools\\AminoTools\\obj\\",
+      "outputPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoTools\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
         "C:\\Users\\Elertan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3094,8 +3094,8 @@
       "frameworks": {
         "portable45-net45+win8+wpa81": {
           "projectReferences": {
-            "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj": {
-              "projectPath": "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj"
+            "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj": {
+              "projectPath": "C:\\Users\\Elertan\\Source\\Repos\\aminotools\\AminoApi\\AminoApi.csproj"
             }
           }
         }
@@ -3106,15 +3106,12 @@
       "Newtonsoft.Json": "10.0.3",
       "Refractored.MvvmHelpers": "1.3.0",
       "sqlite-net-pcl": "1.4.118",
+      "SQLite.Net-PCL": "3.1.1",
       "SQLite.Net.Async-PCL": "3.1.1",
       "Xamarin.FFImageLoading": "2.2.10",
       "Xamarin.FFImageLoading.Forms": "2.2.10",
       "Xamarin.FFImageLoading.Transformations": "2.2.10",
-      "Xamarin.Forms": "2.3.4.270",
-      "SQLite.Net-PCL": {
-        "target": "Package",
-        "version": "[3.1.1, )"
-      }
+      "Xamarin.Forms": "2.3.4.270"
     },
     "frameworks": {
       "portable45-net45+win8+wpa81": {}
