@@ -14,7 +14,7 @@ namespace AminoTools.CustomControls.Chatting
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MessageView : ContentView, INotifyPropertyChanged
     {
-        private Message _message;
+        private MessageInfoModel _messageInfoModel;
 
         public ChatCommunityModel ChatCommunityModel { get; set; }
 
@@ -25,19 +25,19 @@ namespace AminoTools.CustomControls.Chatting
             BindingContextChanged += MessageView_BindingContextChanged;
         }
 
-        public Message Message
+        public MessageInfoModel MessageInfoModel
         {
-            get => _message;
+            get => _messageInfoModel;
             private set
             {
-                _message = value; 
+                _messageInfoModel = value; 
                 OnPropertyChanged();
             }
         }
 
         private void MessageView_BindingContextChanged(object sender, EventArgs e)
         {
-            Message = (Message) BindingContext;
+            MessageInfoModel = (MessageInfoModel) BindingContext;
         }
     }
 }

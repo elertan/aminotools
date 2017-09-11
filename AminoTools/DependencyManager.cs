@@ -54,6 +54,7 @@ namespace AminoTools
 
             // ViewModels.Common
             cb.RegisterType<ViewModels.Common.ImageSelectionPageViewModel>().As<IImageSelectionPageViewModel>();
+            cb.RegisterType<ViewModels.Common.ImagePageViewModel>().As<IImagePageViewModel>();
 
             // ViewModels.Auth
             cb.RegisterType<ViewModels.Auth.LoginPageViewModel>().As<ILoginPageViewModel>();

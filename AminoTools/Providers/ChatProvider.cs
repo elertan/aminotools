@@ -21,7 +21,7 @@ namespace AminoTools.Providers
             var chats = new List<Chat>();
             for (var i = 0;; i++)
             {
-                var threadListResult = await Api.GetJoinedChatsAsync(communityId, i * 25);
+                var threadListResult = await Api.GetJoinedChatsAsync(communityId, i * 50, 50);
                 if (!threadListResult.DidSucceed() || !threadListResult.Data.Chats.Any())
                 {
                     return ApiResult.Create(chats, threadListResult.Info);
@@ -33,6 +33,16 @@ namespace AminoTools.Providers
         public async Task<ApiResult<MessageList>> GetMessagesAsync(string communityId, string threadId, int index = 0)
         {
             return await Api.GetMessagesForUserByCommunityIdAsync(communityId, threadId, index * 25);
+        }
+
+        public async Task<ApiResult<Message>> SendMessageToChatAsync(string communityId, string threadId, string content)
+        {
+            return await Api.SendMessageToChatAsync(communityId, threadId, content);
+        }
+
+        public async Task<ApiResult<Message>> SendImageToChatAsync(string communityId, string threadId, string base64JpgImageContent)
+        {
+            return await Api.SendImageToChatAsync(communityId, threadId, base64JpgImageContent);
         }
     }
 }

@@ -24,5 +24,11 @@ namespace AminoTools.Pages.Chatting
         }
 
         public ListView GetListView() => ListView;
+
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null) return;
+            ((ListView) sender).SelectedItem = null;
+        }
     }
 }

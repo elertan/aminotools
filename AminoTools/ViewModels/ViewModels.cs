@@ -47,6 +47,9 @@ namespace AminoTools.ViewModels
         public static IImageSelectionPageViewModel ImageSelectionPageViewModel => Container
             .Resolve<IImageSelectionPageViewModel>();
 
+        public static IImagePageViewModel ImagePageViewModel => Container
+            .Resolve<IImagePageViewModel>();
+
         // ViewModels.Community
         public static ICommunityPageViewModel CommunityPageViewModel => Container.Resolve<ICommunityPageViewModel>();
 

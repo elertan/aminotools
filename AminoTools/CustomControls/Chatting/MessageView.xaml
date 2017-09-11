@@ -3,41 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
              x:Class="AminoTools.CustomControls.Chatting.MessageView">
   <ContentView.Content>
         <Grid Padding="15,5"
-              BackgroundColor="LightGray"
-              HorizontalOptions="Start">
+              HorizontalOptions="{Binding HorizontalMessageLayoutOption}">
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <converters:IsNotNullToBoolConverter x:Key="IsNotNullToBoolConverter" />
+                    <converters:IsNullToBoolConverter x:Key="IsNullToBoolConverter" />
+                </ResourceDictionary>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <forms:CachedImage Grid.Column="0"
+                               IsVisible="{Binding ShouldShowUserProfilePictureOnMessageView}"
                                VerticalOptions="Center"
-                               WidthRequest="50"
+                               WidthRequest="35"
                                FadeAnimationEnabled="True"
-                               Source="{Binding Author.Icon}">
+                               Source="{Binding Message.Author.Icon}">
                 <forms:CachedImage.Transformations>
                     <transformations:CircleTransformation BorderHexColor="#000000"
                                                           BorderSize="1" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            
-            <Label Text="{Binding Content}"
-                   FontSize="14"
-                   Margin="5,0,0,0"
-                   Grid.Column="1" />
 
-            <forms:CachedImage Grid.Column="2"
-                               VerticalOptions="Center"
-                               WidthRequest="50"
-                               FadeAnimationEnabled="True"
-                               Source="{Binding Author.Icon}">
+            <Frame Grid.Column="1"
+                   IsVisible="{Binding Message.Image, Converter={StaticResource IsNullToBoolConverter}}"
+                   BackgroundColor="{Binding MessageBackgroundColor}"
+                   CornerRadius="5"
+                   HasShadow="False"
+                   Padding="10"
+                   Margin="5,0,0,0">
+                <StackLayout>
+                    <Label Text="{Binding Message.Content}"
+                           MinimumHeightRequest="15"
+                           Margin="3,0"
+                           FontSize="14">
+                    </Label>
+                </StackLayout>
+            </Frame>
+
+            <forms:CachedImage IsVisible="{Binding Message.Image, Converter={StaticResource IsNotNullToBoolConverter}}" 
+                               Source="{Binding Message.Image}"
+                               WidthRequest="250"
+                               Aspect="AspectFill"
+                               Grid.Column="1">
+                <forms:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ImageTappedCommand}"/>
+                </forms:CachedImage.GestureRecognizers>
                 <forms:CachedImage.Transformations>
-                    <transformations:CircleTransformation BorderHexColor="#000000"
-                                                          BorderSize="1" />
+                    <transformations:RoundedTransformation Radius="10" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
         </Grid>

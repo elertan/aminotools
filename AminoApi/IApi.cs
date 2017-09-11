@@ -47,5 +47,11 @@ namespace AminoApi
 
         Task<ApiResult<MessageList>> GetMessagesForUserByCommunityIdAsync(string communityId, string threadId, int start = 0,
             int size = 25);
+
+        Task<ApiResult<Message>> SendMessageToChatAsync(string communityId, string threadId,
+            string content);
+
+        Task<ApiResult<Message>> SendImageToChatAsync(string communityId, string threadId,
+            string base64JpgImageData);
     }
 }

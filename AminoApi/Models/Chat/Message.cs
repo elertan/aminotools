@@ -14,6 +14,7 @@ namespace AminoApi.Models.Chat
         private DateTime _createdTime;
         private string _id;
         private string _userId;
+        private Uri _image;
 
         public UserProfile Author
         {
@@ -21,6 +22,16 @@ namespace AminoApi.Models.Chat
             set
             {
                 _author = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public Uri Image
+        {
+            get => _image;
+            set
+            {
+                _image = value; 
                 OnPropertyChanged();
             }
         }
@@ -67,10 +78,21 @@ namespace AminoApi.Models.Chat
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
+            if (data.ContainsKey("message"))
+            {
+                JsonResolve(data["message"].ToJObject().ToObject<Dictionary<string, object>>());
+                return;
+            }
+
             Content = data.Resolve<string>("content");
             CreatedTime = data.Resolve<DateTime>("createdTime");
             Id = data.Resolve<string>("messageId");
             UserId = data.Resolve<string>("uid");
+            var imageString = data.Resolve<string>("mediaValue");
+            if (!string.IsNullOrWhiteSpace(imageString))
+            {
+                Image = new Uri(imageString);
+            }
 
             if (data.ContainsKey("author"))
             {
