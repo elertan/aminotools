@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="AminoTools.CustomControls.Common.AminoMarkupEditor"
+             x:Name="This"
+             BindingContext="{x:Reference This}">
+  <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding MarkupBlocks}"
+                      HasUnevenRows="True"
+                      Grid.ColumnSpan="2">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Remove" />
+                                <MenuItem Text="Bold" />
+                                <MenuItem Text="Center" />
+                                <MenuItem Text="Italic" />
+                            </ViewCell.ContextActions>
+                            <Editor Text="{Binding Text}"
+                                    FontSize="16"
+                                    TextChanged="Editor_OnTextChanged"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Parse Existing Markup"
+                    Grid.Row="1"
+                    Grid.Column="0"/>
+            <Button Text="Add Markup Block"
+                    Command="{Binding AddMarkupBlockCommand}"
+                    Grid.Row="1"
+                    Grid.Column="1"/>
+        </Grid>
+  </ContentView.Content>
+</ContentView>

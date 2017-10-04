@@ -4,6 +4,7 @@
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:converters="clr-namespace:AminoTools.Converters;assembly=AminoTools"
+             x:Name="This"
              x:Class="AminoTools.CustomControls.Chatting.MessageView">
   <ContentView.Content>
         <Grid Padding="15,5"
@@ -25,6 +26,9 @@
                                WidthRequest="35"
                                FadeAnimationEnabled="True"
                                Source="{Binding Message.Author.Icon}">
+                <forms:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UserProfileIconTappedCommand, Source={x:Reference This}}"></TapGestureRecognizer>
+                </forms:CachedImage.GestureRecognizers>
                 <forms:CachedImage.Transformations>
                     <transformations:CircleTransformation BorderHexColor="#000000"
                                                           BorderSize="1" />

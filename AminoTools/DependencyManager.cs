@@ -13,6 +13,7 @@ using AminoTools.ViewModels.Contracts.Blogs;
 using AminoTools.ViewModels.Contracts.Chatting;
 using AminoTools.ViewModels.Contracts.Common;
 using AminoTools.ViewModels.Contracts.Community;
+using AminoTools.ViewModels.Contracts.Profile;
 using AminoTools.ViewModels.Contracts.Settings;
 using Autofac;
 
@@ -46,6 +47,7 @@ namespace AminoTools
             cb.RegisterType<FeedProvider>().As<IFeedProvider>();
             cb.RegisterType<MediaProvider>().As<IMediaProvider>();
             cb.RegisterType<ChatProvider>().As<IChatProvider>();
+            cb.RegisterType<UserProvider>().As<IUserProvider>();
 
             // ViewModels
             cb.RegisterType<ViewModels.MainPageMenuPageViewModel>().As<IMainPageMenuPageViewModel>();
@@ -71,6 +73,10 @@ namespace AminoTools
             // ViewModels.Community
             cb.RegisterType<ViewModels.Community.CommunityPageViewModel>().As<ICommunityPageViewModel>();
             cb.RegisterType<ViewModels.Community.JoinRandomCommunitiesPageViewModel>().As<IJoinRandomCommunitiesPageViewModel>();
+
+            // ViewModels.Profile
+            cb.RegisterType<ViewModels.Profile.ProfilePageViewModel>().As<IProfilePageViewModel>();
+            cb.RegisterType<ViewModels.Profile.ProfileEditPageViewModel>().As<IProfileEditPageViewModel>();
 
             // ViewModels.Settings
             cb.RegisterType<ViewModels.Settings.SettingsPageViewModel>().As<ISettingsPageViewModel>();

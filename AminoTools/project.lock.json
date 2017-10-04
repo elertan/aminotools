@@ -464,11 +464,11 @@
           "lib/portable-net45+win8+wpa81+wp8/FFImageLoading.dll": {}
         }
       },
-      "Xamarin.FFImageLoading.Forms/2.2.10": {
+      "Xamarin.FFImageLoading.Forms/2.2.15": {
         "type": "package",
         "dependencies": {
-          "Xamarin.FFImageLoading": "2.2.10",
-          "Xamarin.Forms": "1.4.4.6392"
+          "Xamarin.FFImageLoading": "2.2.15",
+          "Xamarin.Forms": "2.0.0"
         },
         "compile": {
           "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.dll": {}
@@ -2835,10 +2835,10 @@
         "xamarin.ffimageloading.nuspec"
       ]
     },
-    "Xamarin.FFImageLoading.Forms/2.2.10": {
-      "sha512": "+ZEOMTlXNVIIrTIQ5ApGkFooUOT1pj1hCSK61nnHXHVd5ruP1N1ggPUMPCSJKTR/piKMyqLpO71IX9pFZYoftQ==",
+    "Xamarin.FFImageLoading.Forms/2.2.15": {
+      "sha512": "bhLYC26zjz2yShOdMI5+3neTuXh5byxojR8qGnsq+k4SyZKPzRmij+gKw2ufOC9gee6hAyLV78RV1vSWOSOVWQ==",
       "type": "package",
-      "path": "xamarin.ffimageloading.forms/2.2.10",
+      "path": "xamarin.ffimageloading.forms/2.2.15",
       "files": [
         "lib/MonoAndroid10/FFImageLoading.Forms.Droid.dll",
         "lib/MonoAndroid10/FFImageLoading.Forms.Droid.pdb",
@@ -2855,19 +2855,19 @@
         "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.dll",
         "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.pdb",
         "lib/portable-net45+win8+wpa81+wp8+netstandard1.0/FFImageLoading.Forms.xml",
-        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.WinRT.dll",
-        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.WinRT.pdb",
-        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.WinRT.xml",
-        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.dll",
-        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.pdb",
-        "lib/portable-netcore45+wpa81/FFImageLoading.Forms.xml",
         "lib/uap10.0/FFImageLoading.Forms.WinUWP.dll",
         "lib/uap10.0/FFImageLoading.Forms.WinUWP.pdb",
         "lib/uap10.0/FFImageLoading.Forms.WinUWP.xml",
         "lib/uap10.0/FFImageLoading.Forms.dll",
         "lib/uap10.0/FFImageLoading.Forms.pdb",
         "lib/uap10.0/FFImageLoading.Forms.xml",
-        "xamarin.ffimageloading.forms.2.2.10.nupkg.sha512",
+        "lib/win81+wpa81/FFImageLoading.Forms.WinRT.dll",
+        "lib/win81+wpa81/FFImageLoading.Forms.WinRT.pdb",
+        "lib/win81+wpa81/FFImageLoading.Forms.WinRT.xml",
+        "lib/win81+wpa81/FFImageLoading.Forms.dll",
+        "lib/win81+wpa81/FFImageLoading.Forms.pdb",
+        "lib/win81+wpa81/FFImageLoading.Forms.xml",
+        "xamarin.ffimageloading.forms.2.2.15.nupkg.sha512",
         "xamarin.ffimageloading.forms.nuspec"
       ]
     },
@@ -3064,7 +3064,7 @@
       "SQLite.Net-PCL >= 3.1.1",
       "SQLite.Net.Async-PCL >= 3.1.1",
       "Xamarin.FFImageLoading >= 2.2.10",
-      "Xamarin.FFImageLoading.Forms >= 2.2.10",
+      "Xamarin.FFImageLoading.Forms >= 2.2.15",
       "Xamarin.FFImageLoading.Transformations >= 2.2.10",
       "Xamarin.Forms >= 2.3.4.270",
       "sqlite-net-pcl >= 1.4.118"
@@ -3076,12 +3076,12 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectUniqueName": "\\\\Mac\\Home\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
       "projectName": "AminoTools",
-      "projectPath": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
-      "projectJsonPath": "Z:\\Projects\\AminoTools\\AminoTools\\project.json",
+      "projectPath": "\\\\Mac\\Home\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectJsonPath": "\\\\Mac\\Home\\Projects\\AminoTools\\AminoTools\\project.json",
       "packagesPath": "C:\\Users\\Elertan\\.nuget\\packages\\",
-      "outputPath": "Z:\\Projects\\AminoTools\\AminoTools\\obj\\",
+      "outputPath": "\\\\Mac\\Home\\Projects\\AminoTools\\AminoTools\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
         "C:\\Users\\Elertan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3094,8 +3094,8 @@
       "frameworks": {
         "portable45-net45+win8+wpa81": {
           "projectReferences": {
-            "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj": {
-              "projectPath": "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj"
+            "\\\\Mac\\Home\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj": {
+              "projectPath": "\\\\Mac\\Home\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj"
             }
           }
         }
@@ -3109,12 +3109,24 @@
       "SQLite.Net-PCL": "3.1.1",
       "SQLite.Net.Async-PCL": "3.1.1",
       "Xamarin.FFImageLoading": "2.2.10",
-      "Xamarin.FFImageLoading.Forms": "2.2.10",
+      "Xamarin.FFImageLoading.Forms": "2.2.15",
       "Xamarin.FFImageLoading.Transformations": "2.2.10",
       "Xamarin.Forms": "2.3.4.270"
     },
     "frameworks": {
       "portable45-net45+win8+wpa81": {}
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package downgrade: Xamarin.FFImageLoading from 2.2.15 to 2.2.10. Reference the package directly from the project to select a different version. \r\n AminoTools (>= 1.0.0) -> Xamarin.FFImageLoading.Forms (>= 2.2.15) -> Xamarin.FFImageLoading (>= 2.2.15) \r\n AminoTools (>= 1.0.0) -> Xamarin.FFImageLoading (>= 2.2.10)",
+      "libraryId": "Xamarin.FFImageLoading",
+      "targetGraphs": [
+        ".NETPortable,Version=v4.5,Profile=Profile111"
+      ]
+    }
+  ]
 }

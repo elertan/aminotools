@@ -91,6 +91,12 @@ namespace AminoApi
             return _apiResultBuilder.Build<UserProfile>(response);
         }
 
+        public async Task<ApiResult<UserProfile>> GetUserProfileByIdAsync(string communityId, string userId)
+        {
+            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/user-profile/{userId}");
+            return _apiResultBuilder.Build<UserProfile>(response);
+        }
+
         public async Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySectionsAsync(int start = 0, int size = 25, string languageCode = "en")
         {
             var response = await _httpInteractor.GetAsync($"/g/s/community-collection/view/explore/sections?language={languageCode}&start={start}&size={size}");

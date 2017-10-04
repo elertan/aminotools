@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AminoTools.Models.Chatting.GlobalChatting;
 using AminoTools.Pages.Chatting;
+using AminoTools.Pages.Profile;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,9 +30,20 @@ namespace AminoTools.CustomControls.Cells
             InitializeComponent();
             Appearing += ChatCell_Appearing;
             
+            UserIconTappedCommand = new Command(DoShowUserProfile);
             OpenChatCommand = new Command(DoOpenChat);
 
             _defaultColor = MainGrid.BackgroundColor;
+        }
+
+        private async void DoShowUserProfile()
+        {
+            var app = (App) Application.Current;
+            app.Variables.ProfilePage.Reset();
+            app.Variables.ProfilePage.UserId = _chatCommunityModel.Chat.Members.First(m => m.Uid != app.Account.Uid)
+                .Uid;
+            app.Variables.ProfilePage.CommunityId = _chatCommunityModel.Community.Id;
+            await ((App)Application.Current).MainNavigation.PushAsync(new ProfilePage());
         }
 
         private async void DoOpenChat()
@@ -46,6 +58,8 @@ namespace AminoTools.CustomControls.Cells
         }
 
         public Command OpenChatCommand { get; }
+
+        public Command UserIconTappedCommand { get; }
 
         private void ChatCell_Appearing(object sender, EventArgs e)
         {

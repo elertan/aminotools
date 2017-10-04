@@ -9,6 +9,7 @@ using AminoTools.ViewModels.Contracts.Blogs;
 using AminoTools.ViewModels.Contracts.Chatting;
 using AminoTools.ViewModels.Contracts.Common;
 using AminoTools.ViewModels.Contracts.Community;
+using AminoTools.ViewModels.Contracts.Profile;
 using AminoTools.ViewModels.Contracts.Settings;
 using Autofac;
 using Xamarin.Forms;
@@ -55,6 +56,10 @@ namespace AminoTools.ViewModels
 
         public static IJoinRandomCommunitiesPageViewModel JoinRandomCommunitiesPageViewModel => Container
             .Resolve<IJoinRandomCommunitiesPageViewModel>();
+
+        // ViewModels.Profile
+        public static IProfilePageViewModel ProfilePageViewModel => Container.Resolve<IProfilePageViewModel>();
+        public static IProfileEditPageViewModel ProfileEditPageViewModel => Container.Resolve<IProfileEditPageViewModel>();
 
         // ViewModels.Settings
         public static IAccountPageViewModel AccountPageViewModel => Container.Resolve<IAccountPageViewModel>();

@@ -15,6 +15,17 @@ namespace AminoTools.Models.Chatting.GlobalChatting
     {
         private Chat _chat;
         private Message _message;
+        private ChatCommunityModel _chatCommunityModel;
+
+        public ChatCommunityModel ChatCommunityModel
+        {
+            get => _chatCommunityModel;
+            set
+            {
+                _chatCommunityModel = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public MessageInfoModel()
         {

@@ -48,7 +48,7 @@ namespace AminoTools.ViewModels.Chatting
 
                 Message = String.Empty;
 
-                var messageInfoModel = new MessageInfoModel {Message = apiResult.Data, Chat = ChatCommunityModel.Chat, ShouldBeAnimated = true};
+                var messageInfoModel = new MessageInfoModel {Message = apiResult.Data, Chat = ChatCommunityModel.Chat, ShouldBeAnimated = true, ChatCommunityModel = _chatCommunityModel};
                 var m = Messages.ToList();
                 m.Add(messageInfoModel);
                 Messages = new ObservableRangeCollection<MessageInfoModel>(m);
@@ -74,7 +74,7 @@ namespace AminoTools.ViewModels.Chatting
                     return;
                 }
                 apiResult.Data.Messages.Reverse();
-                Messages = new ObservableRangeCollection<MessageInfoModel>(apiResult.Data.Messages.Select(m => new MessageInfoModel {Message = m, Chat = ChatCommunityModel.Chat}));
+                Messages = new ObservableRangeCollection<MessageInfoModel>(apiResult.Data.Messages.Select(m => new MessageInfoModel {Message = m, Chat = ChatCommunityModel.Chat, ChatCommunityModel = _chatCommunityModel}));
             });
 
             OnMessageReceived();
@@ -93,7 +93,7 @@ namespace AminoTools.ViewModels.Chatting
 
             var firstMessage = Messages.First();
 
-            var collection = new ObservableRangeCollection<MessageInfoModel>(apiResult.Data.Messages.Select(m => new MessageInfoModel { Message = m, Chat = ChatCommunityModel.Chat }));
+            var collection = new ObservableRangeCollection<MessageInfoModel>(apiResult.Data.Messages.Select(m => new MessageInfoModel { Message = m, Chat = ChatCommunityModel.Chat, ChatCommunityModel = _chatCommunityModel}));
             collection.AddRange(Messages);
             Messages = collection;
 

@@ -8,6 +8,7 @@ using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
+using AminoApi.Models.User;
 using AminoTools.Models.Common.ImageSelection;
 using Xamarin.Forms;
 using AminoTools.Pages;
@@ -48,7 +49,7 @@ namespace AminoTools
             Api = DependencyManager.Container.Resolve<IApi>();
 
             var httpClient = new HttpClient(); // this handler will not throw if hostname is different
-            ImageService.Instance.Initialize(new Configuration() { HttpClient = httpClient, ExecuteCallbacksOnUIThread = false, AnimateGifs = false});
+            ImageService.Instance.Initialize(new Configuration() { HttpClient = httpClient, ExecuteCallbacksOnUIThread = false});
 
             InitializeComponent();
 
@@ -116,6 +117,8 @@ namespace AminoTools
             {
                 MultiBlog = new MultiBlogClass();
                 ImageSelection = new ImageSelectionClass();
+                ProfilePage = new UserProfileClass();
+                ProfileEditPage = new ProfileEditPageClass();
             }
 
             public readonly MultiBlogClass MultiBlog;
@@ -136,6 +139,28 @@ namespace AminoTools
                 {
                     UpdatedImages?.Invoke(this, EventArgs.Empty);
                 }
+            }
+
+            public readonly UserProfileClass ProfilePage;
+            public class UserProfileClass
+            {
+                public string CommunityId { get; set; }
+                public string UserId { get; set; }
+                public bool IsMyProfile { get; set; }
+
+                public void Reset()
+                {
+                    CommunityId = null;
+                    UserId = null;
+                    IsMyProfile = false;
+                }
+            }
+
+            public readonly ProfileEditPageClass ProfileEditPage;
+
+            public class ProfileEditPageClass
+            {
+                public UserProfile Profile { get; set; }
             }
         }
 
