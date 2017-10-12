@@ -85,7 +85,7 @@
     <Compile Include="Pages\Blogs\BlogsPage.xaml.cs">
       <DependentUpon>BlogsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Blogs\CommunitySelectionPage.xaml.cs">
+    <Compile Include="Pages\Common\CommunitySelectionPage.xaml.cs">
       <DependentUpon>CommunitySelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Blogs\MultiBlogPage.xaml.cs">
@@ -97,6 +97,7 @@
     <Compile Include="Pages\Chatting\GlobalChattingPage.xaml.cs">
       <DependentUpon>GlobalChattingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\CommunitySelectionResult.cs" />
     <Compile Include="Pages\Common\ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
@@ -282,7 +283,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\Blogs\CommunitySelectionPage.xaml">
+    <EmbeddedResource Include="Pages\Common\CommunitySelectionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
