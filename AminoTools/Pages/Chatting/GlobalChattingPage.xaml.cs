@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Chatting
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GlobalChattingPage : BasePage
     {
-        public GlobalChattingPage()
+        public GlobalChattingPage() : base()
         {
             InitializeComponent();
         }

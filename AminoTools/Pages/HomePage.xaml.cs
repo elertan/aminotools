@@ -12,7 +12,7 @@ namespace AminoTools.Pages
 	[XamlCompilation(XamlCompilationOptions.Skip)]
 	public partial class HomePage : BasePage
 	{
-		public HomePage ()
+		public HomePage () : base()
 		{
 			InitializeComponent ();
 		}

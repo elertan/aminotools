@@ -14,7 +14,7 @@ namespace AminoTools.Pages
 {
     public partial class MainPageMenuPage : BasePage
     {
-        public MainPageMenuPage()
+        public MainPageMenuPage() : base()
         {
             InitializeComponent();
         }

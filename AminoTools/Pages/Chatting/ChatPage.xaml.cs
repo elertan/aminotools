@@ -17,7 +17,7 @@ namespace AminoTools.Pages.Chatting
     {
         public ChatCommunityModel ChatCommunityModel { get; }
 
-        public ChatPage(ChatCommunityModel chatCommunityModel)
+        public ChatPage(ChatCommunityModel chatCommunityModel) : base()
         {
             ChatCommunityModel = chatCommunityModel;
             InitializeComponent();

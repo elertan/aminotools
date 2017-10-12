@@ -49,7 +49,7 @@ namespace AminoTools
             Api = DependencyManager.Container.Resolve<IApi>();
 
             var httpClient = new HttpClient(); // this handler will not throw if hostname is different
-            ImageService.Instance.Initialize(new Configuration() { HttpClient = httpClient, ExecuteCallbacksOnUIThread = false});
+            ImageService.Instance.Initialize(new Configuration() { HttpClient = httpClient, ExecuteCallbacksOnUIThread = false, AnimateGifs = false});
 
             InitializeComponent();
 

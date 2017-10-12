@@ -12,5 +12,6 @@ namespace AminoTools.ViewModels.Contracts.Profile
     {
         UserProfile Profile { get; set; }
         Command EditProfilePictureCommand { get; }
+        Command SaveChangesCommand { get; }
     }
 }

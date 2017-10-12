@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Common
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ImagePage : BasePage
     {
-        public ImagePage(Uri imageUri)
+        public ImagePage(Uri imageUri) : base()
         {
             ImageUri = imageUri;
 

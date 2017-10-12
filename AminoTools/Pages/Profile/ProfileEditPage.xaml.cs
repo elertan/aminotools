@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Profile
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfileEditPage : BasePage
     {
-        public ProfileEditPage()
+        public ProfileEditPage() : base()
         {
             InitializeComponent();
         }

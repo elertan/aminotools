@@ -7,7 +7,8 @@
              x:Name="This"
              BindingContext="{x:Reference This}">
   <ContentView.Content>
-        <Grid>
+      <Editor Text="{Binding StringRepresentation}" />
+        <!--<Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -42,6 +43,6 @@
                     Command="{Binding AddMarkupBlockCommand}"
                     Grid.Row="1"
                     Grid.Column="1"/>
-        </Grid>
+        </Grid>-->
   </ContentView.Content>
 </ContentView>

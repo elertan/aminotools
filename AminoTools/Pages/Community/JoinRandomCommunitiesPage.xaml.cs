@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Community
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class JoinRandomCommunitiesPage : BasePage
     {
-        public JoinRandomCommunitiesPage()
+        public JoinRandomCommunitiesPage() : base()
         {
             InitializeComponent();
         }

@@ -11,6 +11,10 @@
                       Title="Edit Profile"
                       x:Name="This"
                       BindingContext="{x:Static viewModels:ViewModels.ProfileEditPageViewModel}">
+    <customPages:BasePage.ToolbarItems>
+        <ToolbarItem Text="Save"
+                     Command="{Binding SaveChangesCommand}" />
+    </customPages:BasePage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

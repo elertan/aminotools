@@ -14,11 +14,13 @@ namespace AminoTools.CustomPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BasePage : ContentPage
     {
+        private readonly object _viewModelParameter;
         private bool _firstTimeAppearing = true;
         public View ParentPageContent { get; set; }
         public BaseViewModel BaseViewModel { get; set; }
-        public BasePage()
+        public BasePage(object viewModelParameter = null)
         {
+            _viewModelParameter = viewModelParameter;
             InitializeComponent();
         }
 
@@ -49,6 +51,7 @@ namespace AminoTools.CustomPages
                 {
                     BaseViewModel = (BaseViewModel) BindingContext;
                 }
+                BaseViewModel.ViewModelParameter = _viewModelParameter;
             }
 
             BaseViewModel.Page = this;
