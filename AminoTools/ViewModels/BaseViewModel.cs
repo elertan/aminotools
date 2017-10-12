@@ -13,6 +13,7 @@ namespace AminoTools.ViewModels
 {
     public class BaseViewModel : IViewModel, INotifyPropertyChanged
     {
+        public object ViewModelParameter { get; set; }
         private readonly List<Task> _doAsBusyStateTasks;
 
         public BaseViewModel()

@@ -58,6 +58,9 @@
     <Compile Include="CustomControls\Chatting\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\Common\AminoMarkupEditor.xaml.cs">
+      <DependentUpon>AminoMarkupEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\LoadingOverlay.xaml.cs">
       <DependentUpon>LoadingOverlay.xaml</DependentUpon>
     </Compile>
@@ -71,6 +74,8 @@
     <Compile Include="DependencyServices\IPicturePicker.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Models\Chatting\GlobalChatting\ChatCommunityModel.cs" />
+    <Compile Include="Models\Chatting\GlobalChatting\MessageInfoModel.cs" />
+    <Compile Include="Models\Common\AminoMarkupEditor\MarkupBlock.cs" />
     <Compile Include="Models\Common\ImageSelection\BlogImageSource.cs" />
     <Compile Include="Models\IsBusyData.cs" />
     <Compile Include="IsBusyTask.cs" />
@@ -91,6 +96,9 @@
     </Compile>
     <Compile Include="Pages\Chatting\GlobalChattingPage.xaml.cs">
       <DependentUpon>GlobalChattingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Common\ImagePage.xaml.cs">
+      <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Common\ImageSelectionPage.xaml.cs">
       <DependentUpon>ImageSelectionPage.xaml</DependentUpon>
@@ -117,6 +125,12 @@
     <Compile Include="Pages\MainPageMenuPage.xaml.cs">
       <DependentUpon>MainPageMenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Profile\ProfileEditPage.xaml.cs">
+      <DependentUpon>ProfileEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Profile\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
@@ -141,12 +155,14 @@
     <Compile Include="Providers\Contracts\IFeedProvider.cs" />
     <Compile Include="Providers\Contracts\IMediaProvider.cs" />
     <Compile Include="Providers\Contracts\IRandomWordProvider.cs" />
+    <Compile Include="Providers\Contracts\IUserProvider.cs" />
     <Compile Include="Providers\FeedProvider.cs" />
     <Compile Include="Providers\MediaProvider.cs" />
     <Compile Include="Providers\Provider.cs" />
     <Compile Include="Providers\BlogProvider.cs" />
     <Compile Include="Providers\Contracts\IBlogProvider.cs" />
     <Compile Include="Providers\RandomWordProvider.cs" />
+    <Compile Include="Providers\UserProvider.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Converters\StringIsNullOrWhiteSpaceToVisibleConverter.cs" />
     <Compile Include="ViewExtensions.cs" />
@@ -156,6 +172,7 @@
     <Compile Include="ViewModels\Blogs\MultiBlogPageViewModel.cs" />
     <Compile Include="ViewModels\Chatting\ChatPageViewModel.cs" />
     <Compile Include="ViewModels\Chatting\GlobalChattingPageViewModel.cs" />
+    <Compile Include="ViewModels\Common\ImagePageViewModel.cs" />
     <Compile Include="ViewModels\Common\ImageSelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Community\CommunityPageViewModel.cs" />
     <Compile Include="ViewModels\Community\JoinRandomCommunitiesPageViewModel.cs" />
@@ -167,17 +184,22 @@
     <Compile Include="ViewModels\Contracts\Blogs\IMultiBlogPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Chatting\IChatPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Chatting\IGlobalChattingPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Common\IImagePageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Common\IImageSelectionPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Community\IJoinRandomCommunitiesPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IHomePageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IMainPageMenuPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\ITestPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Profile\IProfileEditPageViewModel.cs" />
+    <Compile Include="ViewModels\Contracts\Profile\IProfilePageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Settings\IAccountPageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Settings\ISettingsPageViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\Contracts\Community\ICommunityPageViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainPageMenuPageViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileEditPageViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\TestPageViewModel.cs" />
@@ -328,6 +350,30 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CustomControls\Chatting\MessageView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Common\ImagePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\ProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\Profile\ProfileEditPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomControls\Common\AminoMarkupEditor.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -91,6 +91,12 @@ namespace AminoApi
             return _apiResultBuilder.Build<UserProfile>(response);
         }
 
+        public async Task<ApiResult<UserProfile>> GetUserProfileByIdAsync(string communityId, string userId)
+        {
+            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/user-profile/{userId}");
+            return _apiResultBuilder.Build<UserProfile>(response);
+        }
+
         public async Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySectionsAsync(int start = 0, int size = 25, string languageCode = "en")
         {
             var response = await _httpInteractor.GetAsync($"/g/s/community-collection/view/explore/sections?language={languageCode}&start={start}&size={size}");
@@ -168,6 +174,38 @@ namespace AminoApi
         {
             var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread/{threadId}/message?start={start}&size={size}&cv=1.2");
             return _apiResultBuilder.Build<MessageList>(response);
+        }
+
+        public async Task<ApiResult<Message>> SendMessageToChatAsync(string communityId, string threadId, string content)
+        {
+            var data = new Dictionary<string, object>
+            {
+                ["attachedObject"] = null,
+                ["clientRefId"] = "123456789",
+                ["content"] = content,
+                ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
+                ["type"] = 0
+            };
+            var response = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/chat/thread/{threadId}/message", data);
+            return _apiResultBuilder.Build<Message>(response);
+        }
+
+        public async Task<ApiResult<Message>> SendImageToChatAsync(string communityId, string threadId,
+            string base64JpgImageData)
+        {
+            var data = new Dictionary<string, object>
+            {
+                ["attachedObject"] = null,
+                ["clientRefId"] = "123456789",
+                ["content"] = null,
+                ["mediaType"] = 100,
+                ["mediaUploadValue"] = base64JpgImageData,
+                ["mediaUploadValueContentType"] = "image/jpg",
+                ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
+                ["type"] = 0
+            };
+            var response = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/chat/thread/{threadId}/message", data);
+            return _apiResultBuilder.Build<Message>(response);
         }
     }
 }

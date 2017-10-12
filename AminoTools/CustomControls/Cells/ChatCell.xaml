@@ -56,6 +56,9 @@
                                FadeAnimationEnabled="True"
                                x:Name="ChatImage"
                                Source="{Binding ChatIcon}">
+                <forms:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UserIconTappedCommand, Source={x:Reference This}}" />
+                </forms:CachedImage.GestureRecognizers>
                 <forms:CachedImage.Transformations>
                     <transformations:CircleTransformation BorderHexColor="#000000"
                                                           BorderSize="1" />

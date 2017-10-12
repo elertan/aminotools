@@ -8,6 +8,7 @@ using AminoTools.Pages;
 using AminoTools.Pages.Blogs;
 using AminoTools.Pages.Chatting;
 using AminoTools.Pages.Community;
+using AminoTools.Pages.Profile;
 using AminoTools.Pages.Settings;
 using AminoTools.ViewModels.Contracts;
 using MvvmHelpers;
@@ -44,6 +45,7 @@ namespace AminoTools.ViewModels
         }
 
         public Account Account => ((App) Application.Current).Account;
+        public Command UserIconTappedCommand { get; }
 
         private async void OnMenuItemTapped(MenuItem menuItem)
         {
@@ -55,7 +57,15 @@ namespace AminoTools.ViewModels
 
         public MainPageMenuPageViewModel()
         {
+            UserIconTappedCommand = new Command(DoGoToUserProfile);
             Initialize += MainPageMenuPageViewModel_Initialize;
+        }
+
+        private async void DoGoToUserProfile()
+        {
+            App.Variables.ProfilePage.Reset();
+            App.Variables.ProfilePage.IsMyProfile = true;
+            await App.SetMainPage(new ProfilePage());
         }
 
         private void MainPageMenuPageViewModel_Initialize(object sender, EventArgs e)

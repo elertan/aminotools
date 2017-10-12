@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AminoApi.Models.Community;
 using AminoApi.Models.Media;
 using AminoTools.Models;
+using AminoTools.Models.Common;
 using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts.Blogs;
 using MvvmHelpers;
@@ -18,12 +19,11 @@ namespace AminoTools.ViewModels.Blogs
     public class CommunitySelectionPageViewModel : BaseViewModel, ICommunitySelectionPageViewModel
     {
         private readonly ICommunityProvider _communityProvider;
-        private readonly IBlogProvider _blogProvider;
-        private readonly IMediaProvider _mediaProvider;
         private ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> _selectableCommunities;
         private Command _selectAllCommand;
         private Command _selectNoneCommand;
         private Command _sendButtonCommand;
+        private bool _hasReturnedSelectionResult;
 
         public ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>> SelectableCommunities
         {
@@ -55,21 +55,10 @@ namespace AminoTools.ViewModels.Blogs
             }
         }
 
-        public string SendButtonText 
-        {
-            get
-            {
-                if (SelectableCommunities == null || !MaySendBlog())
-                {
-                    return "No communities selected";
-                }
-                return $"Send to {SelectableCommunities.Count(sc => sc.IsSelected)} communities!";
-            }
-        }
+        public bool CompleteSelectionButtonIsEnabled => !(SelectableCommunities == null || !IsNextAllowed());
 
-        public bool SendButtonIsEnabled => !(SelectableCommunities == null || !MaySendBlog());
+        public Command CompleteSelectionCommand
 
-        public Command SendButtonCommand
         {
             get => _sendButtonCommand;
             set
@@ -79,80 +68,39 @@ namespace AminoTools.ViewModels.Blogs
             }
         }
 
-        public CommunitySelectionPageViewModel(ICommunityProvider communityProvider,
-            IBlogProvider blogProvider,
-            IMediaProvider mediaProvider)
+        public bool HasReturnedSelectionResult
+        {
+            get => _hasReturnedSelectionResult;
+            set
+            {
+                _hasReturnedSelectionResult = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public Action<CommunitySelectionResult> CommunitySelectionResultAction =>
+            (Action<CommunitySelectionResult>) ViewModelParameter;
+
+        public CommunitySelectionPageViewModel(ICommunityProvider communityProvider)
         {
             _communityProvider = communityProvider;
-            _blogProvider = blogProvider;
-            _mediaProvider = mediaProvider;
 
             SelectAllCommand = new Command(DoSelectAll);
             SelectNoneCommand = new Command(DoSelectNone);
-            SendButtonCommand = new Command(DoSendBlog);
+            CompleteSelectionCommand = new Command(DoCompleteSelection);
 
             Initialize += CommunitySelectionPageViewModel_Initialize;
         }
 
-        private async void DoSendBlog()
+        private async void DoCompleteSelection()
         {
-            if (!MaySendBlog())
-            {
-                await Page.DisplayAlert("Oops!", "You need to select at least one community to send the blog to", "Ok");
-                return;
-            }
-
-            var cts = new CancellationTokenSource();
-            await DoAsBusyStateCustom(async () =>
-            {
-                IsBusyData.Description = "Getting Selected Communities";
-                App.Variables.MultiBlog.Communities = SelectableCommunities.Where(sc => sc.IsSelected).Select(sc => sc.Item);
-
-                IsBusyData.IsProgessBarVisible = true;
-
-                IsBusyData.Description = "Uploading Images";
-                var imageItems = new List<ImageItem>();
-                var imagesIterator = 0;
-                foreach (var imageSource in App.Variables.MultiBlog.BlogImageSources)
-                {
-                    var imageItemResult = await _mediaProvider.UploadImage(imageSource.MemoryStream);
-
-                    if (!imageItemResult.DidSucceed())
-                    {
-                        await Page.DisplayAlert("Image Upload Failed", imageItemResult.Info.Message, "Ok");
-                        return;
-                    }
-
-                    imageItems.Add(imageItemResult.Data);
-                    imagesIterator++;
-
-                    IsBusyData.Progress = imagesIterator / (float)App.Variables.MultiBlog.BlogImageSources.Count;
-                }
-
-                IsBusyData.Progress = 0f;
-
-                var blog = App.Variables.MultiBlog.Blog;
-                var i = 0;
-                foreach (var community in App.Variables.MultiBlog.Communities)
-                {
-                    IsBusyData.Description = $"Sending blog to {community.Name}";
-                    if (i != 0) IsBusyData.Progress = i / (float)App.Variables.MultiBlog.Communities.Count();
-                    await _blogProvider.PostBlog(community.Id, blog.Title, blog.Content, imageItems);
-                    i++;
-                    if (!cts.IsCancellationRequested) continue;
-
-                    await Page.DisplayAlert("Canceled", $"Your blog has been posted on {i} communities, we can't change that.", "Ok");
-                    return;
-                }
-                await Page.DisplayAlert("Succes!",
-                    $"Your blog has been posted on {i} communities", "Ok");
-            }, cts);
-
-            
-            await App.MainNavigation.PopToRootAsync();
+            HasReturnedSelectionResult = true;
+            await App.MainNavigation.PopAsync();
+            CommunitySelectionResultAction(new CommunitySelectionResult {SelectedCommunities = SelectableCommunities.Where(sc => sc.IsSelected).Select(sc => sc.Item).ToList()});
         }
 
-        private bool MaySendBlog()
+
+        private bool IsNextAllowed()
         {
             return SelectableCommunities.Any(c => c.IsSelected);
         }
@@ -175,6 +123,7 @@ namespace AminoTools.ViewModels.Blogs
 
         private async void CommunitySelectionPageViewModel_Initialize(object sender, EventArgs e)
         {
+            Page.Disappearing += Page_Disappearing;
             var communitiesResult = await DoAsBusyState(_communityProvider.GetAllJoinedCommunities());
 
             if (!communitiesResult.DidSucceed())
@@ -185,6 +134,11 @@ namespace AminoTools.ViewModels.Blogs
 
             var selectableCommunties = GetSelectableCommuntiesByCommunities(communitiesResult.Data);
             SelectableCommunities = new ObservableRangeCollection<SelectableItem<AminoApi.Models.Community.Community>>(selectableCommunties);
+        }
+
+        private void Page_Disappearing(object sender, EventArgs e)
+        {
+            if (!HasReturnedSelectionResult) CommunitySelectionResultAction(new CommunitySelectionResult());
         }
 
         private IEnumerable<SelectableItem<AminoApi.Models.Community.Community>> GetSelectableCommuntiesByCommunities(IEnumerable<AminoApi.Models.Community.Community> communities)
@@ -199,8 +153,8 @@ namespace AminoTools.ViewModels.Blogs
 
         private void Item_IsSelectedChanged(object sender, EventArgs e)
         {
-            OnPropertyChanged(nameof(SendButtonText));
-            OnPropertyChanged(nameof(SendButtonIsEnabled));
+            //OnPropertyChanged(nameof(SendButtonText));
+            OnPropertyChanged(nameof(CompleteSelectionButtonIsEnabled));
         }
     }
 }

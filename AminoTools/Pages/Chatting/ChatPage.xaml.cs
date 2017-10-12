@@ -17,12 +17,18 @@ namespace AminoTools.Pages.Chatting
     {
         public ChatCommunityModel ChatCommunityModel { get; }
 
-        public ChatPage(ChatCommunityModel chatCommunityModel)
+        public ChatPage(ChatCommunityModel chatCommunityModel) : base()
         {
             ChatCommunityModel = chatCommunityModel;
             InitializeComponent();
         }
 
         public ListView GetListView() => ListView;
+
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null) return;
+            ((ListView) sender).SelectedItem = null;
+        }
     }
 }

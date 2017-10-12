@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Community
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CommunityPage : BasePage
     {
-        public CommunityPage()
+        public CommunityPage() : base()
         {
             InitializeComponent();
         }

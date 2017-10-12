@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Blogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BlogsPage : BasePage
     {
-        public BlogsPage()
+        public BlogsPage() : base()
         {
             InitializeComponent();
         }

@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Blogs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MultiBlogPage : BasePage
     {
-        public MultiBlogPage()
+        public MultiBlogPage() : base()
         {
             InitializeComponent();
         }

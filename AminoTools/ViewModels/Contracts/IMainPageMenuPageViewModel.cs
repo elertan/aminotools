@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models.Auth;
-using AminoTools.Models.MainPageMenu;
 using MvvmHelpers;
+using Xamarin.Forms;
+using MenuItem = AminoTools.Models.MainPageMenu.MenuItem;
 
 namespace AminoTools.ViewModels.Contracts
 {
@@ -14,5 +15,6 @@ namespace AminoTools.ViewModels.Contracts
         ObservableRangeCollection<MenuItem> MenuItems { get; set; }
         MenuItem SelectedItem { get; set; }
         Account Account { get; }
+        Command UserIconTappedCommand { get; }
     }
 }

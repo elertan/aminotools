@@ -7,12 +7,12 @@ using AminoTools.CustomPages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace AminoTools.Pages.Blogs
+namespace AminoTools.Pages.Profile
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CommunitySelectionPage : BasePage
+    public partial class ProfileEditPage : BasePage
     {
-        public CommunitySelectionPage()
+        public ProfileEditPage() : base()
         {
             InitializeComponent();
         }

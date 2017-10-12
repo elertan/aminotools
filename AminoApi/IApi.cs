@@ -31,6 +31,8 @@ namespace AminoApi
 
         Task<ApiResult<UserProfile>> JoinAminoAsync(string id);
 
+        Task<ApiResult<UserProfile>> GetUserProfileByIdAsync(string communityId, string userId);
+
         Task<ApiResult<CommunityCollectionResponse>> GetCommunityCollectionBySectionsAsync(int start = 0, int size = 25, string languageCode = "en");
 
         Task<ApiResult<BlogList>> GetBlogsByUserIdAsync(string communityId, string userId,
@@ -47,5 +49,11 @@ namespace AminoApi
 
         Task<ApiResult<MessageList>> GetMessagesForUserByCommunityIdAsync(string communityId, string threadId, int start = 0,
             int size = 25);
+
+        Task<ApiResult<Message>> SendMessageToChatAsync(string communityId, string threadId,
+            string content);
+
+        Task<ApiResult<Message>> SendImageToChatAsync(string communityId, string threadId,
+            string base64JpgImageData);
     }
 }

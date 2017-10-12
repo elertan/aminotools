@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<customPages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
+                      xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
+                      xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                      xmlns:common="clr-namespace:AminoTools.CustomControls.Common;assembly=AminoTools"
+                      x:Class="AminoTools.Pages.Profile.ProfileEditPage"
+                      Title="Edit Profile"
+                      x:Name="This"
+                      BindingContext="{x:Static viewModels:ViewModels.ProfileEditPageViewModel}">
+    <customPages:BasePage.ToolbarItems>
+        <ToolbarItem Text="Save"
+                     Command="{Binding SaveChangesCommand}" />
+    </customPages:BasePage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid BackgroundColor="SlateGray"
+                  HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+                <forms:CachedImage Grid.Row="1"
+                                   Source="{Binding Profile.Icon}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   WidthRequest="125"
+                                   HeightRequest="125">
+                    <forms:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EditProfilePictureCommand}" />
+                    </forms:CachedImage.GestureRecognizers>
+                    <forms:CachedImage.Transformations>
+                        <transformations:CircleTransformation BorderSize="5"
+                                                              BorderHexColor="#FFFFFF" />
+                    </forms:CachedImage.Transformations>
+                </forms:CachedImage>
+                <Entry Grid.Row="2"
+                       HorizontalOptions="Fill"
+                       Margin="15,0"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding Profile.Nickname}"
+                       Placeholder="Enter your nickname"
+                       FontSize="21"
+                       TextColor="White" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <common:AminoMarkupEditor Page="{x:Reference This}"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</customPages:BasePage>

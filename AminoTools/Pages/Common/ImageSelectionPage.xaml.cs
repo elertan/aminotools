@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Common
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ImageSelectionPage : BasePage
     {
-        public ImageSelectionPage()
+        public ImageSelectionPage() : base()
         {
             InitializeComponent();
         }

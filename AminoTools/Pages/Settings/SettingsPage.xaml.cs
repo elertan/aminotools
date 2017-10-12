@@ -12,7 +12,7 @@ namespace AminoTools.Pages.Settings
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SettingsPage : BasePage
 	{
-		public SettingsPage ()
+		public SettingsPage () : base()
 		{
 			InitializeComponent();
 		}

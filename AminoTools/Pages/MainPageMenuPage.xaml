@@ -35,8 +35,11 @@
                                         Source="{Binding Account.Icon}"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Center"
-                                        WidthRequest="150"
-                                        HeightRequest="150">
+                                        WidthRequest="125"
+                                        HeightRequest="125">
+                <ffImageLoading:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UserIconTappedCommand}"></TapGestureRecognizer>
+                </ffImageLoading:CachedImage.GestureRecognizers>
                 <ffImageLoading:CachedImage.Transformations>
                     <transformations:CircleTransformation BorderSize="5"
                                                           BorderHexColor="#FFFFFF" />
