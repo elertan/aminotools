@@ -19,7 +19,7 @@
                     <ViewCell>
                         <chatting:MessageView Margin="10"
                                               BindingContext="{Binding}"
-                                              ChatCommunityModel="{Binding Source={x:Reference This}, Path=BindingContext.ChatCommunityModel}}"/>
+                                              ChatCommunityModel="{Binding ChatCommunityModel, Source={x:Reference This.BindingContext}}"/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
