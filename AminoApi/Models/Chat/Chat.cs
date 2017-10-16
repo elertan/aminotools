@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models.User;
 using Newtonsoft.Json.Linq;
+using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 
 namespace AminoApi.Models.Chat
 {
@@ -20,11 +22,35 @@ namespace AminoApi.Models.Chat
         private string _threadId;
         private string _title;
         private string _roomOwnerUserId;
-        private Uri _icon;
+        private string _icon;
         private string _keywords;
         private string _content;
         private Message _lastMessage;
         private string _userId;
+        private Community.Community _community;
+        private string _communityId;
+
+        public string CommunityId
+        {
+            get => _communityId;
+            set
+            {
+                _communityId = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        [ManyToOne]
+        public virtual Community.Community Community
+        {
+            get => _community;
+            set
+            {
+                _community = value;
+                OnPropertyChanged();
+            }
+        }
 
         public AlertOptions AlertOptions
         {
@@ -78,7 +104,8 @@ namespace AminoApi.Models.Chat
             }
         }
 
-        public List<UserProfile> Members
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public virtual List<UserProfile> Members
         {
             get => _members;
             set
@@ -128,7 +155,7 @@ namespace AminoApi.Models.Chat
             }
         }
 
-        public Uri Icon
+        public string Icon
         {
             get => _icon;
             set
@@ -158,7 +185,8 @@ namespace AminoApi.Models.Chat
             }
         }
 
-        public Message LastMessage
+        [OneToOne]
+        public virtual Message LastMessage
         {
             get => _lastMessage;
             set
@@ -185,7 +213,7 @@ namespace AminoApi.Models.Chat
             AlertOptions = (AlertOptions) Enum.ToObject(typeof(AlertOptions), data["alertOption"]);
             Content = data.Resolve<string>("content");
             var iconString = data.Resolve<string>("icon");
-            if (!string.IsNullOrWhiteSpace(iconString)) Icon = new Uri(iconString);
+            if (!string.IsNullOrWhiteSpace(iconString)) Icon = iconString;
             Keywords = data.Resolve<string>("keywords");
             UserId = data.Resolve<string>("uid");
             ThreadId = data.Resolve<string>("threadId");
