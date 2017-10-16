@@ -68,6 +68,7 @@
     <Compile Include="CustomPages\BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Databases\Database.cs" />
     <Compile Include="DependencyManager.cs" />
     <Compile Include="DependencyServices\IDatabaseService.cs" />
     <Compile Include="DependencyServices\IFileLogger.cs" />
@@ -147,23 +148,25 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\SettingDoesNotExistException.cs" />
-    <Compile Include="Providers\AuthorizationProvider.cs" />
-    <Compile Include="Providers\ChatProvider.cs" />
-    <Compile Include="Providers\CommunityProvider.cs" />
+    <Compile Include="Providers\AuthorizationApiProvider.cs" />
+    <Compile Include="Providers\ChatApiProvider.cs" />
+    <Compile Include="Providers\CommunityApiProvider.cs" />
     <Compile Include="Providers\Contracts\IChatProvider.cs" />
     <Compile Include="Providers\Contracts\ICommunityProvider.cs" />
     <Compile Include="Providers\Contracts\IAuthorizationProvider.cs" />
+    <Compile Include="Providers\Contracts\IDatabaseProvider.cs" />
     <Compile Include="Providers\Contracts\IFeedProvider.cs" />
     <Compile Include="Providers\Contracts\IMediaProvider.cs" />
     <Compile Include="Providers\Contracts\IRandomWordProvider.cs" />
     <Compile Include="Providers\Contracts\IUserProvider.cs" />
-    <Compile Include="Providers\FeedProvider.cs" />
-    <Compile Include="Providers\MediaProvider.cs" />
-    <Compile Include="Providers\Provider.cs" />
-    <Compile Include="Providers\BlogProvider.cs" />
+    <Compile Include="Providers\DatabaseProvider.cs" />
+    <Compile Include="Providers\FeedApiProvider.cs" />
+    <Compile Include="Providers\MediaApiProvider.cs" />
+    <Compile Include="Providers\ApiProvider.cs" />
+    <Compile Include="Providers\BlogApiProvider.cs" />
     <Compile Include="Providers\Contracts\IBlogProvider.cs" />
-    <Compile Include="Providers\RandomWordProvider.cs" />
-    <Compile Include="Providers\UserProvider.cs" />
+    <Compile Include="Providers\RandomWordApiProvider.cs" />
+    <Compile Include="Providers\UserApiProvider.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Converters\StringIsNullOrWhiteSpaceToVisibleConverter.cs" />
     <Compile Include="ViewExtensions.cs" />

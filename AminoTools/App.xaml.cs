@@ -9,6 +9,7 @@ using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Community;
 using AminoApi.Models.User;
+using AminoTools.DependencyServices;
 using AminoTools.Models.Common.ImageSelection;
 using Xamarin.Forms;
 using AminoTools.Pages;
@@ -18,6 +19,8 @@ using AminoTools.ViewModels.Auth;
 using Autofac;
 using FFImageLoading;
 using FFImageLoading.Config;
+using SQLite;
+using SQLite.Net.Async;
 using Xamarin.Forms.Xaml;
 using LoginPage = AminoTools.Pages.Auth.LoginPage;
 
@@ -41,12 +44,17 @@ namespace AminoTools
         public IApi Api { get; protected set; }
         public BaseViewModel CurrentViewModel { get; set; }
         public MasterDetailPage MasterDetailPage { get; protected set; }
+        public SQLiteAsyncConnection DbConnection { get; set; }
 
         public App()
         {
             DependencyManager = new DependencyManager();
             Variables = new VariablesClass();
             Api = DependencyManager.Container.Resolve<IApi>();
+
+            var databaseService = DependencyService.Get<IDatabaseService>();
+            var connection = databaseService.GetConnection();
+            DbConnection = connection;
 
             var httpClient = new HttpClient(); // this handler will not throw if hostname is different
             ImageService.Instance.Initialize(new Configuration() { HttpClient = httpClient, ExecuteCallbacksOnUIThread = false, AnimateGifs = false});

@@ -35,19 +35,20 @@ namespace AminoTools
             // General
             cb.RegisterInstance(new HttpClient()).SingleInstance();
 
-            cb.RegisterType<RandomWordProvider>().As<IRandomWordProvider>().SingleInstance();
+            cb.RegisterType<RandomWordApiProvider>().As<IRandomWordProvider>().SingleInstance();
+            cb.RegisterType<DatabaseProvider>().As<IDatabaseProvider>().SingleInstance();
 
             // Api
             cb.RegisterType<Api>().As<IApi>().SingleInstance();
 
             // Providers
-            cb.RegisterType<BlogProvider>().As<IBlogProvider>();
-            cb.RegisterType<CommunityProvider>().As<ICommunityProvider>();
-            cb.RegisterType<AuthorizationProvider>().As<IAuthorizationProvider>();
-            cb.RegisterType<FeedProvider>().As<IFeedProvider>();
-            cb.RegisterType<MediaProvider>().As<IMediaProvider>();
-            cb.RegisterType<ChatProvider>().As<IChatProvider>();
-            cb.RegisterType<UserProvider>().As<IUserProvider>();
+            cb.RegisterType<BlogApiProvider>().As<IBlogProvider>();
+            cb.RegisterType<CommunityApiProvider>().As<ICommunityProvider>();
+            cb.RegisterType<AuthorizationApiProvider>().As<IAuthorizationProvider>();
+            cb.RegisterType<FeedApiProvider>().As<IFeedProvider>();
+            cb.RegisterType<MediaApiProvider>().As<IMediaProvider>();
+            cb.RegisterType<ChatApiProvider>().As<IChatProvider>();
+            cb.RegisterType<UserApiProvider>().As<IUserProvider>();
 
             // ViewModels
             cb.RegisterType<ViewModels.MainPageMenuPageViewModel>().As<IMainPageMenuPageViewModel>();

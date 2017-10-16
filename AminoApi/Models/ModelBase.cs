@@ -2,11 +2,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AminoApi.Properties;
+using SQLite;
+using SQLite.Net.Attributes;
 
 namespace AminoApi.Models
 {
     public class ModelBase : INotifyPropertyChanged, IModelResolvable
     {
+        [PrimaryKey, AutoIncrement]
+        public int DatabaseId { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
