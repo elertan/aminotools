@@ -527,7 +527,7 @@
       ]
     },
     "Newtonsoft.Json/10.0.3": {
-      "sha512": "wBM7i7i3U2WX0ecor4zdVGvgrwFUjuigBoHKiL+nH39fCOpCPjBY3RDqJM32edvdyTAVdjzlccHsg41+/+zpSA==",
+      "sha512": "hSXaFmh7hNCuEoC4XNY5DrRkLDzYHqPx/Ik23R4J86Z7PE/Y6YidhG602dFVdLBRSdG6xp9NabH3dXpcoxWvww==",
       "type": "package",
       "path": "newtonsoft.json/10.0.3",
       "files": [
@@ -3000,19 +3000,19 @@
     ".NETPortable,Version=v4.5,Profile=Profile111": []
   },
   "packageFolders": {
-    "C:\\Users\\Elertan\\.nuget\\packages\\": {}
+    "C:\\Users\\alavon\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectUniqueName": "Y:\\Code\\AminoTools\\AminoTools\\AminoTools.csproj",
       "projectName": "AminoTools",
-      "projectPath": "Z:\\Projects\\AminoTools\\AminoTools\\AminoTools.csproj",
-      "projectJsonPath": "Z:\\Projects\\AminoTools\\AminoTools\\project.json",
-      "packagesPath": "C:\\Users\\Elertan\\.nuget\\packages\\",
-      "outputPath": "Z:\\Projects\\AminoTools\\AminoTools\\obj\\",
+      "projectPath": "Y:\\Code\\AminoTools\\AminoTools\\AminoTools.csproj",
+      "projectJsonPath": "Y:\\Code\\AminoTools\\AminoTools\\project.json",
+      "packagesPath": "C:\\Users\\alavon\\.nuget\\packages\\",
+      "outputPath": "Y:\\Code\\AminoTools\\AminoTools\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
-        "C:\\Users\\Elertan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\alavon\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "sources": {
@@ -3022,8 +3022,8 @@
       "frameworks": {
         "portable45-net45+win8+wpa81": {
           "projectReferences": {
-            "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj": {
-              "projectPath": "Z:\\Projects\\AminoTools\\AminoApi\\AminoApi.csproj"
+            "Y:\\Code\\AminoTools\\AminoApi\\AminoApi.csproj": {
+              "projectPath": "Y:\\Code\\AminoTools\\AminoApi\\AminoApi.csproj"
             }
           }
         }
