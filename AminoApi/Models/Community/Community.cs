@@ -2,31 +2,33 @@
 using System.Collections.Generic;
 using AminoApi.Models.Media;
 using Newtonsoft.Json.Linq;
+using SQLiteNetExtensions.Attributes;
 
 namespace AminoApi.Models.Community
 {
     public class Community : ModelBase
     {
-        private Uri _link;
+        private string _linkUrl;
         private int _amountOfMembers;
         private string _name;
         private string _primaryLanguage;
         private string _id;
         private string _tagline;
-        private Uri _icon;
-        private Uri _splashArt;
+        private string _iconUrl;
+        private string _splashArtUri;
         private List<ImageItem> _imageItems;
 
-        public Uri Icon
+        public string IconUrl
         {
-            get => _icon;
+            get => _iconUrl;
             set
             {
-                _icon = value; 
+                _iconUrl = value; 
                 OnPropertyChanged();
             }
         }
 
+        [OneToMany]
         public List<ImageItem> ImageItems
         {
             get => _imageItems;
@@ -37,22 +39,22 @@ namespace AminoApi.Models.Community
             }
         }
 
-        public Uri SplashArt
+        public string SplashArtUri
         {
-            get => _splashArt;
+            get => _splashArtUri;
             set
             {
-                _splashArt = value; 
+                _splashArtUri = value; 
                 OnPropertyChanged();
             }
         }
 
-        public Uri Link
+        public string LinkUrl
         {
-            get => _link;
+            get => _linkUrl;
             set
             {
-                _link = value; 
+                _linkUrl = value; 
                 OnPropertyChanged();
             }
         }
@@ -117,7 +119,7 @@ namespace AminoApi.Models.Community
             PrimaryLanguage = data.Resolve<string>("primaryLanguage");
             AmountOfMembers = data.Resolve<int>("membersCount");
             var linkStr = data.Resolve<string>("link");
-            if (!string.IsNullOrWhiteSpace(linkStr)) Link = new Uri(linkStr);
+            if (!string.IsNullOrWhiteSpace(linkStr)) LinkUrl = linkStr;
             Tagline = data.Resolve<string>("tagline");
 
             //var jArray = (JArray) data["launchPage"].ToJObject()["mediaList"];
@@ -135,7 +137,7 @@ namespace AminoApi.Models.Community
             //ImageItems = items;
 
             var iconString = data.Resolve<string>("icon");
-            if (!string.IsNullOrWhiteSpace(iconString)) Icon = new Uri(iconString);
+            if (!string.IsNullOrWhiteSpace(iconString)) IconUrl = iconString;
         }
     }
 }

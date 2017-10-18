@@ -11,7 +11,7 @@ namespace AminoApi.Models.User
         public int Status { get; set; }
         public string Uid { get; set; }
         public string Nickname { get; set; }
-        public Uri Icon { get; set; }
+        public string IconUrl { get; set; }
 
         public override void JsonResolve(Dictionary<string, object> data)
         {
@@ -27,7 +27,7 @@ namespace AminoApi.Models.User
 
             var iconString = data.Resolve<string>("icon");
             if (iconString != null)
-                Icon = new Uri(iconString);
+                IconUrl = iconString;
         }
     }
 }

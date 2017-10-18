@@ -65,6 +65,9 @@ namespace AminoTools.ViewModels.Chatting
                 return;
             }
 
+            var storedChats = await _chatProvider.GetStoredChatsAsync();
+            Chats = new ObservableRangeCollection<ChatCommunityModel>(storedChats.Select(sc => new ChatCommunityModel(App.Account.Uid) { Chat = sc, Community = sc.Community }));
+
             var i = 1;
             foreach (var community in communities)
             {
@@ -74,6 +77,7 @@ namespace AminoTools.ViewModels.Chatting
                 var chatsResult = await _chatProvider.GetChatsByCommunityAsync(community.Id);
                 if (chatsResult.Data.Any())
                 {
+                    await _chatProvider.StoreChatsForCommunityAsync(chatsResult.Data, community);
                     var chatCommunityModels = chatsResult.Data.Select(c => new ChatCommunityModel(App.Account.Uid) { Chat = c, Community = community });
                     var chats = Chats.ToList();
                     chats.AddRange(chatCommunityModels);

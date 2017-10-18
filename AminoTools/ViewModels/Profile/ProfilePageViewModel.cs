@@ -73,7 +73,7 @@ namespace AminoTools.ViewModels.Profile
 
         private async void DoShowProfilePicture()
         {
-            var imagePage = new ImagePage(Profile.Icon);
+            var imagePage = new ImagePage(new Uri(Profile.IconUrl));
             await App.MainNavigation.PushAsync(imagePage);
         }
 

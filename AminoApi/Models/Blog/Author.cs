@@ -5,7 +5,7 @@ namespace AminoApi.Models.Blog
 {
     public class Author : ModelBase
     {
-        private Uri _iconUri;
+        private string _iconUrl;
         private int _level;
         private string _nickname;
         private int _onlineStatus;
@@ -14,12 +14,12 @@ namespace AminoApi.Models.Blog
         private int _status;
         private string _userId;
 
-        public Uri IconUri
+        public string IconUrl
         {
-            get => _iconUri;
+            get => _iconUrl;
             set
             {
-                _iconUri = value; 
+                _iconUrl = value; 
                 OnPropertyChanged();
             }
         }
@@ -97,7 +97,7 @@ namespace AminoApi.Models.Blog
         public override void JsonResolve(Dictionary<string, object> data)
         {
             var uriString = Convert.ToString(data["icon"]);
-            if (!string.IsNullOrWhiteSpace(uriString)) IconUri = new Uri(uriString);
+            if (!string.IsNullOrWhiteSpace(uriString)) IconUrl = uriString;
             Level = Convert.ToInt32(data["level"]);
             //Mood = Convert.To???(data["mood"]);
             Nickname = Convert.ToString(data["nickname"]);

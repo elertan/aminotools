@@ -34,7 +34,7 @@ namespace AminoTools.Models.Chatting.GlobalChatting
 
         private async void DoShowImage()
         {
-            var imagePage = new ImagePage(_message.Image);
+            var imagePage = new ImagePage(new Uri(_message.ImageUrl));
             await App.MainNavigation.PushAsync(imagePage, true);
         }
 

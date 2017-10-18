@@ -10,5 +10,6 @@ namespace AminoTools.ViewModels.Contracts
     public interface ITestPageViewModel
     {
         Command ButtonCommand { get; set; }
+        Command DestroyDatabaseCommand { get; set; }
     }
 }

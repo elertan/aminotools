@@ -9,7 +9,7 @@ namespace AminoApi.Models.Media
     public class ImageItem : ModelBase
     {
         private int _mediaItemId;
-        private Uri _imageUri;
+        private string _imageUrl;
         private string _blogReferenceId;
         private string _description;
 
@@ -23,12 +23,12 @@ namespace AminoApi.Models.Media
             }
         }
 
-        public Uri ImageUri
+        public string ImageUrl
         {
-            get => _imageUri;
+            get => _imageUrl;
             set
             {
-                _imageUri = value;
+                _imageUrl = value;
                 OnPropertyChanged();
             }
         }
@@ -57,13 +57,13 @@ namespace AminoApi.Models.Media
         {
             var url = data.Resolve<string>("mediaValue");
             if (url != null)
-                ImageUri = new Uri(url);
+                ImageUrl = url;
         }
 
         public override void JsonResolveArray(object[] data)
         {
             MediaItemId = Convert.ToInt32(data[0]);
-            ImageUri = new Uri(Convert.ToString(data[1]));
+            ImageUrl = Convert.ToString(data[1]);
             Description = Convert.ToString(data[2]);
             if (DoesContainBlogReferenceId(data))
             {

@@ -23,7 +23,7 @@ namespace AminoTools.ViewModels.Profile
             _userProvider = userProvider;
             Profile = new UserProfile();
             var currentProfile = App.Variables.ProfileEditPage.Profile;
-            Profile.Icon = currentProfile.Icon;
+            Profile.IconUrl = currentProfile.IconUrl;
             Profile.Nickname = currentProfile.Nickname;
             Profile.Status = currentProfile.Status;
             Profile.Uid = currentProfile.Uid;

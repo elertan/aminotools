@@ -21,7 +21,7 @@ namespace AminoTools.Converters
             var imageItem = imageItems.FirstOrDefault();
             if (imageItem != null)
             {
-                uriImageSource.Uri = imageItem.ImageUri;
+                uriImageSource.Uri = new Uri(imageItem.ImageUrl);
             }
 
             return uriImageSource;

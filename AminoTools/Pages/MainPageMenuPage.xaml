@@ -32,7 +32,7 @@
                    FontSize="26"
                    TextColor="White" />
             <ffImageLoading:CachedImage Grid.Row="1"
-                                        Source="{Binding Account.Icon}"
+                                        Source="{Binding Account.IconUrl}"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Center"
                                         WidthRequest="125"

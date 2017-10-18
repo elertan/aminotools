@@ -43,10 +43,7 @@ namespace AminoTools
                     return false;
                 }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public static int GetUnixTimeStamp()

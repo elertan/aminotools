@@ -40,9 +40,11 @@ namespace AminoApi.Models.Chat
             }
         }
 
+        [ForeignKey(typeof(Community.Community))]
+        public int CommunityDatabaseId { get; set; }
 
         [ManyToOne]
-        public virtual Community.Community Community
+        public Community.Community Community
         {
             get => _community;
             set

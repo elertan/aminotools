@@ -30,7 +30,7 @@
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <forms:CachedImage Grid.Row="1"
-                                   Source="{Binding Profile.Icon}"
+                                   Source="{Binding Profile.IconUrl}"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center"
                                    WidthRequest="125"

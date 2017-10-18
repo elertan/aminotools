@@ -144,7 +144,7 @@ namespace AminoApi
             {
                 var innerArray = new JArray();
                 innerArray.Add(100);
-                innerArray.Add(imageItem.ImageUri.ToString());
+                innerArray.Add(imageItem.ImageUrl.ToString());
                 innerArray.Add(null);
                 if (imageItem.BlogReferenceId != null) innerArray.Add(imageItem.BlogReferenceId);
                 jArray.Add(innerArray);

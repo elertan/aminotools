@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AminoApi.Models.Chat;
+using AminoApi.Models.Community;
+using AminoApi.Models.Media;
 using AminoApi.Models.User;
 using SQLite;
 using SQLite.Net.Async;
@@ -15,6 +17,15 @@ namespace AminoTools.Databases
     public class Database
     {
         public readonly SQLiteAsyncConnection Connection;
+        // Order matters.
+        private readonly Type[] _tableTypes =
+        {
+            typeof(ImageItem),
+            typeof(Chat),
+            typeof(UserProfile),
+            typeof(Community),
+            typeof(Message)
+        };
 
         public Database(SQLiteAsyncConnection connection)
         {
@@ -24,9 +35,15 @@ namespace AminoTools.Databases
         public async Task InitializeAsync()
         {
             // Add Tables here
-            await Connection.CreateTablesAsync(
-                typeof(Chat),
-                typeof(UserProfile));
+            await Connection.CreateTablesAsync(_tableTypes);
+        }
+
+        public async Task DestroyAsync()
+        {
+            foreach (var tableType in _tableTypes)
+            {
+                await Connection.DropTableAsync(tableType);
+            }
         }
     }
 }

@@ -17,6 +17,10 @@
                     HorizontalOptions="Center"
                     Command="{Binding Model.ButtonCommand}"
                     Text="Test" />
+            <Button VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Command="{Binding Model.DestroyDatabaseCommand}"
+                    Text="Destroy Database" />
         </Grid>
     </ContentPage.Content>
 </customPages:BasePage>

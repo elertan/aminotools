@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models.User;
+using SQLiteNetExtensions.Attributes;
 
 namespace AminoApi.Models.Chat
 {
@@ -14,8 +15,9 @@ namespace AminoApi.Models.Chat
         private DateTime _createdTime;
         private string _id;
         private string _userId;
-        private Uri _image;
+        private string _imageUrl;
 
+        [ManyToOne]
         public UserProfile Author
         {
             get => _author;
@@ -26,12 +28,12 @@ namespace AminoApi.Models.Chat
             }
         }
 
-        public Uri Image
+        public string ImageUrl
         {
-            get => _image;
+            get => _imageUrl;
             set
             {
-                _image = value; 
+                _imageUrl = value; 
                 OnPropertyChanged();
             }
         }
@@ -91,7 +93,7 @@ namespace AminoApi.Models.Chat
             var imageString = data.Resolve<string>("mediaValue");
             if (!string.IsNullOrWhiteSpace(imageString))
             {
-                Image = new Uri(imageString);
+                ImageUrl = imageString;
             }
 
             if (data.ContainsKey("author"))
