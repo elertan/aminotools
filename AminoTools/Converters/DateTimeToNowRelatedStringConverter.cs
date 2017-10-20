@@ -15,7 +15,7 @@ namespace AminoTools.Converters
             if (value == null) return "n/a";
 
             var time = (DateTime) value;
-            var timeDifference = DateTime.Now - time;
+            var timeDifference = DateTime.UtcNow - time;
             if (timeDifference.TotalSeconds <= 60)
             {
                 return "a moment ago";

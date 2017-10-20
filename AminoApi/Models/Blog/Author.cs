@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SQLite.Net.Attributes;
 
 namespace AminoApi.Models.Blog
 {
@@ -84,6 +85,7 @@ namespace AminoApi.Models.Blog
             }
         }
 
+        [PrimaryKey]
         public string UserId
         {
             get => _userId;

@@ -12,5 +12,6 @@ namespace AminoTools.Providers.Contracts
     public interface IMediaProvider
     {
         Task<ApiResult<ImageItem>> UploadImage(Stream imageStream);
+        Task StoreImageItemsAsync(List<ImageItem> imageItems);
     }
 }

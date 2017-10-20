@@ -23,6 +23,7 @@ namespace AminoTools.ViewModels.Chatting
         private int _loadMoreMessagesCounter = 1;
         private bool _isRefreshing;
         private string _message;
+        private readonly TimeSpan _newMessagesCheckInterval = TimeSpan.FromSeconds(10);
 
         public ChatPageViewModel(IChatProvider chatProvider)
         {
@@ -45,6 +46,9 @@ namespace AminoTools.ViewModels.Chatting
                     await Page.DisplayAlert("Error", apiResult.Info.Message, "Ok");
                     return;
                 }
+
+                _chatCommunityModel.Chat.LastActivityTime = DateTime.UtcNow;
+                _chatCommunityModel.Chat.LastMessage = apiResult.Data;
 
                 Message = String.Empty;
 
@@ -78,6 +82,47 @@ namespace AminoTools.ViewModels.Chatting
             });
 
             OnMessageReceived();
+
+            Device.StartTimer(_newMessagesCheckInterval, MessagesCheckCallback);
+        }
+
+        private bool MessagesCheckCallback()
+        {
+            Task.Run(async () =>
+            {
+                var messageInfoModel = Messages.LastOrDefault();
+                // Chat has no messages at all
+                if (messageInfoModel == null) return;
+
+                var lastLocalMessage = messageInfoModel.Message;
+                var newMessages = new List<Message>();
+                // Keep loading messages until we find our last local one
+                for (int i = 0;;i++)
+                {
+                    var apiResult = await _chatProvider.GetMessagesAsync(ChatCommunityModel.Community.Id, ChatCommunityModel.Chat.ThreadId, i);
+                    if (!apiResult.DidSucceed())
+                    {
+                        await Page.DisplayAlert("Error", "Could not update messages", "Ok");
+                        return;
+                    }
+
+                    // Does this iteration contain our last local message?
+                    if (apiResult.Data.Messages.FirstOrDefault(m => m.Id == lastLocalMessage.Id) != null)
+                    {
+                        var message = apiResult.Data.Messages.First(m => m.Id == lastLocalMessage.Id);
+                        var localMessageIndex = apiResult.Data.Messages.IndexOf(message);
+                        // Get our new messages
+                        var messages = apiResult.Data.Messages.GetRange(0, localMessageIndex);
+                        newMessages.AddRange(messages);
+                        break;
+                    }
+                    newMessages.AddRange(apiResult.Data.Messages);
+                }
+
+                Messages.AddRange(newMessages.Select(m => new MessageInfoModel {Message = m, Chat = ChatCommunityModel.Chat, ChatCommunityModel = _chatCommunityModel}));
+            });
+            
+            return !WantsDisposal;
         }
 
         private async void DoLoadMoreMessages()

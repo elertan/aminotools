@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AminoApi.ModelDatabaseIntermediateTypes;
 using AminoApi.Models.Chat;
 using AminoApi.Models.Community;
 using AminoApi.Models.Media;
@@ -20,6 +21,11 @@ namespace AminoTools.Databases
         // Order matters.
         private readonly Type[] _tableTypes =
         {
+            // Intermediate Tables
+            typeof(ChatUserProfileIntermediate),
+            typeof(CommunityImageItemIntermediate),
+
+            // Tables
             typeof(ImageItem),
             typeof(Chat),
             typeof(UserProfile),

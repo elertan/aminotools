@@ -9,6 +9,7 @@ using AminoTools.Models.Chatting.GlobalChatting;
 using AminoTools.Pages.Chatting;
 using AminoTools.Providers.Contracts;
 using AminoTools.ViewModels.Contracts.Chatting;
+using AminoTools.ViewModels.Contracts.Community;
 using MvvmHelpers;
 using Xamarin.Forms;
 
@@ -16,6 +17,8 @@ namespace AminoTools.ViewModels.Chatting
 {
     public class GlobalChattingPageViewModel : BaseViewModel, IGlobalChattingPageViewModel
     {
+        private readonly TimeSpan _threadCheckDelay = TimeSpan.FromSeconds(45);
+        
         private readonly ICommunityProvider _communityProvider;
         private readonly IChatProvider _chatProvider;
         private ObservableRangeCollection<ChatCommunityModel> _chats;
@@ -53,41 +56,94 @@ namespace AminoTools.ViewModels.Chatting
         private async void GlobalChattingPageViewModel_Initialize(object sender, EventArgs e)
         {
             IsLoading = true;
+            List<ChatCommunityModel> chats = new List<ChatCommunityModel>();
             await LoadingGrid.FadeTo(1);
             LoadingText = "Getting communities";
             var communitiesResult = await _communityProvider.GetAllJoinedCommunities();
-            var communities = new List<AminoApi.Models.Community.Community>(communitiesResult.Data);
+            Communities = new List<AminoApi.Models.Community.Community>(communitiesResult.Data);
 
-            if (!communities.Any())
+            if (!Communities.Any())
             {
                 await Page.DisplayAlert("Error",
                     "You need to join some communities first in order to use the chat function", "Ok");
                 return;
             }
 
-            var storedChats = await _chatProvider.GetStoredChatsAsync();
-            Chats = new ObservableRangeCollection<ChatCommunityModel>(storedChats.Select(sc => new ChatCommunityModel(App.Account.Uid) { Chat = sc, Community = sc.Community }));
+            //var storedChats = await _chatProvider.GetStoredChatsAsync();
+            //if (storedChats.Any())
+            //{
+            //    chats = storedChats.Select(sc => new ChatCommunityModel(App.Account.Uid) { Chat = sc, Community = sc.Community }).ToList();
+            //    Chats = new ObservableRangeCollection<ChatCommunityModel>(chats.OrderByDescending(c => c.Chat.LastMessage?.CreatedTime));
+            //}
 
             var i = 1;
-            foreach (var community in communities)
+            foreach (var community in Communities)
             {
                 if (IsInitializationCanceled) return;
-                LoadingText = $"Chats for community {i} / {communities.Count}";
-                LoadingProgress = (i - 1) / (float)communities.Count;
-                var chatsResult = await _chatProvider.GetChatsByCommunityAsync(community.Id);
+                LoadingText = $"Chats for community {i} / {Communities.Count}";
+                LoadingProgress = (i - 1) / (float)Communities.Count;
+                var chatsResult = await _chatProvider.GetChatsByCommunityAsync(community);
                 if (chatsResult.Data.Any())
                 {
-                    await _chatProvider.StoreChatsForCommunityAsync(chatsResult.Data, community);
                     var chatCommunityModels = chatsResult.Data.Select(c => new ChatCommunityModel(App.Account.Uid) { Chat = c, Community = community });
-                    var chats = Chats.ToList();
                     chats.AddRange(chatCommunityModels);
-                    Chats = new ObservableRangeCollection<ChatCommunityModel>(chats.OrderByDescending(c => c.Chat.LastMessage?.CreatedTime));
                 }
-
                 i++;
             }
+
+            Chats = new ObservableRangeCollection<ChatCommunityModel>(chats.OrderByDescending(c => c.Chat.LastMessage?.CreatedTime));
             await LoadingGrid.LayoutTo(new Rectangle(0, 0, LoadingGrid.Width, 0), 250U, Easing.BounceIn);
             IsLoading = false;
+
+            Device.StartTimer(_threadCheckDelay, ThreadCheckCallback);
+        }
+
+        public List<AminoApi.Models.Community.Community> Communities { get; set; }
+
+        private bool ThreadCheckCallback()
+        {
+            Task.Run(async () =>
+            {
+                var newChats = new List<Chat>();
+
+                foreach (var community in Communities)
+                {
+                    var apiResult = await _chatProvider.CheckForNewMessagesAsync(community.Id);
+                    if (!apiResult.DidSucceed())
+                    {
+                        await Page.DisplayAlert("Error Chat Checking", apiResult.Info.Message, "Ok");
+                        break;
+                    }
+
+                    // No new messages
+                    if (!apiResult.Data.Any()) continue;
+
+                    var chatsApiResult = await _chatProvider.GetChatsByCommunityAsync(community);
+                    foreach (var chat in chatsApiResult.Data)
+                    {
+                        chat.Community = community;
+                    }
+                    newChats.AddRange(chatsApiResult.Data.Where(c => apiResult.Data.Any(tr => tr.ThreadId == c.ThreadId)));
+                }
+
+                // Nothing to update
+                if (!newChats.Any()) return;
+
+                var models = Chats.ToList();
+                // Update current messages
+                foreach (var newChat in newChats)
+                {
+                    var model = models.FirstOrDefault(m => m.Chat.ThreadId == newChat.ThreadId);
+                    if (model != null)
+                    {
+                        models.Remove(model);
+                    }
+                    models.Add(new ChatCommunityModel(App.Account.Uid) { Chat = newChat, Community = newChat.Community });
+                }
+
+                Chats = new ObservableRangeCollection<ChatCommunityModel>(models.OrderByDescending(c => c.Chat.LastMessage?.CreatedTime));
+            });
+            return !WantsDisposal;
         }
 
         private Grid LoadingGrid => ((GlobalChattingPage) Page).GetLoadingGrid();

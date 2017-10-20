@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using AminoApi.ModelDatabaseIntermediateTypes;
 using AminoApi.Models.Media;
 using Newtonsoft.Json.Linq;
+using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 
 namespace AminoApi.Models.Community
@@ -28,7 +30,7 @@ namespace AminoApi.Models.Community
             }
         }
 
-        [OneToMany]
+        [ManyToMany(typeof(CommunityImageItemIntermediate))]
         public List<ImageItem> ImageItems
         {
             get => _imageItems;
@@ -92,6 +94,7 @@ namespace AminoApi.Models.Community
         /// <summary>
         /// Also known as ndcId, or the id the community is referenced by
         /// </summary>
+        [PrimaryKey]
         public string Id
         {
             get => _id;

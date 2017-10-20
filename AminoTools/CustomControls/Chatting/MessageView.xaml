@@ -25,7 +25,7 @@
                                VerticalOptions="Center"
                                WidthRequest="35"
                                FadeAnimationEnabled="True"
-                               Source="{Binding Message.Author.Icon}">
+                               Source="{Binding Message.Author.IconUrl}">
                 <forms:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding UserProfileIconTappedCommand, Source={x:Reference This}}"></TapGestureRecognizer>
                 </forms:CachedImage.GestureRecognizers>
@@ -36,7 +36,7 @@
             </forms:CachedImage>
 
             <Frame Grid.Column="1"
-                   IsVisible="{Binding Message.Image, Converter={StaticResource IsNullToBoolConverter}}"
+                   IsVisible="{Binding Message.ImageUrl, Converter={StaticResource IsNullToBoolConverter}}"
                    BackgroundColor="{Binding MessageBackgroundColor}"
                    CornerRadius="5"
                    HasShadow="False"
@@ -51,8 +51,8 @@
                 </StackLayout>
             </Frame>
 
-            <forms:CachedImage IsVisible="{Binding Message.Image, Converter={StaticResource IsNotNullToBoolConverter}}" 
-                               Source="{Binding Message.Image}"
+            <forms:CachedImage IsVisible="{Binding Message.ImageUrl, Converter={StaticResource IsNotNullToBoolConverter}}" 
+                               Source="{Binding Message.ImageUrl}"
                                WidthRequest="250"
                                Aspect="AspectFill"
                                Grid.Column="1">

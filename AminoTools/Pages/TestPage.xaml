@@ -11,7 +11,7 @@
         <aminoTools:ViewModelResolver ViewModelType="{x:Type contracts:ITestPageViewModel}" />
     </customPages:BasePage.BindingContext>
     <ContentPage.Content>
-        <Grid HorizontalOptions="CenterAndExpand"
+        <StackLayout HorizontalOptions="CenterAndExpand"
               VerticalOptions="CenterAndExpand">
             <Button VerticalOptions="Center"
                     HorizontalOptions="Center"
@@ -21,6 +21,10 @@
                     HorizontalOptions="Center"
                     Command="{Binding Model.DestroyDatabaseCommand}"
                     Text="Destroy Database" />
-        </Grid>
+            <Button VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Text="Database Test"
+                    Command="{Binding Model.DatabaseTestCommand}"/>
+        </StackLayout>
     </ContentPage.Content>
 </customPages:BasePage>

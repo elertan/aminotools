@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AminoApi.ModelDatabaseIntermediateTypes;
 using AminoApi.Models.User;
 using Newtonsoft.Json.Linq;
 using SQLite.Net.Attributes;
@@ -30,6 +31,7 @@ namespace AminoApi.Models.Chat
         private Community.Community _community;
         private string _communityId;
 
+        [ForeignKey(typeof(Community.Community))]
         public string CommunityId
         {
             get => _communityId;
@@ -40,11 +42,8 @@ namespace AminoApi.Models.Chat
             }
         }
 
-        [ForeignKey(typeof(Community.Community))]
-        public int CommunityDatabaseId { get; set; }
-
         [ManyToOne]
-        public Community.Community Community
+        public virtual Community.Community Community
         {
             get => _community;
             set
@@ -106,8 +105,8 @@ namespace AminoApi.Models.Chat
             }
         }
 
-        [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public virtual List<UserProfile> Members
+        [ManyToMany(typeof(ChatUserProfileIntermediate))]
+        public List<UserProfile> Members
         {
             get => _members;
             set
@@ -127,6 +126,7 @@ namespace AminoApi.Models.Chat
             }
         }
 
+        [PrimaryKey]
         public string ThreadId
         {
             get => _threadId;
@@ -187,8 +187,11 @@ namespace AminoApi.Models.Chat
             }
         }
 
+        [ForeignKey(typeof(Message))]
+        public string LastMessageId { get; set; }
+
         [OneToOne]
-        public virtual Message LastMessage
+        public Message LastMessage
         {
             get => _lastMessage;
             set

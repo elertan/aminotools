@@ -11,11 +11,12 @@ namespace AminoTools.Providers.Contracts
 {
     public interface IChatProvider
     {
-        Task<ApiResult<List<Chat>>> GetChatsByCommunityAsync(string communityId);
+        Task<ApiResult<List<Chat>>> GetChatsByCommunityAsync(Community community);
+        Task<ApiResult<List<ThreadCheck>>> CheckForNewMessagesAsync(string communityId);
         Task<ApiResult<MessageList>> GetMessagesAsync(string communityId, string threadId, int index = 0);
         Task<ApiResult<Message>> SendMessageToChatAsync(string communityId, string threadId, string content);
         Task<ApiResult<Message>> SendImageToChatAsync(string communityId, string threadId, string base64JpgImageContent);
         Task<List<Chat>> GetStoredChatsAsync();
-        Task StoreChatsForCommunityAsync(List<Chat> chats, Community community);
+        Task StoreChatsAsync(List<Chat> chats);
     }
 }

@@ -5,6 +5,8 @@
                       xmlns:customPages="clr-namespace:AminoTools.CustomPages;assembly=AminoTools"
                       xmlns:viewModels="clr-namespace:AminoTools.ViewModels;assembly=AminoTools"
                       xmlns:chatting="clr-namespace:AminoTools.CustomControls.Chatting;assembly=AminoTools"
+                      xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
                       Title="Chat"
                       x:Class="AminoTools.Pages.Chatting.ChatPage"
                       x:Name="This"
@@ -15,7 +17,14 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <ListView HasUnevenRows="True"
+            <forms:CachedImage Grid.Row="0"
+                               Source="chat-background.png"
+                               VerticalOptions="Fill"
+                               HorizontalOptions="Fill"
+                               Aspect="AspectFill">
+            </forms:CachedImage>
+            <ListView Grid.Row="0"
+                      HasUnevenRows="True"
                       SeparatorVisibility="None"
                       BackgroundColor="Transparent"
                       IsPullToRefreshEnabled="True"

@@ -33,7 +33,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <forms:CachedImage Source="{Binding Community.Icon}"
+            <forms:CachedImage Source="{Binding Community.IconUrl}"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"
                                Margin="5,0,0,0"

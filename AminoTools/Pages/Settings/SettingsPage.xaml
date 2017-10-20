@@ -16,6 +16,11 @@
                     <cells:NavigationCell Text="Account"
                                           TargetPageType="{x:Type settingPages:AccountPage}" />
                 </TableSection>
+                <TableSection Title="Storage">
+                    <cells:ButtonCell Text="Delete Local Storage"
+                                      TextColor="Red"
+                                      Command="{Binding DeleteLocalStorageCommand}" />
+                </TableSection>
             </TableView.Root>
         </TableView>
     </ContentPage.Content>

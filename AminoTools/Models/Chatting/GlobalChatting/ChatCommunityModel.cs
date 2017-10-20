@@ -52,8 +52,8 @@ namespace AminoTools.Models.Chatting.GlobalChatting
         {
             get
             {
-                if (Chat.Icon != null) return Chat.Icon.ToString();
-                return Chat.Members.FirstOrDefault(m => m.Uid != _myUserId)?.IconUrl?.ToString();
+                if (Chat.Icon != null) return Chat.Icon;
+                return Chat.Members.FirstOrDefault(m => m.Uid != _myUserId)?.IconUrl;
             }
         }
 

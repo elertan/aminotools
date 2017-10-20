@@ -47,6 +47,8 @@ namespace AminoApi
 
         Task<ApiResult<ThreadList>> GetJoinedChatsAsync(string communityId, int start = 0, int size = 25);
 
+        Task<ApiResult<ThreadCheckList>> ThreadCheckAsync(string communityId);
+
         Task<ApiResult<MessageList>> GetMessagesForUserByCommunityIdAsync(string communityId, string threadId, int start = 0,
             int size = 25);
 
@@ -55,5 +57,8 @@ namespace AminoApi
 
         Task<ApiResult<Message>> SendImageToChatAsync(string communityId, string threadId,
             string base64JpgImageData);
+
+        Task<ApiResult<UserProfileList>> GetMembersForCommunityAsync(string communityId, MemberType memberType, int index = 0, int amount = 25);
+        Task<ApiResult<UserProfile>> PostCommentOnUsersWallForCommunityAsync(string communityId, string uid, string comment);
     }
 }

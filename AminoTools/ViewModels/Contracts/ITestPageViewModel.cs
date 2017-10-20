@@ -11,5 +11,6 @@ namespace AminoTools.ViewModels.Contracts
     {
         Command ButtonCommand { get; set; }
         Command DestroyDatabaseCommand { get; set; }
+        Command DatabaseTestCommand { get; }
     }
 }

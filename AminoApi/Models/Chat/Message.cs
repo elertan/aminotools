@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AminoApi.Models.User;
+using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 
 namespace AminoApi.Models.Chat
@@ -58,6 +59,7 @@ namespace AminoApi.Models.Chat
             }
         }
 
+        [PrimaryKey]
         public string Id
         {
             get => _id;
@@ -68,6 +70,7 @@ namespace AminoApi.Models.Chat
             }
         }
 
+        [ForeignKey(typeof(UserProfile))]
         public string UserId
         {
             get => _userId;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AminoApi.Models.Media;
 using Newtonsoft.Json.Linq;
+using SQLite.Net.Attributes;
 
 namespace AminoApi.Models.Blog
 {
@@ -23,6 +24,7 @@ namespace AminoApi.Models.Blog
         private int _votesCount;
         private IEnumerable<ImageItem> _imageItems;
 
+        [PrimaryKey]
         public string BlogId
         {
             get => _blogId;

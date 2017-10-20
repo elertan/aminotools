@@ -7,14 +7,22 @@ using AminoApi;
 using AminoApi.Models.Community;
 using AminoApi.Models.User;
 using AminoTools.Providers.Contracts;
+using SQLiteNetExtensionsAsync.Extensions;
 using Xamarin.Forms;
 
 namespace AminoTools.Providers
 {
     public class CommunityApiProvider : ApiProvider, ICommunityProvider
     {
-        public CommunityApiProvider(IApi api) : base(api)
+        private readonly IDatabaseProvider _databaseProvider;
+        private readonly IMediaProvider _mediaProvider;
+
+        public CommunityApiProvider(IApi api, 
+            IDatabaseProvider databaseProvider,
+            IMediaProvider mediaProvider) : base(api)
         {
+            _databaseProvider = databaseProvider;
+            _mediaProvider = mediaProvider;
         }
 
         public async Task<ApiResult<IEnumerable<Community>>> GetJoinedCommunities(int index = 0, int amount = 50)
@@ -60,6 +68,28 @@ namespace AminoTools.Providers
         {
             var result = await Api.JoinAminoAsync(id);
             return result;
+        }
+
+        public async Task StoreCommunitiesAsync(params Community[] communities)
+        {
+            var db = await _databaseProvider.GetDatabaseAsync();
+            //foreach (var community in communities)
+            //{
+            //    await _mediaProvider.StoreImageItemsAsync(community.ImageItems);
+            //}
+            await db.Connection.InsertOrReplaceAllWithChildrenAsync(communities, true);
+        }
+
+        public async Task<List<Community>> GetStoredCommunitiesAsync()
+        {
+            var db = await _databaseProvider.GetDatabaseAsync();
+            return await db.Connection.GetAllWithChildrenAsync<Community>(null, true);
+        }
+
+        public async Task<Community> GetStoredCommunityAsync(string communityId)
+        {
+            var db = await _databaseProvider.GetDatabaseAsync();
+            return await db.Connection.GetWithChildrenAsync<Community>(null, true);
         }
     }
 }

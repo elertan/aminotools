@@ -7,10 +7,8 @@ using SQLite.Net.Attributes;
 
 namespace AminoApi.Models
 {
-    public class ModelBase : INotifyPropertyChanged, IModelResolvable
+    public class ModelBase : DatabaseModelBase, INotifyPropertyChanged, IModelResolvable
     {
-        [PrimaryKey, AutoIncrement]
-        public int DatabaseId { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite.Net.Attributes;
 
 namespace AminoApi.Models.Media
 {
@@ -12,6 +13,9 @@ namespace AminoApi.Models.Media
         private string _imageUrl;
         private string _blogReferenceId;
         private string _description;
+
+        [PrimaryKey]
+        public int Id { get; set; }
 
         public int MediaItemId
         {

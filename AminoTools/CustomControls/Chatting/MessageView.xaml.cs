@@ -29,6 +29,8 @@ namespace AminoTools.CustomControls.Chatting
 
         private async void DoShowUserProfile()
         {
+            return;
+
             var app = (App)Application.Current;
             app.Variables.ProfilePage.Reset();
             app.Variables.ProfilePage.UserId = ChatCommunityModel.Chat.Members.First(m => m.Uid != app.Account.Uid)

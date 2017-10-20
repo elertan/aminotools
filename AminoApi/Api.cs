@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using AminoApi.Models;
 using AminoApi.Models.Auth;
 using AminoApi.Models.Blog;
 using AminoApi.Models.Chat;
@@ -170,6 +169,12 @@ namespace AminoApi
             return _apiResultBuilder.Build<ThreadList>(response);
         }
 
+        public async Task<ApiResult<ThreadCheckList>> ThreadCheckAsync(string communityId)
+        {
+            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread-check");
+            return _apiResultBuilder.Build<ThreadCheckList>(response);
+        }
+
         public async Task<ApiResult<MessageList>> GetMessagesForUserByCommunityIdAsync(string communityId, string threadId, int start = 0, int size = 25)
         {
             var response = await _httpInteractor.GetAsync($"/x{communityId}/s/chat/thread/{threadId}/message?start={start}&size={size}&cv=1.2");
@@ -206,6 +211,40 @@ namespace AminoApi
             };
             var response = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/chat/thread/{threadId}/message", data);
             return _apiResultBuilder.Build<Message>(response);
+        }
+
+        public async Task<ApiResult<UserProfileList>> GetMembersForCommunityAsync(string communityId, MemberType memberType, int index = 0, int amount = 25)
+        {
+            var type = "";
+            switch (memberType)
+            {
+                case MemberType.RecentlyJoined:
+                    type = "recent";
+                    break;
+                case MemberType.Curator:
+                    type = "curator";
+                    break;
+                case MemberType.Leader:
+                    type = "leader";
+                    break;
+                case MemberType.Name:
+                    type = "name";
+                    break;
+            }
+            var response = await _httpInteractor.GetAsync($"/x{communityId}/s/user-profile?type={type}&start={index}&size={amount}");
+            return _apiResultBuilder.Build<UserProfileList>(response);
+        }
+
+        public async Task<ApiResult<UserProfile>> PostCommentOnUsersWallForCommunityAsync(string communityId, string uid, string comment)
+        {
+            var data = new Dictionary<string, object>
+            {
+                ["content"] = comment,
+                ["mediaList"] = new JArray(),
+                ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
+            };
+            var response = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/user-profile/{uid}/comment", data);
+            return _apiResultBuilder.Build<UserProfile>(response);
         }
     }
 }

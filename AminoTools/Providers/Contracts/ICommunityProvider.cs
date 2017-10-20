@@ -14,5 +14,8 @@ namespace AminoTools.Providers.Contracts
         Task<ApiResult<IEnumerable<Community>>> GetCommunitiesByQuery(string query, int index = 0, int amount = 25);
         Task<ApiResult<CommunityCollectionResponse>> GetCommunitiesFromExplore(int index = 0, int amount = 25);
         Task<ApiResult<UserProfile>> JoinCommunity(string id);
+        Task StoreCommunitiesAsync(params Community[] communities);
+        Task<List<Community>> GetStoredCommunitiesAsync();
+        Task<Community> GetStoredCommunityAsync(string communityId);
     }
 }

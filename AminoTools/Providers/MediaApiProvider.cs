@@ -12,14 +12,26 @@ namespace AminoTools.Providers
 {
     public class MediaApiProvider : ApiProvider, IMediaProvider
     {
-        public MediaApiProvider(IApi api) : base(api)
+        private readonly IDatabaseProvider _databaseProvider;
+
+        public MediaApiProvider(IApi api,
+            IDatabaseProvider databaseProvider) : base(api)
         {
+            _databaseProvider = databaseProvider;
         }
 
         public async Task<ApiResult<ImageItem>> UploadImage(Stream imageStream)
         {
             var result = await Api.UploadImageAsync(imageStream);
             return result;
+        }
+
+        public async Task StoreImageItemsAsync(List<ImageItem> imageItems)
+        {
+            var db = await _databaseProvider.GetDatabaseAsync();
+            //var itemsToBeStored = new List<ImageItem>();
+            //if (db.Connection.Table<ImageItem>().Where(item => item.))
+            await db.Connection.InsertOrIgnoreAllAsync(imageItems);
         }
     }
 }

@@ -38,16 +38,22 @@
     <Compile Include="Api.cs" />
     <Compile Include="ApiResult.cs" />
     <Compile Include="ApiResultBuilder.cs" />
+    <Compile Include="Models\User\MemberType.cs" />
+    <Compile Include="ModelDatabaseIntermediateTypes\ChatUserProfileIntermediate.cs" />
+    <Compile Include="ModelDatabaseIntermediateTypes\CommunityImageItemIntermediate.cs" />
     <Compile Include="Models\Chat\AlertOptions.cs" />
     <Compile Include="Models\Chat\Chat.cs" />
     <Compile Include="Models\Chat\Message.cs" />
     <Compile Include="Models\Chat\MessageList.cs" />
+    <Compile Include="Models\Chat\ThreadCheck.cs" />
+    <Compile Include="Models\Chat\ThreadCheckList.cs" />
     <Compile Include="Models\Chat\ThreadList.cs" />
     <Compile Include="Models\Community\CommunityCollection.cs" />
     <Compile Include="Models\Community\CommunityCollectionResponse.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IApi.cs" />
     <Compile Include="Models\Community\CommunityCollectionSection.cs" />
+    <Compile Include="Models\DatabaseModelBase.cs" />
     <Compile Include="Models\Feed\FeedHeadlines.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="HttpInteractor.cs" />
@@ -68,6 +74,11 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolveHelpers.cs" />
+    <Compile Include="Models\User\UserProfileList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -85,10 +96,6 @@
     <Reference Include="SQLiteNetExtensionsAsync, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SQLiteNetExtensions.Async.1.3.0\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\SQLiteNetExtensionsAsync.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
