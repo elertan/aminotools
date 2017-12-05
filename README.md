@@ -11,3 +11,7 @@ For example:
 *Global Posting is still not implemented, and most likely ever will, due to the user's ability to abuse this feature to cause a lot of chaos on the communities*
 
 *Desktop version of the app is also not building anymore, and I'm not looking to support it anytime soon. This is mainly due to the app relying on external dependencies that just don't exist for the desktop platform yet.*
+
+![](https://i.imgur.com/mm8K64x.jpg)
+![](https://i.imgur.com/jqRGBzk.jpg)
+![](https://i.imgur.com/CwdgV53.jpg)
