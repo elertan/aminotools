@@ -10,20 +10,15 @@ namespace AminoBot
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            MainAsync();
-            Console.ReadKey();
-        }
 
-        private static async void MainAsync()
+        private static async Task Main(string[] args)
         {
             var api = new Api(new HttpClient());
 
             while (true)
             {
-                Console.Write("Enter username: ");
-                var email = Console.ReadLine();
+                Console.Write("Enter phonenumber: ");
+                var phonenumber = Console.ReadLine();
                 Console.WriteLine();
 
                 Console.Write("Enter password: ");
@@ -31,7 +26,7 @@ namespace AminoBot
                 Console.WriteLine();
 
                 Console.WriteLine("Logging in...");
-                var loginResult = await api.LoginAsync(email, password);
+                var loginResult = await api.LoginByPhonenumberAsync(phonenumber, password);
                 if (loginResult.DidSucceed())
                 {
                     api.Sid = loginResult.Data.Sid;
@@ -48,32 +43,61 @@ namespace AminoBot
 
         private static async Task DoBot(IApi api)
         {
-            const string communityId = "50653388";
-            const string welcomeMessage =
-                "Hey, welcome to DA! 😊\r\n\r\nI\'m Alavon, and I\'m here to help you out if you have any questions about the community.\r\n\r\nIf you prefer just reading through some of the basics, then this post will help you out a lot http://aminoapps.com/p/j2y0am 😄.\r\n\r\nFeel free to talk to me whenever you like!\r\n\r\nEnjoy your stay ❤️";
-            var passedMemberIds = new List<string>();
-            var delay = TimeSpan.FromSeconds(10);
-            Console.WriteLine("Bot started");
-            var startMembersApiResult = await api.GetMembersForCommunityAsync(communityId, MemberType.RecentlyJoined);
-            passedMemberIds.AddRange(startMembersApiResult.Data.UserProfiles.Select(up => up.Uid));
-
+            // League of legends amino is 24 and anime is 3
+            var rng = new Random();
+            const string communityId = "3";
+            var passedUserIds = new List<string>();
+            string lastPageToken = null;
+            var count = 0;
             while (true)
             {
-                Console.WriteLine($"Waiting for {delay.Seconds} seconds...");
-                await Task.Delay(delay);
-                var membersApiResult = await api.GetMembersForCommunityAsync(communityId, MemberType.RecentlyJoined);
-                if (!membersApiResult.DidSucceed())
+                count++;
+                Console.WriteLine("Grabbing feed");
+                var feed = await api.GetBlogFeedForCommunityAsync(communityId, 25, lastPageToken);
+                if (!feed.DidSucceed())
                 {
-                    Console.WriteLine("Request Failure");
-                    continue;
+                    Console.WriteLine("Error occured?");
+                    break;
                 }
-                var newMembers = membersApiResult.Data.UserProfiles.Where(up => !passedMemberIds.Contains(up.Uid)).Select(up => up.Uid).ToList();
-                foreach (var newMember in newMembers)
+                if (feed.Data.Blogs.Count == 0)
                 {
-                    Console.WriteLine("Commenting for new member");
-                    await api.PostCommentOnUsersWallForCommunityAsync(communityId, newMember, welcomeMessage);
+                    Console.WriteLine("No blogs left?");
+                    break;
                 }
-                passedMemberIds.AddRange(newMembers);
+                lastPageToken = feed.Data.Paging.NextPageToken;
+                if (count == 5)
+                {
+                    count = 0;
+                    lastPageToken = null;
+                }
+
+                // Ignore passed users and loop
+                foreach (var blog in feed.Data.Blogs.Where(x => !passedUserIds.Contains(x.Author.UserId)))
+                {
+                    passedUserIds.Add(blog.Author.UserId);
+
+                    for (var i = 0; ; i++)
+                    {
+                        if (i == 1)
+                        {
+                            break;
+                        }
+                        await Task.Delay(rng.Next(200, 500));
+                        var blogs = await api.GetBlogsByUserIdAsync(communityId, blog.Author.UserId, i * 25, 25);
+
+                        if (blogs.Data.Blogs.Count == 0)
+                        {
+                            break;
+                        }
+                        foreach (var b in blogs.Data.Blogs.Take(8))
+                        {
+                            Console.WriteLine($"Liking blog by {b.Author.Nickname} \"{b.Title}\"");
+                            await api.VoteBlog(communityId, b.BlogId, AminoApi.Models.Blog.VoteValue.Like, AminoApi.Models.Blog.VoteEventSource.FeedList);
+                            await Task.Delay(rng.Next(200, 500));
+                        }
+                        
+                    }
+                }
             }
         }
     }

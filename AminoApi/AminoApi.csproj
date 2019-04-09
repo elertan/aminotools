@@ -38,6 +38,10 @@
     <Compile Include="Api.cs" />
     <Compile Include="ApiResult.cs" />
     <Compile Include="ApiResultBuilder.cs" />
+    <Compile Include="Models\Blog\BlogFeed.cs" />
+    <Compile Include="Models\Blog\VoteEventSource.cs" />
+    <Compile Include="Models\Blog\VoteValue.cs" />
+    <Compile Include="Models\Misc\Paging.cs" />
     <Compile Include="Models\User\MemberType.cs" />
     <Compile Include="ModelDatabaseIntermediateTypes\ChatUserProfileIntermediate.cs" />
     <Compile Include="ModelDatabaseIntermediateTypes\CommunityImageItemIntermediate.cs" />

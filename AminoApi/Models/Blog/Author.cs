@@ -103,7 +103,7 @@ namespace AminoApi.Models.Blog
             Level = Convert.ToInt32(data["level"]);
             //Mood = Convert.To???(data["mood"]);
             Nickname = Convert.ToString(data["nickname"]);
-            OnlineStatus = Convert.ToInt32(data["onlineStatus"]);
+            //OnlineStatus = Convert.ToInt32(data["onlineStatus"]);
             Reputation = Convert.ToInt32(data["reputation"]);
             Role = Convert.ToInt32(data["role"]);
             Status = Convert.ToInt32(data["status"]);

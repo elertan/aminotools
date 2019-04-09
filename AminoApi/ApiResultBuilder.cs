@@ -33,5 +33,17 @@ namespace AminoApi
 
             return result;
         }
+
+        public ApiResult BuildInfoOnly(string json)
+        {
+            var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+
+            var info = new ApiResultInfo();
+            info.JsonResolve(data);
+
+            var result = new ApiResult { Info = info };
+
+            return result;
+        }
     }
 }

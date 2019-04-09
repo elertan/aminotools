@@ -65,6 +65,22 @@ namespace AminoApi
             return _apiResultBuilder.Build<Account>(response);
         }
 
+        public async Task<ApiResult<Account>> LoginByPhonenumberAsync(string phonenumber, string password)
+        {
+            var data = new Dictionary<string, object>
+            {
+                ["phoneNumber"] = phonenumber,
+                ["secret"] = $"0 {password}",
+                ["deviceID"] = DeviceId,
+                ["clientType"] = 100,
+                ["action"] = "normal"
+            };
+
+            var response = await _httpInteractor.PostAsJsonAsync("/g/s/auth/login", data);
+
+            return _apiResultBuilder.Build<Account>(response);
+        }
+
         public async Task<ApiResult<CommunityList>> GetJoinedCommunitiesAsync(int start = 0, int size = 50)
         {
             var response = await _httpInteractor.GetAsync($"/g/s/community/joined?start={start}&size={size}");
@@ -106,7 +122,7 @@ namespace AminoApi
             int start = 0, int size = 25)
         {
             var response = await _httpInteractor.GetAsync(
-                $"/{communityId}/s/blog?type=user&q={userId}&start={start}&size={size}");
+                $"/x{communityId}/s/blog?type=user&q={userId}&start={start}&size={size}&pagingType=t");
             return _apiResultBuilder.Build<BlogList>(response);
         }
 
@@ -245,6 +261,74 @@ namespace AminoApi
             };
             var response = await _httpInteractor.PostAsJsonAsync($"/x{communityId}/s/user-profile/{uid}/comment", data);
             return _apiResultBuilder.Build<UserProfile>(response);
+        }
+
+        public async Task<ApiResult<BlogFeed>> GetBlogFeedForCommunityAsync(string communityId, int size = 25, string pageToken = null)
+        {
+            // &pageToken=ZnwxNTU0NTE0NDYyfGY5MTBlYjYwLWQwOTItNDIxYi1iZmVhLTJiMzY4MmMyMTVlYQ
+            var url = $"/x{communityId}/s/feed/blog-all?pagingType=t&size={size}";
+            if (pageToken != null)
+            {
+                url += $"&pageToken={pageToken}";
+            }
+            var response = await _httpInteractor.GetAsync(url);
+            return _apiResultBuilder.Build<BlogFeed>(response);
+        }
+
+        public async Task<ApiResult> VoteBlog(string communityId, string blogId, VoteValue value, VoteEventSource source)
+        {
+            string eventSource = null;
+            switch (source)
+            {
+                case VoteEventSource.FeedList:
+                    eventSource = "FeedList";
+                    break;
+            }
+
+            var data = new Dictionary<string, object>
+            {
+                ["value"] = (int)value,
+                ["eventSource"] = eventSource,
+                ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
+            };
+
+            var url = $"/x{communityId}/s/blog/{blogId}/vote?value={(int)value}&eventSource={eventSource}";
+            var response = await _httpInteractor.PostAsJsonAsync(url, data);
+            return _apiResultBuilder.BuildInfoOnly(response);
+        }
+
+        public async Task<ApiResult> FollowMember(string communityId, string memberId)
+        {
+            var url = $"/x{communityId}/s/user-profile/{memberId}/member";
+            var response = await _httpInteractor.PostAsync(url);
+            return _apiResultBuilder.BuildInfoOnly(response);
+        }
+
+        public async Task<ApiResult> VoteBlogs(string communityId, string[] blogIds, VoteValue value)
+        {
+            var data = new Dictionary<string, object>
+            {
+                ["value"] = (int)value,
+                ["targetIdList"] = blogIds,
+                ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
+            };
+
+            var url = $"x{communityId}/s/feed/vote";
+            var response = await _httpInteractor.PostAsJsonAsync(url, data);
+            return _apiResultBuilder.BuildInfoOnly(response);
+        }
+
+        public async Task<ApiResult> FollowMembers(string communityId, string myUserId, string[] userIds)
+        {
+            var data = new Dictionary<string, object>
+            {
+                ["targetUidList"] = userIds,
+                ["timestamp"] = Helpers.GetUnixTimeStamp() + "000",
+            };
+
+            var url = $"/x{communityId}/s/user-profile/{myUserId}/joined";
+            var response = await _httpInteractor.PostAsJsonAsync(url, data);
+            return _apiResultBuilder.BuildInfoOnly(response);
         }
     }
 }

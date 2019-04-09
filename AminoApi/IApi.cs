@@ -43,6 +43,8 @@ namespace AminoApi
 
         Task<ApiResult<FeedHeadlines>> GetFeedHeadlinesAsync(int start = 0, int size = 25);
 
+        Task<ApiResult<BlogFeed>> GetBlogFeedForCommunityAsync(string communityId, int size = 25, string pageToken = null);
+
         Task<ApiResult<ImageItem>> UploadImageAsync(Stream imageStream);
 
         Task<ApiResult<ThreadList>> GetJoinedChatsAsync(string communityId, int start = 0, int size = 25);
@@ -60,5 +62,10 @@ namespace AminoApi
 
         Task<ApiResult<UserProfileList>> GetMembersForCommunityAsync(string communityId, MemberType memberType, int index = 0, int amount = 25);
         Task<ApiResult<UserProfile>> PostCommentOnUsersWallForCommunityAsync(string communityId, string uid, string comment);
+
+        Task<ApiResult> VoteBlog(string communityId, string blogId, VoteValue value, VoteEventSource source);
+        Task<ApiResult> FollowMember(string communityId, string userId);
+        Task<ApiResult> VoteBlogs(string communityId, string[] blogIds, VoteValue value);
+        Task<ApiResult> FollowMembers(string communityId, string myUserId, string[] userIds);
     }
 }
