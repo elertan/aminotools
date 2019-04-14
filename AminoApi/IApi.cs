@@ -67,5 +67,6 @@ namespace AminoApi
         Task<ApiResult> FollowMember(string communityId, string userId);
         Task<ApiResult> VoteBlogs(string communityId, string[] blogIds, VoteValue value);
         Task<ApiResult> FollowMembers(string communityId, string myUserId, string[] userIds);
+        Task<ApiResult> RemoveFromChatAsync(string communityId, string threadId, string memberId);
     }
 }

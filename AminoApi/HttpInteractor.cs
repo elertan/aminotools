@@ -125,5 +125,22 @@ namespace AminoApi
                     throw new NotImplementedException();
             }
         }
+
+        public async Task<string> DeleteAsync(string url, DecompressionMethods dm = DecompressionMethods.None)
+        {
+            await WaitForApiDelay();
+
+            var response = await _httpClient.DeleteAsync(_prefix + url);
+
+            switch (dm)
+            {
+                case DecompressionMethods.None:
+                    return await response.Content.ReadAsStringAsync();
+                case DecompressionMethods.GZip:
+                    throw new NotImplementedException();
+                default:
+                    throw new NotImplementedException();
+            }
+        }
     }
 }

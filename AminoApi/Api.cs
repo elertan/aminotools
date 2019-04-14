@@ -330,5 +330,12 @@ namespace AminoApi
             var response = await _httpInteractor.PostAsJsonAsync(url, data);
             return _apiResultBuilder.BuildInfoOnly(response);
         }
+
+        public async Task<ApiResult> RemoveFromChatAsync(string communityId, string threadId, string memberId)
+        {
+            var url = $"/x{communityId}/s/chat/thread/{threadId}/member/{memberId}";
+            var response = await _httpInteractor.DeleteAsync(url);
+            return _apiResultBuilder.BuildInfoOnly(response);
+        }
     }
 }

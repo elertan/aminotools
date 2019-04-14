@@ -10,6 +10,7 @@ namespace AminoBot
 {
     class Program
     {
+        static string uid = null;
 
         private static async Task Main(string[] args)
         {
@@ -30,6 +31,7 @@ namespace AminoBot
                 if (loginResult.DidSucceed())
                 {
                     api.Sid = loginResult.Data.Sid;
+                    uid = loginResult.Data.Uid;
                     break;
                 }
                 Console.Clear();
@@ -38,7 +40,8 @@ namespace AminoBot
                 Console.Clear();
             }
 
-            await DoBot(api);
+            await DoBot1(api);
+            //await LeaveGroupChats(api);
         }
 
         private static async Task DoBot(IApi api)
@@ -46,6 +49,7 @@ namespace AminoBot
             // League of legends amino is 24 and anime is 3
             var rng = new Random();
             const string communityId = "3";
+
             var passedUserIds = new List<string>();
             string lastPageToken = null;
             var count = 0;
@@ -65,20 +69,23 @@ namespace AminoBot
                     break;
                 }
                 lastPageToken = feed.Data.Paging.NextPageToken;
-                if (count == 5)
+                if (count == 10)
                 {
                     count = 0;
                     lastPageToken = null;
                 }
-
+                var newBlogs = feed.Data.Blogs.Where(x => !passedUserIds.Contains(x.Author.UserId));
+                var nicknames = newBlogs.Select(x => x.Author.Nickname).Aggregate((x1, x2) => x1 + ", " + x2);
+                Console.WriteLine($"Following {nicknames} ...");
+                await api.FollowMembers(communityId, uid, newBlogs.Select(x => x.Author.UserId).ToArray());
                 // Ignore passed users and loop
-                foreach (var blog in feed.Data.Blogs.Where(x => !passedUserIds.Contains(x.Author.UserId)))
+                foreach (var blog in newBlogs)
                 {
                     passedUserIds.Add(blog.Author.UserId);
 
                     for (var i = 0; ; i++)
                     {
-                        if (i == 1)
+                        if (i == 3)
                         {
                             break;
                         }
@@ -89,14 +96,55 @@ namespace AminoBot
                         {
                             break;
                         }
+
                         foreach (var b in blogs.Data.Blogs.Take(8))
                         {
                             Console.WriteLine($"Liking blog by {b.Author.Nickname} \"{b.Title}\"");
                             await api.VoteBlog(communityId, b.BlogId, AminoApi.Models.Blog.VoteValue.Like, AminoApi.Models.Blog.VoteEventSource.FeedList);
-                            await Task.Delay(rng.Next(200, 500));
+                            await Task.Delay(rng.Next(50, 200));
                         }
-                        
                     }
+                }
+            }
+        }
+
+        private static async Task DoBot1(IApi api)
+        {
+            // League of legends amino is 24 and anime is 3
+            var rng = new Random();
+            const string communityId = "3";
+
+            for (var i = 14000; ; i++) // 13139
+            {
+                Console.WriteLine("At " + i);
+                var members = await api.GetMembersForCommunityAsync(communityId, MemberType.RecentlyJoined, i * 50, 50);
+                //var nicknames = members.Data.UserProfiles.Select(x => x.Nickname).Aggregate((x1, x2) => x1 + ", " + x2);
+                //Console.WriteLine($"Following {nicknames} ...");
+                await Task.Delay(500);
+                await api.FollowMembers(communityId, uid, members.Data.UserProfiles.Select(x => x.Uid).ToArray());
+                await Task.Delay(500);
+            }
+        }
+
+        private static async Task LeaveGroupChats(IApi api)
+        {
+            // League of legends amino is 24 and anime is 3
+            var rng = new Random();
+            const string communityId = "3";
+
+            for (var i = 0; ; i++) // 13139
+            {
+                Console.WriteLine("At " + i);
+                var chats = await api.GetJoinedChatsAsync(communityId, i * 25, 25);
+                if (chats.Data.Chats.Count == 0)
+                {
+                    break;
+                }
+                // Where group chat or where I am the only one in the chat
+                foreach (var chat in chats.Data.Chats.Where(x => x.Title != null || x.Members.All(y => y.Uid == uid)))
+                {
+                    Console.WriteLine($"Removing {chat.Title}");
+                    await api.RemoveFromChatAsync(communityId, chat.ThreadId, uid);
                 }
             }
         }
